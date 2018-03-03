@@ -1,16 +1,13 @@
 package cn.allene.school.po.condition;
 
+import java.util.List;
 import lombok.Data;
 
 @Data
-public class InfoCateCondition extends BaseCondition<Integer> {
+public class AccessCondition extends BaseCondition<Integer> {
 
 	/**
 	 * 
 	*/
 	private String name;
-	/**
-	 * 
-	*/
-	private Integer firstId;
 }

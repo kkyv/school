@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-public abstract class BaseController<T, PK, E extends BaseExample, S extends BaseService<T, PK, E>> {
+public abstract class BaseController<T, PK, C extends BaseCondition<PK>, S extends BaseService<T, PK, C>> {
     @Autowired
     private S service;
 
@@ -37,7 +37,7 @@ public abstract class BaseController<T, PK, E extends BaseExample, S extends Bas
     }
 
     @RequestMapping("/queryList")
-    public void queryList(Model model, E codition) throws SchoolException {
+    public void queryList(Model model, C codition) throws SchoolException {
         List<T> query = service.queryList(codition);
         model.addAttribute(query.getClass().getSimpleName(), query);
     }

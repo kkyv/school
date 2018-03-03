@@ -4,15 +4,16 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class ChildCondition extends BaseCondition<String> {
+public class InfoCondition extends BaseCondition<Integer> {
+
 	/**
 	 * 
 	*/
-	private String password;
+	private String title;
 	/**
 	 * 
 	*/
-	private String nickname;
+	private String content;
 	/**
 	 * 最小
 	*/
@@ -22,11 +23,11 @@ public class ChildCondition extends BaseCondition<String> {
 	*/
 	private Date maxAddTime;
 	/**
-	 * 
+	 * 浏览次数
 	*/
-	private String sex;
+	private Integer total;
 	/**
 	 * 
 	*/
-	private Integer classId;
+	private Integer cateId;
 }
