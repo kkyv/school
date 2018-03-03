@@ -2,8 +2,7 @@ package cn.allene.school.controller;
 
 import cn.allene.school.po.condition.BaseCondition;
 import cn.allene.school.exp.SchoolException;
-import cn.allene.school.po.example.BaseExample;
-import cn.allene.school.service.BaseService;
+import cn.allene.school.services.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
