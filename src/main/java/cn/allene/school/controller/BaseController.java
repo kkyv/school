@@ -1,8 +1,14 @@
 package cn.allene.school.controller;
 
+import cn.allene.school.contacts.Contacts;
+import cn.allene.school.po.InfoCate;
 import cn.allene.school.po.condition.BaseCondition;
 import cn.allene.school.exp.SchoolException;
+import cn.allene.school.po.condition.InfoCateCondition;
 import cn.allene.school.services.BaseService;
+import cn.allene.school.services.InfoCateService;
+import cn.allene.school.utils.CollectionUtils;
+import cn.allene.school.vo.InfoCateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +17,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public abstract class BaseController<T, PK, C extends BaseCondition<PK>, S extends BaseService<T, PK, C>> {
     @Autowired
     private S service;
+    @Autowired
+    private InfoCateService infoCateService;
 
     public String returnPage(String page, String attrName, Object attr){
         ModelAndView modelAndView = new ModelAndView(page);
@@ -24,25 +34,19 @@ public abstract class BaseController<T, PK, C extends BaseCondition<PK>, S exten
         return page;
     }
 
-    @RequestMapping("/add")
-    public void add(T t) throws SchoolException {
+    public void insert(T t) throws SchoolException {
         service.insert(t);
     }
 
-    @RequestMapping("/query/{id}")
-    public void query(Model model, @PathVariable("id") PK id) throws SchoolException {
-        T query = service.query(id);
-        model.addAttribute(query.getClass().getSimpleName(), query);
+    public T query(PK id) throws SchoolException {
+        return service.query(id);
     }
 
-    @RequestMapping("/queryList")
-    public void queryList(Model model, C codition) throws SchoolException {
-        List<T> query = service.queryList(codition);
-        model.addAttribute(query.getClass().getSimpleName(), query);
+    public List<T> queryList(C codition) throws SchoolException {
+        return service.queryList(codition);
     }
 
-    @RequestMapping("/delete/{id}")
-    public void delete(Model model, @PathVariable("id") PK id) throws SchoolException {
+    public void delete(PK id) throws SchoolException {
         service.delete(id);
     }
 
@@ -52,9 +56,28 @@ public abstract class BaseController<T, PK, C extends BaseCondition<PK>, S exten
 
     //全局异常处理
     @ExceptionHandler(SchoolException.class)
-    public void exp(SchoolException exp, Model model){
-//        if()
-        String message = exp.getMessage();
-        model.addAttribute("msg", exp.getMessage());
+    public ModelAndView exp(SchoolException exp){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("500");
+        return modelAndView;
+    }
+
+    public void queryCate(Model model) throws SchoolException {
+
+        List<InfoCate> infoCateList = infoCateService.queryList(new InfoCateCondition());
+        List<InfoCate> infoCateFirstList = infoCateList.stream()
+                .filter(infoCate -> infoCate.getFirstId().equals(Contacts.InfoCateCatacts.CATE_0)).collect(Collectors.toList());
+
+        List<InfoCateVo> infoCateFirstVoList = new ArrayList<>();
+        for(InfoCate infoFirstCate : infoCateFirstList){
+            List<InfoCate> infoCateSecondList = infoCateList.stream().filter(infoCate -> infoCate.getFirstId().equals(infoFirstCate.getId())).collect(Collectors.toList());
+
+            InfoCateVo infoCateVo = new InfoCateVo();
+            infoCateVo.setFirstCateName(infoFirstCate.getName());
+            infoCateVo.setInfoCates(infoCateSecondList);
+
+            infoCateFirstVoList.add(infoCateVo);
+        }
+        model.addAttribute("infoCateFirstList", infoCateFirstVoList);
     }
 }

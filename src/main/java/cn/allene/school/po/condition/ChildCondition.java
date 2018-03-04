@@ -2,7 +2,11 @@ package cn.allene.school.po.condition;
 
 import java.util.Date;
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class ChildCondition extends BaseCondition<String> {
 	/**

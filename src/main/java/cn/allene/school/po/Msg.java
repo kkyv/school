@@ -8,7 +8,11 @@ import lombok.Data;
 public class Msg {
     private Integer id;
 
+    private String title;
+
     private String content;
+
+    private String phone;
 
     private Date time;
 

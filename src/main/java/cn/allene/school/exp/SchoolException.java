@@ -1,5 +1,7 @@
 package cn.allene.school.exp;
 
+import org.springframework.ui.Model;
+
 public class SchoolException extends Exception {
     private Integer code;
 
@@ -26,9 +28,5 @@ public class SchoolException extends Exception {
 
     public Integer getCode() {
         return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
     }
 }
