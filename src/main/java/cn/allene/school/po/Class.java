@@ -11,5 +11,4 @@ public class Class {
     private String name;
 
     private Date addTime;
-
 }

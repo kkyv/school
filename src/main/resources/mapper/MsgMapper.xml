@@ -5,15 +5,19 @@
 
 	<resultMap id="MsgPo" type="cn.allene.school.po.Msg">
 		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="title" property="title" jdbcType="VARCHAR"/>
 		<result column="content" property="content" jdbcType="VARCHAR"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR"/>
 		<result column="time" property="time" jdbcType="TIMESTAMP"/>
 		<result column="status" property="status" jdbcType="VARCHAR"/>
-		<result column="child_id" property="childId" jdbcType="INTEGER"/>
+		<result column="child_id" property="childId" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<sql id="fieldSql">
 		 t.id
+		,t.title
 		,t.content
+		,t.phone
 		,t.time
 		,t.status
 		,t.child_id
@@ -29,14 +33,20 @@
 				t.id = #{idItem,jdbcType = INTEGER}
 			</foreach>
 		</if>
+		<if test="title != null and title != ''">
+			AND t.title = #{title,jdbcType = VARCHAR}
+		</if>
 		<if test="content != null and content != ''">
 			AND t.content = #{content,jdbcType = VARCHAR}
+		</if>
+		<if test="phone != null and phone != ''">
+			AND t.phone = #{phone,jdbcType = VARCHAR}
 		</if>
 		<if test="status != null and status != ''">
 			AND t.status = #{status,jdbcType = VARCHAR}
 		</if>
-		<if test="childId != null">
-			AND t.child_id = #{childId,jdbcType = INTEGER}
+		<if test="childId != null and childId != ''">
+			AND t.child_id = #{childId,jdbcType = VARCHAR}
 		</if>
 	</sql>
 
@@ -70,8 +80,14 @@
 
 		INSERT INTO msg(  
 			id
+		<if test="title != null">
+			,title
+		</if>
 		<if test="content != null">
 			,content
+		</if>
+		<if test="phone != null">
+			,phone
 		</if>
 		<if test="time != null">
 			,time
@@ -85,8 +101,14 @@
 		)
 		VALUES( 
 			#{id,jdbcType=INTEGER}
+		<if test="title != null">
+			,#{title,jdbcType=VARCHAR}
+		</if>
 		<if test="content != null">
 			,#{content,jdbcType=VARCHAR}
+		</if>
+		<if test="phone != null">
+			,#{phone,jdbcType=VARCHAR}
 		</if>
 		<if test="time != null">
 			,#{time,jdbcType=TIMESTAMP}
@@ -95,7 +117,7 @@
 			,#{status,jdbcType=VARCHAR}
 		</if>
 		<if test="childId != null">
-			,#{childId,jdbcType=INTEGER}
+			,#{childId,jdbcType=VARCHAR}
 		</if>
 		)
 	</insert>
@@ -103,9 +125,15 @@
 	<update id="update" parameterType="cn.allene.school.po.Msg">
 		UPDATE msg t
 		 <set>
+			 <if test="title != null">
+				 t.title = #{title,jdbcType = VARCHAR},
+			 </if>
 		    <if test="content != null">
 			    t.content = #{content,jdbcType = VARCHAR}, 
 		    </if>
+			 <if test="phone != null">
+				 t.phone = #{phone,jdbcType = VARCHAR},
+			 </if>
 		    <if test="time != null">
 			    t.time = #{time,jdbcType = TIMESTAMP}, 
 		    </if>
@@ -113,7 +141,7 @@
 			    t.status = #{status,jdbcType = VARCHAR}, 
 		    </if>
 		    <if test="childId != null">
-			    t.child_id = #{childId,jdbcType = INTEGER}, 
+			    t.child_id = #{childId,jdbcType = VARCHAR},
 		    </if>
 	    </set>
 		 WHERE t.id= #{id,jdbcType = INTEGER}

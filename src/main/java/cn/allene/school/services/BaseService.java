@@ -2,7 +2,6 @@ package cn.allene.school.services;
 
 import cn.allene.school.exp.SchoolException;
 import cn.allene.school.po.condition.BaseCondition;
-import cn.allene.school.po.example.BaseExample;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

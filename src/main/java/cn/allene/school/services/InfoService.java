@@ -1,9 +1,8 @@
 package cn.allene.school.services;
 
 import cn.allene.school.po.Info;
-import cn.allene.school.po.condition.InfoCateCondition;
-import cn.allene.school.po.example.InfoExample;
+import cn.allene.school.po.condition.InfoCondition;
 
-public interface InfoService extends BaseService<Info, Integer, InfoCateCondition> {
+public interface InfoService extends BaseService<Info, Integer, InfoCondition> {
 
 }

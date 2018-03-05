@@ -1,8 +1,15 @@
 package cn.allene.school.po.condition;
 
 import java.util.Date;
-import lombok.Data;
+import java.util.List;
 
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class InfoCondition extends BaseCondition<Integer> {
 
@@ -30,4 +37,6 @@ public class InfoCondition extends BaseCondition<Integer> {
 	 * 
 	*/
 	private Integer cateId;
+
+	private List<Integer> cateIdList;
 }
