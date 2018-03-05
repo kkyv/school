@@ -7,12 +7,22 @@
 		<result column="id" property="id" jdbcType="INTEGER"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
 		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+		<result column="admin_id" property="adminId" jdbcType="INTEGER"/>
+		<result column="notice" property="notice" jdbcType="VARCHAR"/>
+		<result column="news" property="news" jdbcType="VARCHAR"/>
+		<result column="browse" property="browse" jdbcType="VARCHAR"/>
+		<result column="pic" property="pic" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<sql id="fieldSql">
 		 t.id
 		,t.name
 		,t.add_time
+		,t.admin_id
+		,t.notice
+		,t.news
+		,t.browse
+		,t.pic
 	</sql>
 
 	<sql id="whereSql">
@@ -25,8 +35,23 @@
 				t.id = #{idItem,jdbcType = INTEGER}
 			</foreach>
 		</if>
+		<if test="adminId != null and adminId != ''">
+			AND t.admin_id = #{adminId,jdbcType = INTEGER}
+		</if>
 		<if test="name != null and name != ''">
 			AND t.name = #{name,jdbcType = VARCHAR}
+		</if>
+		<if test="notice != null and notice != ''">
+			AND t.notice = #{notice,jdbcType = VARCHAR}
+		</if>
+		<if test="news != null and news != ''">
+			AND t.news = #{news,jdbcType = VARCHAR}
+		</if>
+		<if test="browse != null and browse != ''">
+			AND t.browse = #{browse,jdbcType = VARCHAR}
+		</if>
+		<if test="pic != null and pic != ''">
+			AND t.pic = #{pic,jdbcType = VARCHAR}
 		</if>
 		<if test="minAddTime != null">
 			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
@@ -66,8 +91,23 @@
 
 		INSERT INTO class(  
 			id
+		<if test="adminId != null">
+			,admin_id
+		</if>
 		<if test="name != null">
 			,name
+		</if>
+		<if test="notice != null">
+			,notice
+		</if>
+		<if test="news!= null">
+			,news
+		</if>
+		<if test="browse!= null">
+			,browse
+		</if>
+		<if test="pic != null">
+			,pic
 		</if>
 		<if test="addTime != null">
 			,add_time
@@ -75,8 +115,23 @@
 		)
 		VALUES( 
 			#{id,jdbcType=INTEGER}
+		<if test="adminId != null">
+			,#{adminId,jdbcType=VARCHAR}
+		</if>
 		<if test="name != null">
 			,#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="notice != null">
+			,#{notice,jdbcType=VARCHAR}
+		</if>
+		<if test="news != null">
+			,#{news,jdbcType=VARCHAR}
+		</if>
+		<if test="browse != null">
+			,#{browse,jdbcType=VARCHAR}
+		</if>
+		<if test="pic != null">
+			,#{pic,jdbcType=VARCHAR}
 		</if>
 		<if test="addTime != null">
 			,#{addTime,jdbcType=TIMESTAMP}
@@ -87,9 +142,24 @@
 	<update id="update" parameterType="cn.allene.school.po.Class">
 		UPDATE class t
 		 <set>
+			 <if test="adminId != null and adminId != ''">
+				 t.admin_id = #{adminId,jdbcType = INTEGER}
+			 </if>
 		    <if test="name != null">
 			    t.name = #{name,jdbcType = VARCHAR}, 
 		    </if>
+			 <if test="notice != null">
+				t.notice = #{notice,jdbcType=VARCHAR}
+			 </if>
+			 <if test="news != null">
+				 t.news = #{news,jdbcType=VARCHAR}
+			 </if>
+			 <if test="browse != null">
+				 t.browse = #{browse,jdbcType=VARCHAR}
+			 </if>
+			 <if test="pic != null">
+				 t.pic = #{pic,jdbcType=VARCHAR}
+			 </if>
 		    <if test="addTime != null">
 			    t.add_time = #{addTime,jdbcType = TIMESTAMP}, 
 		    </if>

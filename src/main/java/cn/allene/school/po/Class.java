@@ -10,5 +10,15 @@ public class Class {
 
     private String name;
 
+    private Integer adminId;
+
+    private String notice;
+
+    private String browse;
+
+    private String news;
+
+    private String pic;
+
     private Date addTime;
 }

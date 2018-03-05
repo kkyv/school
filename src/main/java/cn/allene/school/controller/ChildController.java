@@ -42,4 +42,5 @@ public class ChildController extends BaseController<Child, String, ChildConditio
         session.removeAttribute("child");
         return "redirect:/";
     }
+
 }

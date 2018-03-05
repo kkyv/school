@@ -1,6 +1,8 @@
 package cn.allene.school.po.condition;
 
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -33,4 +35,8 @@ public class ChildCondition extends BaseCondition<String> {
 	 * 
 	*/
 	private Integer classId;
+
+	public ChildCondition(Integer classId) {
+		this.classId = classId;
+	}
 }

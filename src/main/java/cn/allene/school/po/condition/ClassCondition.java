@@ -16,6 +16,17 @@ public class ClassCondition extends BaseCondition<Integer> {
 	/**
 	 * 最小
 	*/
+
+	private Integer adminId;
+
+	private String notice;
+
+	private String browse;
+
+	private String news;
+
+	private String pic;
+
 	private Date minAddTime;
 	/**
 	 * 最大
