@@ -39,7 +39,7 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
 
         model.addAttribute("classList", classList);
         model.addAttribute("childList", childList);
-        return "class";
+        return "class2";
     }
 
 }
