@@ -35,7 +35,10 @@ public class ChildCondition extends BaseCondition<String> {
 	 * 
 	*/
 	private Integer classId;
-
+	/**
+	 *
+	 */
+	private String photo;
 	public ChildCondition(Integer classId) {
 		this.classId = classId;
 	}

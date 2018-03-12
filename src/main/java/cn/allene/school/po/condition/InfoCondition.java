@@ -39,4 +39,8 @@ public class InfoCondition extends BaseCondition<Integer> {
 	private Integer cateId;
 
 	private List<Integer> cateIdList;
+
+	public InfoCondition(Integer cateId) {
+		this.cateId = cateId;
+	}
 }

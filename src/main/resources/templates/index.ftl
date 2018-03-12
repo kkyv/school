@@ -7,8 +7,13 @@
 		<link rel="stylesheet" type="text/css" href="/css/index.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/nav.css"/>
 
+
         <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+        <!--jQuery动画暂停插件-->
+        <script type="text/javascript" src="/js/jquery.pause.min.js"></script>
         <script type="text/javascript" src="/js/nav.js"></script>
+        <!--滚动效果js-->
+        <script type="text/javascript" src="/js/banner.js"></script>
 
         <script type="text/javascript">
             function imgLogin_onclick() {
@@ -24,11 +29,24 @@
                 });
             }
         </script>
+        <style>
+            /*baner*/
+            #box_title{width:324px;font-weight:bold;line-height:28px;}
+            /* con */
+            #con{height:95%;margin:0px auto;position:relative;border-top:1px solid #d6d6d6;background-color:#FFF;overflow:hidden;}
+            #con .bottomcover{position:absolute;bottom:0; no-repeat 0 -5px;height:35px;width:394px;}
+            #con ul{position:relative;margin:0px 10px 0px 10px;top:0;left:0;padding:0;}
+            #con ul li{width:100%;border-top:1px dotted #d6d6d6;padding:10px 0;_padding:8px 0;overflow:hidden;line-height:1.5;}
+            #con ul li .div_left{float:left;width:50px;border:1px solid; display: none;}
+            #con ul li .div_right{float:right;width:305px;font-size:13px;}
+            #con ul li .div_right a{color:#6EAFD5;padding:0px;}
+            #con ul li .div_right .twit_item_time{font-size:11px;color:#999;padding:0px;text-align: right; margin-left: 10px;}
+        </style>
 	</head>
 	<body>
 		<div class="dbody">
-        <div class="dsize">
             <#include "include/head.ftl"/>
+        <div class="dsize">
             <div class="midlbox">
                 <!--<div class="cline fl clt">
                 </div>-->
@@ -68,7 +86,7 @@
                                         <div class="fl pl5">
                                             <a href="javascript:void(0)" style="display: inline-block;" onclick="imgLogin_onclick(); return false;">
                                                 <img src="img/m103_login.jpg" alt="" id="imgLogin" /></a></div>
-                                        <div class="fl pl5">
+                                        <div class="fl pl5" style="visibility: hidden">
                                             <a href="/ecenter/reg.aspx?schoolid=22247" style="display: inline-block;"
                                                target="_blank">
                                                 <img src="img/m103_register.jpg" alt="" id="img1" /></a></div>
@@ -98,7 +116,7 @@
                                     </iframe>
                                 </div>-->
                                 <div class="more1 allm">
-                                    <a href="/info/list?cateId=13" target="_blank"></a>
+                                    <a href="/info/list/13" target="_blank"></a>
                                 </div>
                                 <div class="ysxwCont listnews">
                                     <ul>
@@ -113,7 +131,7 @@
                             </div>
                             <div class="ystz">
                                 <div class="more2 allm">
-                                    <a href="/info/list?cateId=22" target="_blank"></a>
+                                    <a href="/info/list/22" target="_blank"></a>
                                 </div>
                                 <div class="ystzCont listnews">
                                     <ul>
@@ -144,33 +162,67 @@
                             </div>
                         </div>
                         <div class="ctrt fl">
-                            <div class="qhbox">
-                                <div class="qhpic">
-                                    <div id="dFlashPic" class="dflashpic">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="crtbotom">
-                                <div class="treebox">
-
-                                    <script type="text/javascript">
-//                                  document.write(_getFlashHTML('/school/template/t103/images/treebox.swf', '', 281,330))
-                                    </script>
-
-                                </div>
-                            </div>
-                            <div class="cyqlj">
-                                <div class="yqsel">
-
-<select id="FriendLink" onchange="getFriendLink(this)"><option value="0">友情链接</option><option value="mariamiracle">微信公众平台—玛利亚的奇迹</option><option value="http://www.dianping.com/shop/34137824">大众点评网—玛利亚的奇迹蒙特梭利幼儿园</option><option value="http://www.mariasmiracles.com/">玛利亚的奇迹蒙特梭利儿童之家</option><option value="http://zhaopin.51yey.com">幼师招聘</option><option value="http://www.51yey.com">无忧幼儿园网</option></select>
-                                </div>
+                            <div id="box_title">大家在说</div>
+                            <div id="con">
+                                <div class="bottomcover" style="z-index:2;"></div>
+                                <ul>
+                                    <li>
+                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
+                                        <div class="div_right">
+                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：唉，总是在越忙的时候事情越多。。。我的神曲你在哪里呀~~~亲耐滴你再不出来你就木有人疼了！！#248#ds公司疯狗萨哥官方身上轧人挪活
+                                            <div class="twit_item_time">3分钟前</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
+                                        <div class="div_right">
+                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：看来今天收到礼品的亲们不少哦~
+                                            <div class="twit_item_time">13分钟前</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
+                                        <div class="div_right">
+                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：【打扰了，@EsonLong_摄视度，微博网友请您帮助】&ldquo; 请问係广州有冇鸿福堂吖？想试试啊，平时静係 ...&rdquo;帮助回答请点击http://www.htmleaf.com ，谢谢！[不想被求助点击http://www.htmleaf.com ]
+                                            <div class="twit_item_time">16分钟前</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
+                                        <div class="div_right">
+                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：【新型电话骗局盯上有线电视用户】一些市民接到陌生电话，提醒自家的宽带和有线电视就要到期了，在两小时内不续费就要被断网。警方提醒，这是一种新的电话骗局方式，骗子的最终目的是让受害人把资金转移到所谓的&ldquo;安全账户&rdquo;里。警方提醒大家万一遇到类似情况，可以拨打正规客服电话咨询哦。
+                                            <div class="twit_item_time">17分钟前</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
+                                        <div class="div_right">
+                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：【什么时候才能看见外星人啊】《西班牙渔夫意外拍的军方与飞碟UFO对峙》  http://www.htmleaf.com  （分享自 @土豆网）
+                                            <div class="twit_item_time">18分钟前</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
+                                        <div class="div_right">
+                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：小小骑手牵着小小马儿。你俩是来参加卖萌大赛的吧！！！！
+                                            <div class="twit_item_time">22分钟前</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
+                                        <div class="div_right">
+                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：学会沉默，至少平静。有时候，被人误解，不想争辩，所以选择沉默。本来就不是所有人都得了解你，因此不必对全世界喊话。生命中往往有连舒伯特都无言以对的时刻，毕竟不是所有的是非都能条列清楚，甚至可能根本没有真正的是与非。那么，不想说话，就不说吧，在多说无益的时候，也许沉默就是最好的解释。
+                                            <div class="twit_item_time">1小时前</div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                     <div class="cmiddlebox">
                         <div class="jyky fl">
                             <div class="more3 allm">
-                                <a href="/info/list?cateId=22" target="_blank"></a>
+                                <a href="/info/list/22" target="_blank"></a>
                             </div>
                             <div class="jykyCont listnews">
                                 <ul>
@@ -185,7 +237,7 @@
                         </div>
                         <div class="yebj fl">
                             <div class="more4 allm">
-                                <a href="/info/list?cateId=17" target="_blank"></a>
+                                <a href="/info/list/17" target="_blank"></a>
                             </div>
                             <div class="jykyCont listnews">
                                 <ul>
@@ -202,25 +254,6 @@
                             <div class="tzpic">
                                 <a href="list.aspx?cid=1&did=208" target="_blank">
                                     <img src="img/m103_pic.jpg" /></a></div>
-                        </div>
-                    </div>
-                    <div class="chlsg">
-                        <div class="more6">
-                            <a href="#" target="_blank">更多</a></div>
-                        <div class="gundongbox" id="demo0">
-                            <!--<table cellpadding="0" align="center" border="0" cellspacing="0">
-                                <tr>
-                                    <td id="demo3" valign="top" style="z-index: 9999; width: 100%">
-                                        <table>
-                                            <tr>
-                                                <td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016350409.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016611181.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016387848.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016712438.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016503978.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016657547.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016515314.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016599119.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016264983.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016518851.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016504936.jpg" class="sZuopinImg"/></a></td><td><a href="album.aspx" target="_blank"><img src="/upload/class/2016/0606/06060016443866.jpg" class="sZuopinImg"/></a></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td id="demo4" valign="top" style="z-index: 9999">
-                                    </td>
-                                </tr>
-                            </table>-->
                         </div>
                     </div>
                     <div class="cbot">

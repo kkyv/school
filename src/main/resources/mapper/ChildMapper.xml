@@ -11,6 +11,7 @@
 		<result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
 		<result column="sex" property="sex" jdbcType="VARCHAR"/>
 		<result column="class_id" property="classId" jdbcType="INTEGER"/>
+		<result column="photo" property="photo" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<sql id="fieldSql">
@@ -21,6 +22,7 @@
 		,t.birthday
 		,t.sex
 		,t.class_id
+		,t.photo
 	</sql>
 
 	<sql id="whereSql">
@@ -50,6 +52,9 @@
 		</if>
 		<if test="classId != null">
 			AND t.class_id = #{classId,jdbcType = INTEGER}
+		</if>
+		<if test="photo != null">
+			AND t.photo = #{photo,jdbcType = INTEGER}
 		</if>
 	</sql>
 
@@ -97,6 +102,9 @@
 		<if test="classId != null">
 			,class_id
 		</if>
+		<if test="photo != null">
+			,photo
+		</if>
 		)
 		VALUES( 
 			#{id,jdbcType=VARCHAR}
@@ -117,6 +125,9 @@
 		</if>
 		<if test="classId != null">
 			,#{classId,jdbcType=INTEGER}
+		</if>
+		<if test="photo != null">
+			,#{photo,jdbcType=VARCHAR}
 		</if>
 		)
 	</insert>
@@ -142,6 +153,9 @@
 		    <if test="classId != null">
 			    t.class_id = #{classId,jdbcType = INTEGER}, 
 		    </if>
+			 <if test="photo != null">
+				 t.photo = #{photo,jdbcType = VARCHAR},
+			 </if>
 	    </set>
 		 WHERE t.id= #{id,jdbcType = VARCHAR}
 	</update>

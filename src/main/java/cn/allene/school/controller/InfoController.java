@@ -23,20 +23,21 @@ public class InfoController extends BaseController<Info, Integer, InfoCondition,
     @Autowired
     private InfoCateService infoCateService;
 
-    @RequestMapping("/list")
-    public String queryList(Model model, InfoCondition codition) throws SchoolException {
+    @RequestMapping("/list/{cateId}")
+    public String queryList(Model model, @PathVariable("cateId") Integer cateId) throws SchoolException {
         this.queryCate(model);
-        if(codition.getCateId().equals(InfoCateEnum.CATE_14.getId())){
+
+        if(cateId.equals(InfoCateEnum.CATE_14.getId())){
             return "redirect:/class/list";
         }
 
-        List<Info> infoList = this.getService().queryList(codition);
+        List<Info> infoList = this.getService().queryList(new InfoCondition(cateId));
         model.addAttribute("infoList", infoList);
         if(infoList.size() == 1){
             return "info";
         }
 
-        InfoCate infoCate = infoCateService.query(codition.getCateId());
+        InfoCate infoCate = infoCateService.query(cateId);
         model.addAttribute("infoCate", infoCate);
         return "infoList";
     }

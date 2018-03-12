@@ -39,7 +39,16 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
 
         model.addAttribute("classList", classList);
         model.addAttribute("childList", childList);
-        return "class2";
+        return "class/index";
     }
 
+    @RequestMapping("/photo/{classId}")
+    public String photoList(@PathVariable("classId")Integer classId){
+        return "class/photoList";
+    }
+
+    @RequestMapping("/child/{classId}")
+    public String childList(@PathVariable("classId")Integer classId){
+        return "class/childList";
+    }
 }

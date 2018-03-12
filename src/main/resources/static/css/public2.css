@@ -4,7 +4,7 @@ body
 	padding: 0px;
 	font-size: 12px;
 	font-family: 宋体;
-	background-image: url(/img/m103_bg.jpg);
+	background-image: url(../img/m103_bg.jpg);
 	background-repeat: repeat-y;
 	background-position: center -2px;
 }
@@ -29,7 +29,7 @@ img
 }
 .dsize
 {
-	width: 1000px;
+	width: 80px;
 	margin: 0px auto;
 }
 .fr
@@ -38,11 +38,12 @@ img
 }
 .header
 {
-    position: relative;
-    width: 981px;
-    height: 205px;
-    margin: 0 auto;
-    background-image: url(/img/m103_top_border.jpg);background-repeat: no-repeat;
+	width: 980px;
+	height: 205px;
+	background-image: url(../img/m103_top_border.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	position: relative;
 }
 .dtop
 {
@@ -54,7 +55,7 @@ img
 }
 .dtlf
 {
-	width:221px;
+	width:222px;
 	height:127px;	
 	background-image: url(../img/mleftpic.png);
 	position:absolute;
@@ -101,15 +102,14 @@ a
 }
 .midlbox
 {
-	/*margin-left: -8px;*/
+	margin-left: -8px;
 	border: 10px #BB6900 solid;
 	/*border-right: 8px #BB6900 solid;
 	border-right: 8px #BB6900 solid;*/
 	border-radius: 10px;
 	padding-top: 15px;
 	padding-bottom: 10px;
-    background-color: #fff;
-	/*width: 975px;*/
+	width: 975px;
 	/*height: 1196px;*/
 }
 .centbox{
@@ -125,7 +125,7 @@ a
 .midlbox-title{
 	padding: 20px 60px;
 }
-.midlbox-title a{
+.midlbox-title span{
 	border: 5px #9d512f solid;
 	border-radius: 4px;
 	padding: 10px;

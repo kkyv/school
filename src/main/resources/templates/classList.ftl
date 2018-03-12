@@ -59,8 +59,8 @@
             <div class="midlbox">
             	<div class="centbox">
             		<div class="midlbox-title">
-            			<span>班级主页</span>
-            			
+            			<a href="#">班级主页</a>
+
             		</div>
             		<hr style="border:3 double #BB6900" width="90%" color="#BB6900" size=3>
             		<div class="midlbox-content">

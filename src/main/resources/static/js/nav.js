@@ -1,3 +1,3 @@
 function cate(cateId) {
-    window.location.href = "/info/list?cateId=" + cateId;
+    window.location.href = "/info/list/" + cateId;
 }

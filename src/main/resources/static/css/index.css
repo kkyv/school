@@ -1,6 +1,5 @@
 .ctop
 {
-	width: 948px;
 	height: 651px;
 }
 .ctlf
@@ -247,8 +246,10 @@
 }
 .ctrt
 {
-	width: 304px;
-	height: 651px;
+	margin-top: 10px;
+	padding-bottom: 20px;
+	margin-left: 4px;
+	height: 630px;
 }
 .qhbox
 {
@@ -352,43 +353,6 @@
 {
 	border:none;
 }
-.chlsg
-{
-	width: 948px;
-	height: 203px;
-	margin-top:10px;
-	background-image: url(../img/m103_happy_time.jpg);
-	background-repeat: no-repeat;
-}
-.more6
-{
-	position:absolute;
-	top:10px;
-	right:55px;
-}
-.more6 a
-{
-	color:#F57A1D;
-}
-.gundongbox
-{
-	height: 135px;
-	width: 608px;
-	top: 35px;
-	left: 38px;
-	position: absolute;
-	overflow: hidden;
-}
-.gundongbox img
-{
-	border: none;
-	height: 135px;
-	margin-left: 3px;
-}
-.gundongbox td
-{
-	width: 100%;
-}
 .cbot
 {
 	width: 928px;
@@ -432,48 +396,6 @@
 	margin-top: 10px;
 	width: 320px;
 	margin-left: 15px;
-}
-
-/**/
-.kfqqbox
-{
-	float: left;
-	padding: 10px;
-	background-image: url(../img/rr001.png);
-	background-repeat: repeat-y;
-	min-height:68px;
-}
-
-.qqshare_l_c ul
-{
-	margin: 0px;
-	padding: 0px;
-}
-#qqshare_l ul li
-{
-	list-style: none;
-	padding-bottom: 5px;
-	text-align: center;
-	color: White;
-	font-weight: bold;
-	width: 75px;
-	overflow: hidden;
-}
-#qqshare
-{
-	top: 195px;
-	z-index: 1000;
-	backgroundattachment: scroll;
-	font-size: 12px;
-	right: -96px;
-	position: fixed;
-	_position: absolute;
-	_top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-200));
-	overflow: hidden;
-}
-#qqshare img
-{
-	border: none;
 }
 .dNewsLeft a{
 	display: block;

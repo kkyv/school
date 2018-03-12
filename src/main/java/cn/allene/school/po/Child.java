@@ -20,4 +20,5 @@ public class Child {
 
     private Integer classId;
 
+    private String photo;
 }
