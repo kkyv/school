@@ -19,8 +19,8 @@ import java.util.Date;
 public class MsgController extends BaseController<Msg, Integer, MsgCondition, MsgService> {
 
     @RequestMapping("/")
-    public String _index(Model model) throws SchoolException {
-        this.queryCate(model);
+    public String _index() throws SchoolException {
+        this.queryCate();
         return "bbs";
     }
 

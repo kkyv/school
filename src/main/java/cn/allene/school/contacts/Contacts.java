@@ -13,4 +13,9 @@ public interface Contacts {
         Integer CATE_8 = 8;
 
     }
+
+    interface Session{
+        String ADMIN = "admin";
+        String CHILD = "child";
+    }
 }

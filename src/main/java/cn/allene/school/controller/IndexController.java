@@ -33,9 +33,9 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
     private ClassService classService;
 
     @RequestMapping("/")
-    public String index(Model model) throws SchoolException {
+    public String index() throws SchoolException {
 
-        this.queryCate(model);
+        this.queryCate();
 
         InfoCondition infoCondition = new InfoCondition();
         List<Integer> cateIdList = new ArrayList<>();
@@ -56,16 +56,16 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
         List<Info> cate22InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_22.getId())).collect(Collectors.toList());
 
         if(CollectionUtils.isNotEmpty(cate1Info)){
-            model.addAttribute("prompt", infos.get(0));
+            getModel().addAttribute("prompt", infos.get(0));
         }
 
-        model.addAttribute("cate13InfoList",cate13InfoList);
-        model.addAttribute("cate15InfoList", cate15InfoList);
-        model.addAttribute("cate17InfoList",cate17InfoList);
-        model.addAttribute("cate22InfoList",cate22InfoList);
+        getModel().addAttribute("cate13InfoList",cate13InfoList);
+        getModel().addAttribute("cate15InfoList", cate15InfoList);
+        getModel().addAttribute("cate17InfoList",cate17InfoList);
+        getModel().addAttribute("cate22InfoList",cate22InfoList);
 
         List<Class> classList = classService.queryList(new ClassCondition());
-        model.addAttribute(classList);
+        getModel().addAttribute(classList);
 
         return "index";
     }

@@ -12,7 +12,7 @@
 
 		<style type="text/css">
 			body {
-				background-image: url(img/lback.jpg);
+				background-image: url(/img/lback.jpg);
 				background-repeat: no-repeat;
 				background-position: center 0px;
 				margin: 0px;
@@ -20,19 +20,19 @@
 				font-family: 宋体;
 				background-color: #FFF4A8;
 			}
-			
+
 			.h {
 				overflow: hidden;
 				height: 250px;
 				position: relative;
 			}
-			
+
 			.s {
 				width: 980px;
 				margin: 0px auto;
 				overflow: hidden;
 			}
-			
+
 			.n {
 				left: 220px;
 				top: 90px;
@@ -42,38 +42,38 @@
 				color: #690a04;
 				position: absolute;
 			}
-			
+
 			.r {
 				right: 120px;
 				top: 30px;
 				position: absolute;
 			}
-			
+
 			.r a {
 				display: inline-block;
 				width: 124px;
 				height: 45px;
 			}
-			
+
 			.footer {
 				margin-top: 10px;
 				height: 36px;
 				overflow: hidden;
 				margin-bottom: 20px;
 			}
-			
+
 			.ffl {
 				width: 11px;
 				height: 36px;
-				background-image: url(img/ht_139.jpg);
+				background-image: url(/img/ht_139.jpg);
 			}
-			
+
 			.ffr {
 				width: 8px;
 				height: 36px;
-				background-image: url(img/ht_148.jpg);
+				background-image: url(/img/ht_148.jpg);
 			}
-			
+
 			.fm {
 				border-bottom: 1px solid #c5ee90;
 				border-top: 1px solid #c5ee90;
@@ -84,40 +84,40 @@
 				font-size: 12px;
 				background-color: White;
 			}
-			
+
 			.fm a {
 				text-decoration: none;
 				color: #666666;
 			}
-			
+
 			.fl {
 				float: left;
 			}
-			
+
 			.fr {
 				float: right;
 			}
-			
+
 			.c {
 				height: 440px;
 				position: relative;
 			}
-			
+
 			.c table {
 				left: 200px;
 				top: 0px;
 				position: absolute;
 			}
-			
+
 			.c table td {
 				height: 50px;
 				color: #666666;
 			}
-			
+
 			.c table td a {
 				color: #666666;
 			}
-			
+
 			.i {
 				border: 1px solid #b8b8b8;
 				height: 28px;
@@ -170,7 +170,7 @@
 							</td>
 							<td>
 								<a href="javascript:void(0)">
-									<img style="border: none" onclick="doLogin_onclick(); return false;" src="img/wueren_17.jpg" alt="登录" /></a>&nbsp;&nbsp;
+									<img style="border: none" onclick="doLogin_onclick(); return false;" src="/img/wueren_17.jpg" alt="登录" /></a>&nbsp;&nbsp;
 							</td>
 						</tr>
 					</table>

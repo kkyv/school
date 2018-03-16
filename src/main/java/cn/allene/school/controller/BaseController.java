@@ -1,5 +1,6 @@
 package cn.allene.school.controller;
 
+import cn.allene.school.annatation.Prefix;
 import cn.allene.school.contacts.Contacts;
 import cn.allene.school.po.InfoCate;
 import cn.allene.school.po.condition.BaseCondition;
@@ -9,29 +10,44 @@ import cn.allene.school.services.BaseService;
 import cn.allene.school.services.InfoCateService;
 import cn.allene.school.utils.CollectionUtils;
 import cn.allene.school.vo.InfoCateVo;
+import lombok.Data;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@Prefix
 public abstract class BaseController<T, PK, C extends BaseCondition<PK>, S extends BaseService<T, PK, C>> {
     @Autowired
+    @Getter
     private S service;
     @Autowired
     private InfoCateService infoCateService;
 
-    public String returnPage(String page, String attrName, Object attr){
-        ModelAndView modelAndView = new ModelAndView(page);
-        modelAndView.addObject(attrName, attr);
-        return page;
+    @Getter
+    private HttpServletResponse response;
+    @Getter
+    private HttpServletRequest request;
+    @Getter
+    private Model model;
+
+    @ModelAttribute
+    private void initialize(HttpServletResponse response, HttpServletRequest request, Model model) {
+        this.response = response;
+        this.request = request;
+        this.model = model;
     }
 
     public void insert(T t) throws SchoolException {
@@ -50,10 +66,6 @@ public abstract class BaseController<T, PK, C extends BaseCondition<PK>, S exten
         service.delete(id);
     }
 
-    public S getService(){
-        return service;
-    }
-
     //全局异常处理
     @ExceptionHandler(SchoolException.class)
     public ModelAndView exp(SchoolException exp){
@@ -62,7 +74,7 @@ public abstract class BaseController<T, PK, C extends BaseCondition<PK>, S exten
         return modelAndView;
     }
 
-    public void queryCate(Model model) throws SchoolException {
+    public void queryCate() throws SchoolException {
 
         List<InfoCate> infoCateList = infoCateService.queryList(new InfoCateCondition());
         List<InfoCate> infoCateFirstList = infoCateList.stream()
