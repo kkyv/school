@@ -107,7 +107,7 @@
                 <li><a href="/class/child">班级成员</a></li>
                 <li><a href="/class/bbs">留言板</a></li>
                 <div class="right link noshows">
-                    <div class="noshow left">
+                    <div class="left">
                         <div class="link_box">
                             <a href="/admin/">管理页面</a>
                         </div>

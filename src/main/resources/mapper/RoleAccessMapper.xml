@@ -31,6 +31,18 @@
 		<if test="roleId != null">
 			AND t.role_id = #{roleId,jdbcType = INTEGER}
 		</if>
+		<if test="accessIdList != null">
+			AND
+			<foreach collection="accessIdList" item="idItem" open="(" close=")" separator="OR">
+				t.accessId = #{idItem,jdbcType = INTEGER}
+			</foreach>
+		</if>
+		<if test="roleIdList != null">
+			AND
+			<foreach collection="roleIdList" item="idItem" open="(" close=")" separator="OR">
+				t.role_id = #{idItem,jdbcType = INTEGER}
+			</foreach>
+		</if>
 	</sql>
 
 	<select id="select" parameterType="Integer" resultMap="RoleAccessPo">

@@ -29,7 +29,7 @@ public class MsgController extends BaseController<Msg, Integer, MsgCondition, Ms
     public AjaxResult<Msg> add(HttpSession session, Msg msg) {
         try {
             msg.setTime(new Date());
-            this.insert(msg);
+            this.getService().insert(msg);
             return new AjaxResult<>(true, "留言成功，审核成功后即可查看");
         } catch (SchoolException e) {
             return new AjaxResult<>(false, "留言失败");

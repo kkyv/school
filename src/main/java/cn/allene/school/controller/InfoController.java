@@ -44,7 +44,7 @@ public class InfoController extends BaseController<Info, Integer, InfoCondition,
 
     @RequestMapping("/{id}")
     public String info( @PathVariable("id") Integer id) throws SchoolException {
-        Info info = this.query(id);
+        Info info = this.getService().query(id);
         getModel().addAttribute("info", info);
         return "info";
     }

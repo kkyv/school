@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AjaxResult<T> {
-    private boolean status;
+    private boolean status = true;
 
     private String msg;
 

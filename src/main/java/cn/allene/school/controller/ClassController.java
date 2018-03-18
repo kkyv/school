@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/class")
-@Prefix("class")
+@Prefix("class/")
 public class ClassController extends BaseController<Class, Integer, ClassCondition, ClassService> {
 
     @Autowired
@@ -29,7 +29,7 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
     public String list() throws SchoolException {
         this.queryCate();
 
-        List<Class> classList = this.queryList(new ClassCondition());
+        List<Class> classList = this.getService().queryList(new ClassCondition());
         getModel().addAttribute(classList);
         return "classList";
     }
@@ -38,7 +38,7 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
     public String _index(@PathVariable("classId") Integer classId) throws SchoolException {
         List<Child> childList = childService.queryList(new ChildCondition(classId));
 
-        List<Class> classList = this.queryList(new ClassCondition());
+        List<Class> classList = this.getService().queryList(new ClassCondition());
 
         getModel().addAttribute("classList", classList);
         getModel().addAttribute("childList", childList);

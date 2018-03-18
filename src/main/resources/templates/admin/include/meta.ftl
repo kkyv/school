@@ -23,3 +23,6 @@
     <!--<script>DD_belatedPNG.fix('*');</script>-->
 <#--<![endif]&ndash;&gt;-->
     <!--/meta 作为公共模版分离出去-->
+    <title>未来星幼儿园</title>
+</head>
+<body>

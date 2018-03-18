@@ -16,6 +16,7 @@ public class SchoolInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        httpServletRequest.getSession().setAttribute(Contacts.Session.ADMIN, "123");
         HandlerMethod handlerMethod = (HandlerMethod) o;
         if(handlerMethod.getMethod().isAnnotationPresent(AdminLogin.class)){
             if(handlerMethod.getMethodAnnotation(AdminLogin.class).requireLogin()){
@@ -36,14 +37,14 @@ public class SchoolInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler, ModelAndView modelAndView) throws Exception {
         if(null != modelAndView){   //处理没有modelview的
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            String prefix = "";
-            if(handlerMethod.getMethod().isAnnotationPresent(Prefix.class)){
-               prefix += handlerMethod.getMethod().getAnnotation(Prefix.class).value();
-            }else if(handlerMethod.getBeanType().isAnnotationPresent(Prefix.class)){
-                prefix = handlerMethod.getBeanType().getAnnotation(Prefix.class).value() + prefix;
+            if(!modelAndView.getViewName().contains("redirect")){
+                HandlerMethod handlerMethod = (HandlerMethod) handler;
+                String prefix = "";
+                if(handlerMethod.getBeanType().isAnnotationPresent(Prefix.class)){
+                    prefix = handlerMethod.getBeanType().getAnnotation(Prefix.class).value() + prefix;
+                }
+                modelAndView.setViewName(prefix + modelAndView.getViewName());
             }
-            modelAndView.setViewName(prefix + modelAndView.getViewName());
         }
     }
 

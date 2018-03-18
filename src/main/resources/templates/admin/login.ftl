@@ -127,14 +127,15 @@
 				font-family: Arial;
 			}
 		</style>
+		<script type="text/javascript">
+			function doLogin_onclick() {
+				$("#form1").submit();
+            }
+		</script>
 	</head>
 
 	<body>
-		<form method="post" action="login.aspx" id="form1">
-			<div class="aspNetHidden">
-				<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNzgzNDMwNTMzZGQ=" />
-			</div>
-
+		<form method="post" action="/admin/login" id="form1">
 			<div class="s">
 				<div class="h">
 					<div class="n">
@@ -151,7 +152,7 @@
 
 							</td>
 							<td>
-								<input id="username" class="i" type="text" />
+								<input name="id" class="i" type="text" value="10001"/>
 							</td>
 						</tr>
 						<tr>
@@ -160,7 +161,7 @@
 
 							</td>
 							<td>
-								<input id="password" class="i" type="password" />
+								<input name="password" class="i" type="password" value="123"/>
 								<a href="/login/getpwd.aspx" target="_blank">忘记密码？</a>
 							</td>
 						</tr>
@@ -178,5 +179,4 @@
 			</div>
 		</form>
 	</body>
-
 </html>
