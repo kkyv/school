@@ -3,20 +3,25 @@ package cn.allene.school.controller;
 import cn.allene.school.contacts.Contacts;
 import cn.allene.school.contacts.InfoCateEnum;
 import cn.allene.school.exp.SchoolException;
+import cn.allene.school.po.Admin;
 import cn.allene.school.po.Class;
 import cn.allene.school.po.Info;
 import cn.allene.school.po.InfoCate;
+import cn.allene.school.po.condition.AdminCondition;
 import cn.allene.school.po.condition.ClassCondition;
 import cn.allene.school.po.condition.InfoCateCondition;
 import cn.allene.school.po.condition.InfoCondition;
+import cn.allene.school.services.AdminService;
 import cn.allene.school.services.ClassService;
 import cn.allene.school.services.InfoCateService;
 import cn.allene.school.services.InfoService;
 import cn.allene.school.utils.CollectionUtils;
+import cn.allene.school.utils.MD5Utils;
 import cn.allene.school.vo.InfoCateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,6 +36,8 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
     private InfoService infoService;
     @Autowired
     private ClassService classService;
+    @Autowired
+    private AdminService adminService;
 
     @RequestMapping("/")
     public String index() throws SchoolException {
@@ -68,5 +75,29 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
         getModel().addAttribute(classList);
 
         return "index";
+    }
+
+
+    @RequestMapping("/admin/login")
+    public String login(Admin admin) throws SchoolException {
+        if(getPo().getId() == null){
+            return "login";
+        }
+
+        AdminCondition adminCondition = new AdminCondition();
+        adminCondition.setId(admin.getId());
+        adminCondition.setPassword(MD5Utils.MD5(admin.getPassword()));
+        List<Admin> adminList = adminService.queryList(adminCondition);
+        if(CollectionUtils.isEmpty(adminList)){
+            return "login";
+        }
+
+        String prePage = (String) getRequest().getSession().getAttribute("prePage");
+        this.getRequest().getSession().setAttribute(Contacts.Session.ADMIN, this.getPo());
+        if(!StringUtils.isEmpty(prePage)){
+            return "redirect:" + prePage;
+        }else{
+            return "index";
+        }
     }
 }

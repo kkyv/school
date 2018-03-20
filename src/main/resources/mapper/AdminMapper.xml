@@ -6,15 +6,21 @@
 	<resultMap id="AdminPo" type="cn.allene.school.po.Admin">
 		<result column="id" property="id" jdbcType="INTEGER"/>
 		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR"/>
 		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
 		<result column="role_id" property="roleId" jdbcType="INTEGER"/>
+		<result column="state" property="state" jdbcType="INTEGER"/>
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
 	</resultMap>
 
 	<sql id="fieldSql">
 		 t.id
 		,t.password
+		,t.phone
 		,t.nickname
 		,t.role_id
+		,t.state
+		,t.add_time
 	</sql>
 
 	<sql id="whereSql">
@@ -30,6 +36,9 @@
 		<if test="password != null and password != ''">
 			AND t.password = #{password,jdbcType = VARCHAR}
 		</if>
+		<if test="phone != null and phone != ''">
+			AND t.phone = #{phone,jdbcType = VARCHAR}
+		</if>
 		<if test="nickname != null and nickname != ''">
 			AND t.nickname = #{nickname,jdbcType = VARCHAR}
 		</if>
@@ -41,6 +50,15 @@
 			<foreach collection="roleIdList" item="idItem" open="(" close=")" separator="OR">
 				t.role_id = #{idItem,jdbcType = INTEGER}
 			</foreach>
+		</if>
+		<if test="state != null">
+			AND t.state = #{state,jdbcType = INTEGER}
+		</if>
+		<if test="minAddTime != null">
+			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="maxAddTime != null">
+			AND t.add_time &lt;= #{maxAddTime,jdbcType = TIMESTAMP}
 		</if>
 	</sql>
 
@@ -76,8 +94,14 @@
 		<if test="nickname != null">
 			,nickname
 		</if>
+		<if test="phone != null">
+			,phone
+		</if>
 		<if test="roleId != null">
 			,role_id
+		</if>
+		<if test="addTime != null">
+			,add_time
 		</if>
 		)
 		VALUES( 
@@ -85,11 +109,17 @@
 		<if test="password != null">
 			,#{password,jdbcType=VARCHAR}
 		</if>
+		<if test="phone != null">
+			,#{phone,jdbcType=VARCHAR}
+		</if>
 		<if test="nickname != null">
 			,#{nickname,jdbcType=VARCHAR}
 		</if>
 		<if test="roleId != null">
 			,#{roleId,jdbcType=INTEGER}
+		</if>
+		<if test="addTime != null">
+			,#{addTime,jdbcType=TIMESTAMP}
 		</if>
 		)
 	</insert>
@@ -100,10 +130,21 @@
 		    <if test="password != null">
 			    t.password = #{password,jdbcType = VARCHAR}, 
 		    </if>
+			 <if test="phone != null">
+				 t.phone = #{phone,jdbcType = VARCHAR},
+			 </if>
 		    <if test="nickname != null">
 			    t.nickname = #{nickname,jdbcType = VARCHAR}, 
 		    </if>
-			 t.role_id = #{roleId,jdbcType=INTEGER}
+			 <if test="roleId != null">
+				 t.role_id = #{roleId,jdbcType=INTEGER},
+			 </if>
+			 <if test="state != null">
+				 t.state = #{state,jdbcType=INTEGER},
+			 </if>
+			 <if test="addTime != null">
+				 t.add_time = #{addTime,jdbcType = TIMESTAMP}
+			 </if>
 	    </set>
 		 WHERE t.id= #{id,jdbcType = INTEGER}
 	</update>

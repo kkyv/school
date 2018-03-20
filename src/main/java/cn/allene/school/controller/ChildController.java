@@ -1,5 +1,6 @@
 package cn.allene.school.controller;
 
+import cn.allene.school.contacts.Contacts;
 import cn.allene.school.po.condition.ChildCondition;
 import cn.allene.school.exp.SchoolException;
 import cn.allene.school.po.Child;
@@ -32,7 +33,7 @@ public class ChildController extends BaseController<Child, String, ChildConditio
             ajaxResult = new AjaxResult<>(false, "用户名或密码错误");
         }else{
             ajaxResult = new AjaxResult<>(true, childList.get(0));
-            session.setAttribute("child", childList.get(0));
+            session.setAttribute(Contacts.Session.CHILD, childList.get(0));
         }
         return ajaxResult;
     }

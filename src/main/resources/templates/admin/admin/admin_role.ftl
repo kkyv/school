@@ -33,7 +33,7 @@
                     <tbody>
 					<#list adminRoleList as adminRole>
                         <tr class="text-c">
-                            <td><input type="checkbox" value="" name=""></td>
+                            <td><input type="checkbox" value="${adminRole.role.id}" name=""></td>
                             <td>${adminRole.role.id}</td>
                             <td>${adminRole.role.name}</td>
                             <td>
@@ -63,9 +63,6 @@
 <#include "../include/footer.ftl"/>
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
     /*管理员-角色-添加*/
     function admin_role_add(title, url, w, h) {
@@ -83,9 +80,9 @@
     }
     function admin_role_dels(){
         var idList = [];
-        var checkBoxs = $("tbody input:checked").parent().next();
+        var checkBoxs = $("tbody input:checked");
         $.each(checkBoxs, function () {
-            idList.push($(this).text());
+            idList.push($(this).val());
         });
         admin_role_delList(checkBoxs, idList);
     }
@@ -115,6 +112,5 @@
         });
     }
 </script>
-<!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

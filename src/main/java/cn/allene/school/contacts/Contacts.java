@@ -15,7 +15,12 @@ public interface Contacts {
     }
 
     interface Session{
-        String ADMIN = "admin";
-        String CHILD = "child";
+        String ADMIN = "adminLogin";
+        String CHILD = "childLogin";
+    }
+
+    interface Admin{
+        Integer Frozen = 0;
+        Integer Active = 1;
     }
 }

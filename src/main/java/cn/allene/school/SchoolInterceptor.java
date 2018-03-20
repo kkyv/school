@@ -18,8 +18,8 @@ public class SchoolInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         httpServletRequest.getSession().setAttribute(Contacts.Session.ADMIN, "123");
         HandlerMethod handlerMethod = (HandlerMethod) o;
-        if(handlerMethod.getMethod().isAnnotationPresent(AdminLogin.class)){
-            if(handlerMethod.getMethodAnnotation(AdminLogin.class).requireLogin()){
+        if(handlerMethod.getBeanType().isAnnotationPresent(AdminLogin.class)){
+            if(handlerMethod.getBeanType().getAnnotation(AdminLogin.class).requireLogin()){
                 Object admin = httpServletRequest.getSession().getAttribute(Contacts.Session.ADMIN);
                 if(admin == null){
                     httpServletRequest.getSession().setAttribute("prePage", httpServletRequest.getRequestURI());

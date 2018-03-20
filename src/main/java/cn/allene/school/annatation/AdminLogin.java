@@ -8,7 +8,6 @@ import java.lang.annotation.Target;
 /**
  * 登录校验
  */
-@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AdminLogin {
     boolean requireLogin() default true;
