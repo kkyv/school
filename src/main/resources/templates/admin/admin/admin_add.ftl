@@ -23,11 +23,11 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
             <div class="formControls col-xs-8 col-sm-9 skin-minimal">
                 <div class="radio-box">
-                    <input name="sex" type="radio" id="sex-1" checked>
+                    <input name="sex" type="radio" id="sex-1" value="1" checked>
                     <label for="sex-1">男</label>
                 </div>
                 <div class="radio-box">
-                    <input type="radio" id="sex-2" name="sex">
+                    <input type="radio" id="sex-2" name="sex" value="2">
                     <label for="sex-2">女</label>
                 </div>
             </div>
@@ -41,7 +41,7 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" placeholder="@" name="email" id="email">
+                <input type="text" class="input-text" placeholder="@" va name="email" id="email">
             </div>
         </div>
         <div class="row cl">
@@ -49,7 +49,15 @@
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
 				<select class="select" name="roleId" size="1">
 					<#list roleList as role>
-					    <option value="${role.id}">${role.name}</option>
+                        <#if admin.roleId?? && admin.roleId == role.id>
+                            <#--<#if admin.roleId == role.id>-->
+                                <option value="${role.id}" selected="selected">${role.name}</option>
+                            <#--<#else>-->
+                                <#--<option value="${role.id}">${role.name}</option>-->
+                            <#--</#if>-->
+                        <#else>
+                            <option value="${role.id}">${role.name}</option>
+                        </#if>
 					</#list>
 				</select>
 				</span> </div>
@@ -58,7 +66,6 @@
             <label class="form-label col-xs-4 col-sm-3">备注：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <textarea name="desc" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>
-                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
         </div>
         <div class="row cl">
@@ -72,9 +79,9 @@
 <#include "../include/footer.ftl"/>
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script>
-<script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script>
-<script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/js/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/js/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
     $(function(){
         $('.skin-minimal input').iCheck({
@@ -97,17 +104,17 @@
                     required:true,
                     equalTo: "#password"
                 },
-                // sex:{
-                //     required:true,
-                // },
+                sex:{
+                    required:true,
+                },
                 phone:{
                     required:true,
                     isPhone:true,
                 },
-                // email:{
-                //     required:true,
-                //     email:true,
-                // },
+                email:{
+                    required:true,
+                    email:true,
+                },
                 adminRole:{
                     required:true,
                 },

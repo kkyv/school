@@ -10,6 +10,10 @@ public class Admin {
 
     private String password;
 
+    private Integer sex;
+
+    private String email;
+
     private String phone;
 
     private String nickname;

@@ -47,7 +47,7 @@
                             </td>
                             <td>${adminRole.role.desc}</td>
                             <td class="f-14"><a title="编辑" href="javascript:;"
-                                                onclick="admin_role_edit('角色编辑','admin-role-add.html','1')"
+                                                onclick="admin_role_edit('角色编辑','/admin/addRolePage','1')"
                                                 style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a
                                     title="删除" href="javascript:;" onclick="admin_role_del(this, ${adminRole.role.id})" class="ml-5"
                                     style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
@@ -71,7 +71,7 @@
 
     /*管理员-角色-编辑*/
     function admin_role_edit(title, url, id, w, h) {
-        layer_show(title, url, w, h);
+        layer_show(title, url + "?id=" + id, w, h);
     }
 
     /*管理员-角色-删除*/

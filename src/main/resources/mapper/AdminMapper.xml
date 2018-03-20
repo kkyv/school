@@ -6,6 +6,8 @@
 	<resultMap id="AdminPo" type="cn.allene.school.po.Admin">
 		<result column="id" property="id" jdbcType="INTEGER"/>
 		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<result column="sex" property="sex" jdbcType="INTEGER"/>
+		<result column="email" property="email" jdbcType="VARCHAR"/>
 		<result column="phone" property="phone" jdbcType="VARCHAR"/>
 		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
 		<result column="role_id" property="roleId" jdbcType="INTEGER"/>
@@ -16,6 +18,8 @@
 	<sql id="fieldSql">
 		 t.id
 		,t.password
+		,t.sex
+		,t.email
 		,t.phone
 		,t.nickname
 		,t.role_id
@@ -36,11 +40,17 @@
 		<if test="password != null and password != ''">
 			AND t.password = #{password,jdbcType = VARCHAR}
 		</if>
+		<if test="sex != null">
+			AND t.sex = #{sex,jdbcType = VARCHAR}
+		</if>
+		<if test="email != null">
+			AND t.email = #{email,jdbcType = VARCHAR}
+		</if>
 		<if test="phone != null and phone != ''">
 			AND t.phone = #{phone,jdbcType = VARCHAR}
 		</if>
 		<if test="nickname != null and nickname != ''">
-			AND t.nickname = #{nickname,jdbcType = VARCHAR}
+			AND t.nickname LIKE concat('%', #{nickname}, '%')
 		</if>
 		<if test="roleId != null">
 			AND t.role_id = #{roleId,jdbcType = INTEGER}
@@ -91,6 +101,12 @@
 		<if test="password != null">
 			,password
 		</if>
+		<if test="sex != null">
+			,sex
+		</if>
+		<if test="email != null">
+			,email
+		</if>
 		<if test="nickname != null">
 			,nickname
 		</if>
@@ -108,6 +124,12 @@
 			#{id,jdbcType=INTEGER}
 		<if test="password != null">
 			,#{password,jdbcType=VARCHAR}
+		</if>
+		<if test="sex != null">
+			,#{sex,jdbcType=INTEGER}
+		</if>
+		<if test="email != null">
+			,#{email,jdbcType=VARCHAR}
 		</if>
 		<if test="phone != null">
 			,#{phone,jdbcType=VARCHAR}
@@ -132,6 +154,12 @@
 		    </if>
 			 <if test="phone != null">
 				 t.phone = #{phone,jdbcType = VARCHAR},
+			 </if>
+			 <if test="sex != null">
+				 t.sex = #{sex,jdbcType = INTEGER},
+			 </if>
+			 <if test="email != null">
+				 t.email = #{email,jdbcType = VARCHAR},
 			 </if>
 		    <if test="nickname != null">
 			    t.nickname = #{nickname,jdbcType = VARCHAR}, 

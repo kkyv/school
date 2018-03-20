@@ -29,6 +29,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -69,20 +70,23 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
 
     @RequestMapping("/list")
     public String list() throws SchoolException {
-        List<Admin> adminList = this.getService().queryList(new AdminCondition());
-        List<Integer> roleIdList = adminList.stream().map(Admin::getRoleId).collect(Collectors.toList());
+        List<Admin> adminList = this.getService().queryList(this.getCondition());
+        List<AdminRoleNameVo> adminRoleNameList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(adminList)) {
+            List<Integer> roleIdList = adminList.stream().map(Admin::getRoleId).collect(Collectors.toList());
 
-        RoleCondition roleCondition = new RoleCondition();
-        roleCondition.setIdList(roleIdList);
-        List<Role> roleList = roleService.queryList(roleCondition);
+            RoleCondition roleCondition = new RoleCondition();
+            roleCondition.setIdList(roleIdList);
+            List<Role> roleList = roleService.queryList(roleCondition);
 
-        Map<Integer, String> roleNameMap = roleList.stream().collect(Collectors.toMap(Role::getId, Role::getName));
+            Map<Integer, String> roleNameMap = roleList.stream().collect(Collectors.toMap(Role::getId, Role::getName));
 
-        List<AdminRoleNameVo> adminRoleNameList = adminList.stream().map(m -> {
-            AdminRoleNameVo adminRoleNameVo = CopyUtils.transfer(m, AdminRoleNameVo.class);
-            adminRoleNameVo.setRoleName(roleNameMap.get(m.getRoleId()));
-            return adminRoleNameVo;
-        }).collect(Collectors.toList());
+            adminRoleNameList = adminList.stream().map(m -> {
+                AdminRoleNameVo adminRoleNameVo = CopyUtils.transfer(m, AdminRoleNameVo.class);
+                adminRoleNameVo.setRoleName(roleNameMap.get(m.getRoleId()));
+                return adminRoleNameVo;
+            }).collect(Collectors.toList());
+        }
 
         this.getModel().addAttribute("adminList", adminRoleNameList);
 
@@ -105,20 +109,25 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
     @RequestMapping("/role")
     public String role() throws SchoolException {
         List<Role> roleList = roleService.queryList(new RoleCondition());
-        List<Integer> roleIdList = roleList.stream().map(Role::getId).collect(Collectors.toList());
 
-        AdminCondition adminCondition = new AdminCondition();
-        adminCondition.setRoleIdList(roleIdList);
-        List<Admin> adminList = this.getService().queryList(adminCondition);
-        Map<Integer, List<Admin>> adminMap = adminList.stream().collect(Collectors.groupingBy(Admin::getRoleId));
-        this.getService().queryList(adminCondition);
+        List<AdminRoleVo> adminRoleList = new ArrayList<>();
 
-        List<AdminRoleVo> adminRoleList = roleList.stream().map(m -> {
-            AdminRoleVo adminRoleVo = new AdminRoleVo();
-            adminRoleVo.setRole(m);
-            adminRoleVo.setAdminList(adminMap.get(m.getId()));
-            return adminRoleVo;
-        }).collect(Collectors.toList());
+        if(CollectionUtils.isNotEmpty(roleList)){
+            List<Integer> roleIdList = roleList.stream().map(Role::getId).collect(Collectors.toList());
+            AdminCondition adminCondition = new AdminCondition();
+            adminCondition.setRoleIdList(roleIdList);
+            List<Admin> adminList = this.getService().queryList(adminCondition);
+            Map<Integer, List<Admin>> adminMap = adminList.stream().collect(Collectors.groupingBy(Admin::getRoleId));
+            this.getService().queryList(adminCondition);
+
+            adminRoleList = roleList.stream().map(m -> {
+                AdminRoleVo adminRoleVo = new AdminRoleVo();
+                adminRoleVo.setRole(m);
+                adminRoleVo.setAdminList(adminMap.get(m.getId()));
+                return adminRoleVo;
+            }).collect(Collectors.toList());
+        }
+
 
         this.getModel().addAttribute("adminRoleList", adminRoleList);
 
