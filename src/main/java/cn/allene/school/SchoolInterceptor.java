@@ -41,7 +41,13 @@ public class SchoolInterceptor implements HandlerInterceptor {
                 HandlerMethod handlerMethod = (HandlerMethod) handler;
                 String prefix = "";
                 if(handlerMethod.getBeanType().isAnnotationPresent(Prefix.class)){
-                    prefix = handlerMethod.getBeanType().getAnnotation(Prefix.class).value() + prefix;
+                    String tep = "";
+                    if(handlerMethod.getMethod().isAnnotationPresent(Prefix.class)){
+                        tep = handlerMethod.getMethodAnnotation(Prefix.class).value();
+                    }else{
+                        tep = handlerMethod.getBeanType().getAnnotation(Prefix.class).value();
+                    }
+                    prefix = tep + prefix;
                 }
                 modelAndView.setViewName(prefix + modelAndView.getViewName());
             }

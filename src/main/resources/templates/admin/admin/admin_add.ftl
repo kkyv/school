@@ -1,6 +1,10 @@
 <#include "../include/meta.ftl"/>
 <article class="cl pd-20">
-    <form action="/admin/add" method="post" class="form form-horizontal" id="form-admin-add">
+    <#if admin.id??>
+        <form action="/admin/admin/adminEdit" method="post" class="form form-horizontal" id="form-admin-add">
+    <#else>
+        <form action="/admin/admin/adminAdd" method="post" class="form form-horizontal" id="form-admin-add">
+    </#if>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -41,7 +45,7 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" placeholder="@" va name="email" id="email">
+                <input type="text" class="input-text" placeholder="@" value="${admin.email!}" name="email" id="email">
             </div>
         </div>
         <div class="row cl">

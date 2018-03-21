@@ -6,11 +6,17 @@
 	<resultMap id="AccessPo" type="cn.allene.school.po.Access">
 		<result column="id" property="id" jdbcType="INTEGER"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="access" property="access" jdbcType="VARCHAR"/>
+		<result column="group" property="group" jdbcType="VARCHAR"/>
+		<result column="model" property="model" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<sql id="fieldSql">
 		 t.id
-		,t.name
+		 ,t.name
+		 ,t.access
+		,t.group
+		,t.model
 	</sql>
 
 	<sql id="whereSql">
@@ -25,6 +31,15 @@
 		</if>
 		<if test="name != null and name != ''">
 			AND t.name = #{name,jdbcType = VARCHAR}
+		</if>
+		<if test="access != null and access != ''">
+			AND t.access = #{access,jdbcType = VARCHAR}
+		</if>
+		<if test="group != null and group != ''">
+			AND t.group = #{group,jdbcType = VARCHAR}
+		</if>
+		<if test="model != null and model != ''">
+			AND t.model = #{model,jdbcType = VARCHAR}
 		</if>
 	</sql>
 
@@ -61,11 +76,29 @@
 		<if test="name != null">
 			,name
 		</if>
+		<if test="access != null">
+			,access
+		</if>
+		<if test="group != null">
+			,group
+		</if>
+		<if test="group != null">
+			,model
+		</if>
 		)
 		VALUES( 
 			#{id,jdbcType=INTEGER}
 		<if test="name != null">
 			,#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="access != null">
+			,#{access,jdbcType=VARCHAR}
+		</if>
+		<if test="group != null">
+			,#{group,jdbcType=VARCHAR}
+		</if>
+		<if test="model != null">
+			,#{model,jdbcType=VARCHAR}
 		</if>
 		)
 	</insert>
@@ -73,9 +106,18 @@
 	<update id="update" parameterType="cn.allene.school.po.Access">
 		UPDATE access t
 		 <set>
-		    <if test="name != null">
-			    t.name = #{name,jdbcType = VARCHAR}, 
+			 <if test="name != null">
+				 t.name = #{name,jdbcType = VARCHAR},
+			 </if>
+			 <if test="access != null">
+				 t.access = #{access,jdbcType = VARCHAR},
+			 </if>
+		    <if test="group != null">
+			    t.group = #{group,jdbcType = VARCHAR},
 		    </if>
+			 <if test="model != null">
+				 t.model = #{model,jdbcType = VARCHAR},
+			 </if>
 	    </set>
 		 WHERE t.id= #{id,jdbcType = INTEGER}
 	</update>

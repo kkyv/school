@@ -6,9 +6,9 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="/admin/role" title="角色管理">角色管理</a></li>
-                    <li><a href="/admin/access" title="权限管理">权限管理</a></li>
-                    <li><a href="/admin/list" title="管理员列表">管理员列表</a></li>
+                    <li><a href="/admin/admin/roleList" title="角色管理">角色管理</a></li>
+                    <li><a href="/admin/admin/accessList" title="权限管理">权限管理</a></li>
+                    <li><a href="/admin/admin/adminList" title="管理员列表">管理员列表</a></li>
                 </ul>
             </dd>
         </dl>

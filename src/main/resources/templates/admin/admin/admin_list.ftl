@@ -10,7 +10,7 @@
 		管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a> </nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
-            <form action="/admin/list" id="findForm" method="post">
+            <form action="/admin/admin/adminList" id="findForm" method="post">
                 <div class="text-c"> 日期范围：
                     <input type="text" name="minAddTime" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
                     -
@@ -21,7 +21,7 @@
             </form>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
 				<span class="l"> <a href="javascript:;" onclick="admin_dels()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-					<a href="javascript:;" onclick="admin_add('添加管理员','/admin/addAdminPage','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a> </span>
+					<a href="javascript:;" onclick="admin_add('添加管理员','/admin/admin/addAdminPage','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a> </span>
 				<span class="r">共有数据：<strong>${adminList?size}</strong> 条</span>
 			</div>
 			<table class="table table-border table-bordered table-bg">
@@ -58,7 +58,7 @@
                             <td class="td-status"><span class="label radius">已停用</span></td>
                             <td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,${admin.id})" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a>
                         </#if>
-                                <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','/admin/editAdminPage',${admin.id},'800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                                <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','/admin/admin/editAdminPage',${admin.id},'800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
                                 <a title="删除" href="javascript:;" onclick="admin_del(this,${admin.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                             </td>
 					</tr>
@@ -106,7 +106,7 @@ function admin_delList(objs, idList) {
     }
     layer.confirm('角色删除须谨慎，确认要删除吗？', function (index) {
         $.ajax({
-            url: "/admin/del",
+            url: "/admin/admin/adminDel",
             data: {
                 "idList": idList
             },

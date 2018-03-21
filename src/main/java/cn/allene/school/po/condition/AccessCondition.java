@@ -15,4 +15,10 @@ public class AccessCondition extends BaseCondition<Integer> {
 	 * 
 	*/
 	private String name;
+
+	private String access;
+
+	private String group;
+
+	private String model;
 }

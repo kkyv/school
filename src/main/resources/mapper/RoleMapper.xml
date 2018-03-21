@@ -7,6 +7,7 @@
 		<result column="id" property="id" jdbcType="INTEGER"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
 		<result column="desc" property="desc" jdbcType="VARCHAR"/>
+		<result column="access" property="access" jdbcType="VARCHAR"/>
 		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
 	</resultMap>
 
@@ -14,6 +15,7 @@
 		 t.id
 		,t.name
 		,t.desc
+		,t.access
 		,t.add_time
 	</sql>
 
@@ -65,6 +67,9 @@
 		<if test="name != null">
 			,name
 		</if>
+		<if test="access != null">
+			,access
+		</if>
 		<if test="addTime != null">
 			,add_time
 		</if>
@@ -76,6 +81,9 @@
 		</if>
 		<if test="desc != null">
 			,#{desc,jdbcType=VARCHAR}
+		</if>
+		<if test="access != null">
+			,#{access,jdbcType=VARCHAR}
 		</if>
 		<if test="addTime != null">
 			,#{addTime,jdbcType=TIMESTAMP}
@@ -91,6 +99,9 @@
 		    </if>
 			 <if test="desc != null">
 				 t.desc = #{desc,jdbcType = VARCHAR},
+			 </if>
+			 <if test="access != null">
+				 t.access = #{access,jdbcType = VARCHAR},
 			 </if>
 			 <if test="addTime != null">
 				 t.add_time = #{addTime,jdbcType = TIMESTAMP},

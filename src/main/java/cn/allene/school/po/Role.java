@@ -13,4 +13,6 @@ public class Role {
     private String desc;
 
     private Date addTime;
+
+    private String access;
 }

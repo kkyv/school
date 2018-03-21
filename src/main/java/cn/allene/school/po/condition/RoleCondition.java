@@ -18,4 +18,6 @@ public class RoleCondition extends BaseCondition<Integer> {
 	private String desc;
 
 	private Date addTime;
+
+	private String access;
 }

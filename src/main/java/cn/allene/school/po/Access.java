@@ -7,4 +7,10 @@ public class Access {
     private Integer id;
 
     private String name;
+
+    private String access;
+
+    private String group;
+
+    private String model;
 }
