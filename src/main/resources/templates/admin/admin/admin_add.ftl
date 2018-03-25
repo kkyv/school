@@ -125,13 +125,13 @@
             },
             onkeyup:false,
             focusCleanup:true,
-            success:"valid",
-            submitHandler:function(form){
-                $(form).ajaxSubmit();
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.$('.btn-refresh').click();
-                parent.layer.close(index);
-            }
+            // success:"valid",
+            // submitHandler:function(form){
+            //     $(form).ajaxSubmit();
+            //     var index = parent.layer.getFrameIndex(window.name);
+            //     parent.$('.btn-refresh').click();
+            //     parent.layer.close(index);
+            // }
         });
     });
 </script>

@@ -13,4 +13,10 @@ public class Access {
     private String group;
 
     private String model;
+
+    private Integer state;
+
+    private String groupName;
+
+    private String modelName;
 }

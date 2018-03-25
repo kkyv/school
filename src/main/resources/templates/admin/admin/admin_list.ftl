@@ -127,7 +127,7 @@ function admin_delList(objs, idList) {
 /*管理员-停用*/
 function admin_stop(obj,id){
 	layer.confirm('确认要停用吗？',function(index){
-        $.post("/admin/stateChange", {"id":id, "state":0}, function (data) {
+        $.post("/admin/admin/adminState", {"id":id, "state":0}, function (data) {
             if(data.status){
                 $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
                 $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
@@ -143,7 +143,7 @@ function admin_stop(obj,id){
 /*管理员-启用*/
 function admin_start(obj,id){
 	layer.confirm('确认要启用吗？',function(index){
-		$.post("/admin/stateChange", {"id":id, "state":1}, function (data) {
+		$.post("/admin/admin/adminState", {"id":id, "state":1}, function (data) {
             if(data.status){
                 $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
                 $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');

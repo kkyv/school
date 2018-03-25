@@ -21,4 +21,6 @@ public class AccessCondition extends BaseCondition<Integer> {
 	private String group;
 
 	private String model;
+
+	private Integer state;
 }

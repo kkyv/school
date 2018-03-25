@@ -73,7 +73,13 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
     }
 
     @RequestMapping("/accessList")
-    public String access(){
+    public String access(String name) throws SchoolException {
+        AccessCondition accessCondition = new AccessCondition();
+        accessCondition.setName(name);
+        List<Access> accessList = accessService.queryList(accessCondition);
+        this.getModel().addAttribute("accessList", accessList);
+        //回显
+        this.getModel().addAttribute("name", name);
         return "admin/admin_access";
     }
     @RequestMapping({"/", "/index"})
@@ -149,9 +155,20 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
 
     @RequestMapping("/adminState")
     @ResponseBody
-    public AjaxResult stateChange() throws AjaxException{
+    public AjaxResult adminState() throws AjaxException{
         try {
             this.getService().update(this.getPo());
+            return new AjaxResult();
+        } catch (SchoolException e) {
+            throw new AjaxException();
+        }
+    }
+
+    @RequestMapping("/accessState")
+    @ResponseBody
+    public AjaxResult accessState(Access access) throws AjaxException{
+        try {
+            accessService.update(access);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
@@ -167,9 +184,11 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
 
 
     @RequestMapping("/addRole")
-    public AjaxResult addRole() throws AjaxException{
+    @ResponseBody
+    public AjaxResult addRole(Role role, String[] accesses) throws AjaxException{
         try {
-            this.getService().insert(this.getPo());
+            role.setAccess(org.apache.tomcat.util.buf.StringUtils.join(accesses));
+            roleService.insert(role);
         } catch (SchoolException e) {
             throw new AjaxException();
         }
@@ -177,14 +196,29 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
     }
 
     @RequestMapping("/addAdmin")
+    @ResponseBody
     public void addAdmin() throws SchoolException{
         this.getPo().setPassword(MD5Utils.MD5(this.getPo().getPassword()));
         this.getService().insert(this.getPo());
     }
 
     @RequestMapping("/editAdmin")
+    @ResponseBody
     public void editAdmin() throws SchoolException{
         this.getPo().setPassword(MD5Utils.MD5(this.getPo().getPassword()));
         this.getService().update(this.getPo());
     }
+
+    @RequestMapping("/editRole")
+    @ResponseBody
+    public AjaxResult editRole(String[] accesses, Role role) throws AjaxException {
+        role.setAccess(org.apache.tomcat.util.buf.StringUtils.join(accesses));
+        try {
+            roleService.update(role);
+        } catch (SchoolException e) {
+            throw new AjaxException();
+        }
+        return new AjaxResult();
+    }
+
 }
