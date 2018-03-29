@@ -1,5 +1,6 @@
 package cn.allene.school.controller;
 
+import cn.allene.school.annatation.AdminLogin;
 import cn.allene.school.contacts.Contacts;
 import cn.allene.school.contacts.InfoCateEnum;
 import cn.allene.school.exp.SchoolException;
@@ -53,5 +54,17 @@ public class InfoController extends BaseController<Info, Integer, InfoCondition,
         Info info = this.getService().query(id);
         getModel().addAttribute("info", info);
         return "info";
+    }
+
+    @RequestMapping("/yebj/infoList")
+    @AdminLogin
+    public String yebjInfoList(){
+        return "admin/info/yebjInfoList";
+    }
+
+    @RequestMapping("/zszp/infoList")
+    @AdminLogin
+    public String zszpInfoList(){
+        return "admin/info/zszpInfoList";
     }
 }

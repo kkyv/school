@@ -1,11 +1,12 @@
 package cn.allene.school.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class Info {
+public class Info implements Serializable{
     private Integer id;
 
     private String title;
