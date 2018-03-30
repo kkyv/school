@@ -16,7 +16,7 @@ import org.springframework.util.StringUtils;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class InfoCondition extends BaseMongoCondition<Integer> {
+public class InfoCondition extends BaseMongoCondition<String> {
 
 	/**
 	 * 

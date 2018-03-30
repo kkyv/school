@@ -1,6 +1,6 @@
 package cn.allene.school.services.impl;
 
-import cn.allene.school.dao.ClassMapper;
+import cn.allene.school.dao.mapper.ClassMapper;
 import cn.allene.school.po.Class;
 import cn.allene.school.po.condition.ClassCondition;
 import cn.allene.school.services.ClassService;

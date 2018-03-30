@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class Info implements Serializable{
-    private Integer id;
+    private String id;
 
     private String title;
 

@@ -1,4 +1,4 @@
-package cn.allene.school.dao;
+package cn.allene.school.dao.mapper;
 
 import cn.allene.school.po.AdminRole;
 import cn.allene.school.po.condition.AdminRoleCondition;

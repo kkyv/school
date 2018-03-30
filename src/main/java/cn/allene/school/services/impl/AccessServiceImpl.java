@@ -1,6 +1,6 @@
 package cn.allene.school.services.impl;
 
-import cn.allene.school.dao.AccessMapper;
+import cn.allene.school.dao.mapper.AccessMapper;
 import cn.allene.school.po.Access;
 import cn.allene.school.po.condition.AccessCondition;
 import cn.allene.school.services.AccessService;

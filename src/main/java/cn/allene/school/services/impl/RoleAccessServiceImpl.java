@@ -1,6 +1,6 @@
 package cn.allene.school.services.impl;
 
-import cn.allene.school.dao.RoleAccessMapper;
+import cn.allene.school.dao.mapper.RoleAccessMapper;
 import cn.allene.school.po.RoleAccess;
 import cn.allene.school.po.condition.RoleAccessCondition;
 import cn.allene.school.services.RoleAccessService;

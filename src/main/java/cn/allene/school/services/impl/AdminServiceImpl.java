@@ -1,7 +1,7 @@
 package cn.allene.school.services.impl;
 
-import cn.allene.school.dao.AdminMapper;
-import cn.allene.school.dao.RoleMapper;
+import cn.allene.school.dao.mapper.AdminMapper;
+import cn.allene.school.dao.mapper.RoleMapper;
 import cn.allene.school.exp.AjaxException;
 import cn.allene.school.exp.SchoolException;
 import cn.allene.school.po.Admin;

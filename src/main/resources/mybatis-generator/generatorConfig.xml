@@ -38,7 +38,7 @@
         <javaClientGenerator type="XMLMAPPER"
             targetPackage="cn.allene.school.mapper" targetProject=".\src\main\java">
             <property name="enableSubPackages" value="false" />
-            <property name="rootInterface" value="cn.allene.school.dao.BaseMapper"/>
+            <property name="rootInterface" value="cn.allene.school.dao.mapper.BaseMapper"/>
         </javaClientGenerator>
   
         <!-- 指定数据库表 -->

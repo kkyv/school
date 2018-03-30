@@ -1,13 +1,14 @@
 package cn.allene.school.dao;
 
-import cn.allene.school.po.condition.BaseCondition;
 import cn.allene.school.exp.SchoolException;
-import org.apache.ibatis.annotations.Mapper;
+import cn.allene.school.po.condition.BaseCondition;
 
 import java.util.List;
 
-@Mapper
-public interface BaseMapper<T, PK, C extends BaseCondition> {
+/**
+ * create by KKYV on 2018-03-30
+ */
+public interface Dao<T, PK, C extends BaseCondition> {
     T select(PK id) throws SchoolException;
 
     List<T> selectList(C condition) throws SchoolException;

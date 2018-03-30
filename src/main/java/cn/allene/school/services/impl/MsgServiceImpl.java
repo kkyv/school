@@ -1,6 +1,6 @@
 package cn.allene.school.services.impl;
 
-import cn.allene.school.dao.MsgMapper;
+import cn.allene.school.dao.mapper.MsgMapper;
 import cn.allene.school.po.Msg;
 import cn.allene.school.po.condition.MsgCondition;
 import cn.allene.school.services.MsgService;

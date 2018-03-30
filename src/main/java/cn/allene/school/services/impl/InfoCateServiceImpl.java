@@ -1,6 +1,6 @@
 package cn.allene.school.services.impl;
 
-import cn.allene.school.dao.InfoCateMapper;
+import cn.allene.school.dao.mapper.InfoCateMapper;
 import cn.allene.school.po.InfoCate;
 import cn.allene.school.po.condition.InfoCateCondition;
 import cn.allene.school.services.InfoCateService;
