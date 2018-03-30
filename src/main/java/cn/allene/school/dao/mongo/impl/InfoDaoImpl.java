@@ -44,7 +44,7 @@ public class InfoDaoImpl implements InfoDao {
 
     @Override
     public int update(Info po) throws SchoolException {
-        WriteResult result = mongoTemplate.updateFirst(Query.query(Criteria.where("id").is(po.getId())), null, getEntityClass());
+        WriteResult result = mongoTemplate.updateFirst(Query.query(Criteria.where("id").is(po.getId())), po.getUpdate(), getEntityClass());
         return result.getN();
     }
 
