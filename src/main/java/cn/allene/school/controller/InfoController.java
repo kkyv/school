@@ -49,9 +49,9 @@ public class InfoController extends BaseController<Info, String, InfoCondition, 
         return "info";
     }
 
-    @RequestMapping("/yebj/infoList")
+    @RequestMapping()
     @AdminLogin
-    public String yebjInfoList(){
+    public String infoList(){
         return "admin/info/yebjInfoList";
     }
 
@@ -59,24 +59,5 @@ public class InfoController extends BaseController<Info, String, InfoCondition, 
     @AdminLogin
     public String zszpInfoList(){
         return "admin/info/zszpInfoList";
-    }
-
-    @RequestMapping("/infotest")
-    @ResponseBody
-    public int test() throws SchoolException {
-//        Info info = new Info();
-//        info.setAddTime(new Date());
-//        info.setCateId(2);
-//        info.setContent("123412541251");
-//        info.setLastTime(new Date());
-//        info.setTitle("1232541");
-//        info.setTotal(0);
-//        this.getService().insert(info);
-//        InfoCondition infoCondition = new InfoCondition(2);
-//        infoCondition.setContent("2333333");
-        Info info = new Info();
-        info.setId("5abdd5c522587e0ffc036051");
-        info.setCateId(3);
-        return this.getService().update(info);
     }
 }
