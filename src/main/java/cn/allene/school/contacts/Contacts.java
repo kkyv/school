@@ -23,4 +23,10 @@ public interface Contacts {
         Integer Frozen = 0;
         Integer Active = 1;
     }
+
+    interface State{
+        Integer NO = 0;
+
+        Integer Yes = 1;
+    }
 }

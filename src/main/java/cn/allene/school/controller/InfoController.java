@@ -48,16 +48,4 @@ public class InfoController extends BaseController<Info, String, InfoCondition, 
         getModel().addAttribute("info", info);
         return "info";
     }
-
-    @RequestMapping()
-    @AdminLogin
-    public String infoList(){
-        return "admin/info/yebjInfoList";
-    }
-
-    @RequestMapping("/zszp/infoList")
-    @AdminLogin
-    public String zszpInfoList(){
-        return "admin/info/zszpInfoList";
-    }
 }

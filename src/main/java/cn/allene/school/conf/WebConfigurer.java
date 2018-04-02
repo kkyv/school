@@ -1,5 +1,6 @@
-package cn.allene.school;
+package cn.allene.school.conf;
 
+import cn.allene.school.SchoolInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;

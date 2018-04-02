@@ -122,7 +122,7 @@
                                     <ul>
                                         <#list cate13InfoList as cate13Info>
                                             <div class="dNewsLeft">
-                                                <a href="/info/${cate13Info.id}" target="_blank" title="${cate13Info.title}">${cate13Info.content}</a>
+                                                <a href="/info/${cate13Info.id}" target="_blank" title="${cate13Info.title}">${cate13Info.title}</a>
                                             </div>
                                             <div  class="dNewsRight">${cate13Info.addTime?date}</div>
                                         </#list>
@@ -137,7 +137,7 @@
                                     <ul>
                                         <#list cate22InfoList as cate22Info>
                                             <div class="dNewsLeft">
-                                                <a href="/info/${cate22Info.id}" target="_blank" title="${cate22Info.title}">${cate22Info.content}</a>
+                                                <a href="/info/${cate22Info.id}" target="_blank" title="${cate22Info.title}">${cate22Info.title}</a>
                                             </div>
                                             <div  class="dNewsRight">${cate22Info.addTime?date}</div>
                                         </#list>
@@ -228,7 +228,7 @@
                                 <ul>
                                     <#list cate15InfoList as cate15Info>
                                         <div class="dNewsLeft">
-                                            <a href="/info/${cate15Info.id}" target="_blank" title="${cate15Info.title}">${cate15Info.content}</a>
+                                            <a href="/info/${cate15Info.id}" target="_blank" title="${cate15Info.title}">${cate15Info.title}</a>
                                         </div>
                                         <div  class="dNewsRight">${cate15Info.addTime?date}</div>
                                     </#list>
@@ -243,7 +243,7 @@
                                 <ul>
                                     <#list cate17InfoList as cate17Info>
                                         <div class="dNewsLeft">
-                                            <a href="/info/${cate17Info.id}" target="_blank" title="${cate17Info.title}">${cate17Info.content}</a>
+                                            <a href="/info/${cate17Info.id}" target="_blank" title="${cate17Info.title}">${cate17Info.title}</a>
                                         </div>
                                         <div  class="dNewsRight">${cate17Info.addTime?date}</div>
                                     </#list>

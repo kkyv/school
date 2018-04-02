@@ -24,6 +24,13 @@ public class Info implements Serializable{
 
     private Integer cateId;
 
+    private String cateGroup;
+
+    /**
+     * 0正常 1冻结
+     */
+    private Integer state;
+
     public Update getUpdate(){
         Update update = new Update();
         if(StringUtil.isNotEmpty(title)){
@@ -31,6 +38,9 @@ public class Info implements Serializable{
         }
         if(StringUtil.isNotEmpty(content)) {
             update.addToSet("content", content);
+        }
+        if(StringUtil.isNotEmpty(cateGroup)) {
+            update.addToSet("cateGroup", cateGroup);
         }
         if(cateId != null){
             update.addToSet("cateId", cateId);

@@ -1,7 +1,6 @@
 package cn.allene.school.services.impl;
 
 import cn.allene.school.dao.Dao;
-import cn.allene.school.dao.mapper.BaseMapper;
 import cn.allene.school.exp.SchoolException;
 import cn.allene.school.po.condition.BaseCondition;
 import cn.allene.school.services.BaseService;
@@ -13,40 +12,40 @@ import java.util.List;
 public abstract class BaseServiceImpl<T, PK, C extends BaseCondition<PK>, M extends Dao<T, PK, C>> implements BaseService<T, PK, C> {
 
     @Autowired
-    private M dao;
+    private M baseMapper;
 
     @Override
     public T query(PK id) throws SchoolException {
-        return dao.select(id);
+        return baseMapper.select(id);
     }
 
     @Override
     public List<T> queryList(C condition) throws SchoolException {
         PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
-        return dao.selectList(condition);
+        return baseMapper.selectList(condition);
     }
 
     @Override
     public int queryCount(C condition) throws SchoolException {
-        return dao.count(condition);
+        return baseMapper.count(condition);
     }
 
     @Override
     public int update(T po) throws SchoolException {
-        return dao.update(po);
+        return baseMapper.update(po);
     }
 
     @Override
     public void insert(T po) throws SchoolException {
-        dao.insert(po);
+        baseMapper.insert(po);
     }
 
     @Override
     public void delete(PK id) throws SchoolException {
-        dao.delete(id);
+        baseMapper.delete(id);
     }
 
     public M getMapper(){
-        return this.dao;
+        return this.baseMapper;
     }
 }

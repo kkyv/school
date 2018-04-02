@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 
 @SpringBootApplication
-@ComponentScan(value = {"cn.allene.school.dao.mongo","cn.allene.school.controller","cn.allene.school.services"})
+//@ComponentScan(value = {"cn.allene.school.dao.mongo","cn.allene.school.controller","cn.allene.school.services","cn.allene.school.conf"})
 @MapperScan("cn.allene.school.dao.mapper")
 //tomcat启动(必须继承自SpringBootServletInitializer)
 public class SchoolApplication extends SpringBootServletInitializer{

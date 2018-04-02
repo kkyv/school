@@ -3,6 +3,7 @@ package cn.allene.school.po.condition;
 import java.util.Date;
 import java.util.List;
 
+import cn.allene.school.contacts.Contacts;
 import com.github.pagehelper.util.StringUtil;
 import lombok.Data;
 import lombok.AllArgsConstructor;
@@ -27,15 +28,15 @@ public class InfoCondition extends BaseMongoCondition<String> {
 	*/
 	private String content;
 	/**
-	 * 最小
-	*/
+	 *
+	 */
 	private Date minAddTime;
 	/**
-	 * 最大
+	 *
 	*/
 	private Date maxAddTime;
 	/**
-	 * 浏览次数
+	 *
 	*/
 	private Integer total;
 	/**
@@ -44,6 +45,10 @@ public class InfoCondition extends BaseMongoCondition<String> {
 	private Integer cateId;
 
 	private List<Integer> cateIdList;
+
+	private String cateGroup;
+
+	private Integer state = Contacts.State.Yes;
 
 	public InfoCondition(Integer cateId) {
 		this.cateId = cateId;
@@ -63,6 +68,9 @@ public class InfoCondition extends BaseMongoCondition<String> {
 		if(StringUtil.isNotEmpty(content)){
 			query.addCriteria(Criteria.where("title").regex(content));
 		}
+		if(StringUtil.isNotEmpty(cateGroup)){
+			query.addCriteria(Criteria.where("cateGroup").is(cateGroup));
+		}
 		if(minAddTime != null){
 			query.addCriteria(Criteria.where("addTime").gte(minAddTime));
 		}
@@ -70,11 +78,10 @@ public class InfoCondition extends BaseMongoCondition<String> {
 			query.addCriteria(Criteria.where("addTime").lte(maxAddTime));
 		}
 		if(!CollectionUtils.isEmpty(cateIdList)){
-			Criteria criteria = new Criteria();
-			for(Integer cate : cateIdList){
-				criteria.orOperator(Criteria.where("cateId").is(cate));
-			}
-			query.addCriteria(criteria);
+			query.addCriteria(Criteria.where("cateId").in(cateIdList));
+		}
+		if(state != null){
+			query.addCriteria(Criteria.where("state").is(state));
 		}
 	}
 }
