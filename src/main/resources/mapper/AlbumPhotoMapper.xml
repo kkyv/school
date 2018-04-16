@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.allene.school.dao.mapper.AlbumPhotoMapper">
+
+
+	<resultMap id="AlbumPhotoPo" type="cn.allene.school.po.AlbumPhotoPo">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="album_id" property="albumId" jdbcType="INTEGER"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="photo_id" property="photoId" jdbcType="VARCHAR"/>
+		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="fieldSql">
+		 t.id
+		,t.album_id
+		,t.name
+		,t.photo_id
+		,t.add_time
+	</sql>
+
+	<sql id="whereSql">
+		<if test="id != null">
+			AND t.id = #{id,jdbcType = INTEGER}
+		</if>
+		<if test="idList != null">
+			AND 
+			<foreach collection="idList" item="idItem" open="(" close=")" separator="OR">
+				t.id = #{idItem,jdbcType = INTEGER}
+			</foreach>
+		</if>
+		<if test="albumIdList != null">
+			AND
+			<foreach collection="albumIdList" item="albumId" open="(" close=")" separator="OR">
+				t.album_id = #{albumId,jdbcType = INTEGER}
+			</foreach>
+		</if>
+		<if test="albumId != null">
+			AND t.album_id = #{albumId,jdbcType = INTEGER}
+		</if>
+		<if test="photoId != null and photoId != ''">
+			AND t.photo_id = #{photoId,jdbcType = VARCHAR}
+		</if>
+		<if test="name != null and name != ''">
+			AND t.name LIKE concat('%', #{name}, '%')
+		</if>
+		<if test="minAddTime != null">
+			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="maxAddTime != null">
+			AND t.add_time &lt;= #{maxAddTime,jdbcType = TIMESTAMP}
+		</if>
+	</sql>
+
+	<select id="select" parameterType="Integer" resultMap="AlbumPhotoPo">
+		SELECT 
+		<include refid="fieldSql"/>
+		  FROM album_photo t 
+		 WHERE t.id = #{id,jdbcType = INTEGER} 
+	</select>
+
+	<select id="count" parameterType="cn.allene.school.po.condition.AlbumPhotoCondition" resultType="Integer" >
+		SELECT 
+			count(1)
+		  FROM album_photo t 
+		<where>
+			<include refid="whereSql"/>
+		</where>
+	</select>
+
+	<select id="selectList" parameterType="cn.allene.school.po.condition.AlbumPhotoCondition" resultMap="AlbumPhotoPo">
+		SELECT 
+		<include refid="fieldSql"/>
+		  FROM album_photo t 
+		<where>
+			<include refid="whereSql"/>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="cn.allene.school.po.AlbumPhotoPo">
+		INSERT INTO album_photo(  
+			id
+		<if test="albumId != null">
+			,album_id
+		</if>
+		<if test="photoId != null">
+			,photo_id
+		</if>
+		<if test="name != null">
+			,name
+		</if>
+		<if test="addTime != null">
+			,add_time
+		</if>
+		)
+		VALUES( 
+			#{id,jdbcType=INTEGER}
+		<if test="albumId != null">
+			,#{albumId,jdbcType=INTEGER}
+		</if>
+		<if test="photoId != null">
+			,#{photoId,jdbcType=VARCHAR}
+		</if>
+		<if test="name != null">
+			,#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="addTime != null">
+			,#{addTime,jdbcType=TIMESTAMP}
+		</if>
+		)
+	</insert>
+
+	<update id="update" parameterType="cn.allene.school.po.AlbumPhotoPo">
+		UPDATE album_photo t
+		 <set>
+		    <if test="albumId != null">
+			    t.album_id = #{albumId,jdbcType = INTEGER}, 
+		    </if>
+		    <if test="photoId != null">
+			    t.photo_id = #{photoId,jdbcType = VARCHAR}, 
+		    </if>
+			 <if test="name != null">
+				 t.name = #{name,jdbcType = VARCHAR},
+			 </if>
+			 <if test="addTime != null">
+				 t.add_time = #{addTime,jdbcType = TIMESTAMP},
+			 </if>
+	    </set>
+		 WHERE t.id= #{id,jdbcType = INTEGER}
+	</update>
+
+	<delete id="delete" parameterType="Integer">
+		 DELETE FROM album_photo
+		  WHERE id = #{id,jdbcType=INTEGER} 
+	</delete>
+</mapper>

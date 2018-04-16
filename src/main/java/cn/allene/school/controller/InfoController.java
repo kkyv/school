@@ -1,6 +1,5 @@
 package cn.allene.school.controller;
 
-import cn.allene.school.annatation.AdminLogin;
 import cn.allene.school.contacts.InfoCateEnum;
 import cn.allene.school.exp.SchoolException;
 import cn.allene.school.po.Info;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -25,7 +23,6 @@ public class InfoController extends BaseController<Info, String, InfoCondition, 
 
     @RequestMapping("/list/{cateId}")
     public String queryList( @PathVariable("cateId") Integer cateId) throws SchoolException {
-        this.queryCate();
 
         if(cateId.equals(InfoCateEnum.CATE_14.getId())){
             return "redirect:/class/list";
@@ -37,14 +34,15 @@ public class InfoController extends BaseController<Info, String, InfoCondition, 
             return "info";
         }
 
-        InfoCate infoCate = infoCateService.query(cateId);
-        getModel().addAttribute("infoCate", infoCate);
         return "infoList";
     }
 
     @RequestMapping("/{id}")
     public String info( @PathVariable("id") String id) throws SchoolException {
         Info info = this.getService().query(id);
+        //异步更新浏览
+        info.setTotal(info.getTotal() + 1);
+        this.getService().asyncUpdate(info);
         getModel().addAttribute("info", info);
         return "info";
     }

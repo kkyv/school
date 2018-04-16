@@ -8,4 +8,6 @@ import java.lang.annotation.RetentionPolicy;
 @Inherited
 public @interface Prefix {
     String value() default "";
+
+    boolean appenPrefix() default true;
 }

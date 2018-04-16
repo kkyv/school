@@ -13,16 +13,10 @@
             </dd>
         </dl>
         <dl id="menu-member">
-            <dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dt><i class="Hui-iconfont">&#xe60d;</i> 幼儿管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="member-list.html" title="会员列表">会员列表</a></li>
-                    <li><a href="member-del.html" title="删除的会员">删除的会员</a></li>
-                    <li><a href="member-level.html" title="等级管理">等级管理</a></li>
-                    <li><a href="member-scoreoperation.html" title="积分管理">积分管理</a></li>
-                    <li><a href="member-record-browse.html" title="浏览记录">浏览记录</a></li>
-                    <li><a href="member-record-download.html" title="下载记录">下载记录</a></li>
-                    <li><a href="member-record-share.html" title="分享记录">分享记录</a></li>
+                    <li><a href="/child/child/list" title="幼儿列表">幼儿列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -30,7 +24,14 @@
             <dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="article-list.html" title="资讯管理">资讯管理</a></li>
+                    <#list cateGroupMap?keys as key>
+                        <#assign cate = cateGroupMap['${key}']>
+                        <#if cate.firstId = 0>
+                            <#if cate.id != 1 && cate.id != 4 && cate.id != 8>
+                                <li><a href="/info/${cate.id}/infoList" title="${cate.name}">${cate.name}</a></li>
+                            </#if>
+                        </#if>
+                    </#list>
                 </ul>
             </dd>
         </dl>
@@ -38,7 +39,8 @@
             <dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="picture-list.html" title="图片管理">图片管理</a></li>
+                    <li><a href="/album/photo/list" title="图片管理">图片管理</a></li>
+                    <li><a href="/album/album/list" title="相册管理">相册管理</a></li>
                 </ul>
             </dd>
         </dl>

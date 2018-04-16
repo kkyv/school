@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -19,6 +20,9 @@ import org.springframework.util.StringUtils;
 @Data
 public class InfoCondition extends BaseMongoCondition<String> {
 
+	private String id;
+
+	private List<String> idList;
 	/**
 	 * 
 	*/
@@ -30,10 +34,12 @@ public class InfoCondition extends BaseMongoCondition<String> {
 	/**
 	 *
 	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date minAddTime;
 	/**
 	 *
 	*/
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date maxAddTime;
 	/**
 	 *
@@ -43,11 +49,17 @@ public class InfoCondition extends BaseMongoCondition<String> {
 	 * 
 	*/
 	private Integer cateId;
-
+	/**
+	 *
+	 */
 	private List<Integer> cateIdList;
-
-	private String cateGroup;
-
+	/**
+	 *
+	 */
+	private Integer cateGroup;
+	/**
+	 *
+	 */
 	private Integer state = Contacts.State.Yes;
 
 	public InfoCondition(Integer cateId) {
@@ -66,17 +78,23 @@ public class InfoCondition extends BaseMongoCondition<String> {
 			query.addCriteria(Criteria.where("title").regex(title));
 		}
 		if(StringUtil.isNotEmpty(content)){
-			query.addCriteria(Criteria.where("title").regex(content));
+			query.addCriteria(Criteria.where("content").regex(content));
 		}
-		if(StringUtil.isNotEmpty(cateGroup)){
+		if(null != cateGroup){
 			query.addCriteria(Criteria.where("cateGroup").is(cateGroup));
 		}
-		if(minAddTime != null){
-			query.addCriteria(Criteria.where("addTime").gte(minAddTime));
+
+		if(minAddTime != null || maxAddTime != null){
+			Criteria addTimeCriteria = Criteria.where("addTime");
+			if(minAddTime != null){
+				addTimeCriteria.gte(minAddTime);
+			}
+			if(maxAddTime != null){
+				addTimeCriteria.lte(maxAddTime);
+			}
+			query.addCriteria(addTimeCriteria);
 		}
-		if(maxAddTime != null){
-			query.addCriteria(Criteria.where("addTime").lte(maxAddTime));
-		}
+
 		if(!CollectionUtils.isEmpty(cateIdList)){
 			query.addCriteria(Criteria.where("cateId").in(cateIdList));
 		}

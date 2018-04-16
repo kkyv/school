@@ -1,6 +1,5 @@
 package cn.allene.school.conf;
 
-import cn.allene.school.SchoolInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -12,4 +11,6 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
         registry.addInterceptor(new SchoolInterceptor()).addPathPatterns("/**");
         super.addInterceptors(registry);
     }
+
+
 }

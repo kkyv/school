@@ -55,16 +55,16 @@
                         <div class="ctlf fl">
                             <div class="ctlftop">
                                 <div class="loginbox" id="dlogin">
-                                    <#if child??>
+                                    <#if (child.id)??>
                                         <p>
-                                            <span>${child.nickname}</span>
-                                            <a href="/child/logout/${child.id}">退出登录</a>
+                                            <span>${child.nickname!}</span>
+                                            <a href="/child/logout/${child.id!}">退出登录</a>
                                         </p>
                                         <a href="/class/${child.classId}" target="_blank">进入班级主页</a>
                                     <#else>
                                         <div class="dlname">
                                             <div class="fl">
-                                                用户名：<input type="text" id="username" name="username" class="txtiput" onkeyup="if(event.keyCode==13 && this.value.trim()!=''){document.all.password.focus()}" />
+                                                用户名：<input type="text" value="${request.contextPath}" id="username" name="username" class="txtiput" onkeyup="if(event.keyCode==13 && this.value.trim()!=''){document.all.password.focus()}" />
                                             </div>
                                         </div>
                                         <div class="dlpassw">
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="wxtsbox">
                                     <marquee scrollamount="1" direction="up" onmouseover="this.stop();" onmouseout="this.start();">
-                                        ${prompt.content}
+                                        ${(prompt.content)!}
                                     </marquee>
                                 </div>
                             </div>
@@ -166,55 +166,15 @@
                             <div id="con">
                                 <div class="bottomcover" style="z-index:2;"></div>
                                 <ul>
-                                    <li>
-                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
-                                        <div class="div_right">
-                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：唉，总是在越忙的时候事情越多。。。我的神曲你在哪里呀~~~亲耐滴你再不出来你就木有人疼了！！#248#ds公司疯狗萨哥官方身上轧人挪活
-                                            <div class="twit_item_time">3分钟前</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
-                                        <div class="div_right">
-                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：看来今天收到礼品的亲们不少哦~
-                                            <div class="twit_item_time">13分钟前</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
-                                        <div class="div_right">
-                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：【打扰了，@EsonLong_摄视度，微博网友请您帮助】&ldquo; 请问係广州有冇鸿福堂吖？想试试啊，平时静係 ...&rdquo;帮助回答请点击http://www.htmleaf.com ，谢谢！[不想被求助点击http://www.htmleaf.com ]
-                                            <div class="twit_item_time">16分钟前</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
-                                        <div class="div_right">
-                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：【新型电话骗局盯上有线电视用户】一些市民接到陌生电话，提醒自家的宽带和有线电视就要到期了，在两小时内不续费就要被断网。警方提醒，这是一种新的电话骗局方式，骗子的最终目的是让受害人把资金转移到所谓的&ldquo;安全账户&rdquo;里。警方提醒大家万一遇到类似情况，可以拨打正规客服电话咨询哦。
-                                            <div class="twit_item_time">17分钟前</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
-                                        <div class="div_right">
-                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：【什么时候才能看见外星人啊】《西班牙渔夫意外拍的军方与飞碟UFO对峙》  http://www.htmleaf.com  （分享自 @土豆网）
-                                            <div class="twit_item_time">18分钟前</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
-                                        <div class="div_right">
-                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：小小骑手牵着小小马儿。你俩是来参加卖萌大赛的吧！！！！
-                                            <div class="twit_item_time">22分钟前</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="div_left"><a href="http://www.htmleaf.com/"><img src="img/head.jpg" title="Jarvis_风"></a></div>
-                                        <div class="div_right">
-                                            <a href="http://www.htmleaf.com/" target="_blank">Jarvis_风</a>：学会沉默，至少平静。有时候，被人误解，不想争辩，所以选择沉默。本来就不是所有人都得了解你，因此不必对全世界喊话。生命中往往有连舒伯特都无言以对的时刻，毕竟不是所有的是非都能条列清楚，甚至可能根本没有真正的是与非。那么，不想说话，就不说吧，在多说无益的时候，也许沉默就是最好的解释。
-                                            <div class="twit_item_time">1小时前</div>
-                                        </div>
-                                    </li>
+                                    <#list msgList as msg>
+                                        <li>
+                                            <div class="div_left"><a href="javascript:;"><img src="img/head.jpg" title="${msg.name}"></a></div>
+                                            <div class="div_right">
+                                                <a href="javascript:;" target="_blank">${msg.name}</a>：<#if (msg.title)??>「 ${msg.title} 」</#if>${msg.content}
+                                                <div class="twit_item_time">3分钟前</div>
+                                            </div>
+                                        </li>
+                                    </#list>
                                 </ul>
                             </div>
                         </div>

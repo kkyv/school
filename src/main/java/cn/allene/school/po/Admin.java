@@ -1,6 +1,7 @@
 package cn.allene.school.po;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -22,5 +23,6 @@ public class Admin {
 
     private Integer state;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date addTime;
 }

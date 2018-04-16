@@ -1,6 +1,7 @@
 package cn.allene.school.dao;
 
 import cn.allene.school.exp.SchoolException;
+import cn.allene.school.po.Info;
 import cn.allene.school.po.condition.BaseCondition;
 
 import java.util.List;
@@ -15,9 +16,11 @@ public interface Dao<T, PK, C extends BaseCondition> {
 
     int count(C condition) throws SchoolException;
 
-    void insert(T po) throws SchoolException;
+    PK insert(T po) throws SchoolException;
 
     int update(T po) throws SchoolException;
 
     int delete(PK id) throws SchoolException;
+
+    void updateOrInsert(C condition, T po) throws SchoolException;
 }

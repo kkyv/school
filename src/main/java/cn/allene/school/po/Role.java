@@ -1,6 +1,7 @@
 package cn.allene.school.po;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ public class Role {
 
     private String desc;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date addTime;
 
     private String access;

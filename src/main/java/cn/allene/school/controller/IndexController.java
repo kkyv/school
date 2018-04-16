@@ -3,29 +3,19 @@ package cn.allene.school.controller;
 import cn.allene.school.contacts.Contacts;
 import cn.allene.school.contacts.InfoCateEnum;
 import cn.allene.school.exp.SchoolException;
-import cn.allene.school.po.Admin;
+import cn.allene.school.po.*;
 import cn.allene.school.po.Class;
-import cn.allene.school.po.Info;
-import cn.allene.school.po.InfoCate;
-import cn.allene.school.po.condition.AdminCondition;
-import cn.allene.school.po.condition.ClassCondition;
-import cn.allene.school.po.condition.InfoCateCondition;
-import cn.allene.school.po.condition.InfoCondition;
-import cn.allene.school.services.AdminService;
-import cn.allene.school.services.ClassService;
-import cn.allene.school.services.InfoCateService;
-import cn.allene.school.services.InfoService;
+import cn.allene.school.po.condition.*;
+import cn.allene.school.services.*;
 import cn.allene.school.utils.CollectionUtils;
 import cn.allene.school.utils.MD5Utils;
-import cn.allene.school.vo.InfoCateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.lang.reflect.Field;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,14 +25,16 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
     @Autowired
     private InfoService infoService;
     @Autowired
+    private InfoCateService infoCateService;
+    @Autowired
     private ClassService classService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private MsgService msgService;
 
     @RequestMapping("/")
-    public String index() throws SchoolException {
-
-        this.queryCate();
+    public String index(Model model) throws SchoolException {
 
         InfoCondition infoCondition = new InfoCondition();
         List<Integer> cateIdList = new ArrayList<>();
@@ -74,12 +66,19 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
         List<Class> classList = classService.queryList(new ClassCondition());
         getModel().addAttribute(classList);
 
+        //msg
+        MsgCondition msgCondition = new MsgCondition();
+        msgCondition.setPageSize(10);
+        msgCondition.setStatus(Contacts.State.Yes);
+        List<Msg> msgList = msgService.queryList(msgCondition);
+        getModel().addAttribute("msgList", msgList);
+
         return "index";
     }
 
 
     @RequestMapping("/admin/login")
-    public String login(Admin admin) throws SchoolException {
+    public String login(HttpServletRequest request, Admin admin) throws SchoolException {
         if(getPo().getId() == null){
             return "login";
         }
@@ -92,8 +91,8 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
             return "login";
         }
 
-        String prePage = (String) getRequest().getSession().getAttribute("prePage");
-        this.getRequest().getSession().setAttribute(Contacts.Session.ADMIN, this.getPo());
+        String prePage = (String) request.getSession().getAttribute("prePage");
+        request.getSession().setAttribute(Contacts.Session.ADMIN, this.getPo());
         if(!StringUtils.isEmpty(prePage)){
             return "redirect:" + prePage;
         }else{

@@ -12,12 +12,11 @@
 	<body>
 		<div class="dbody">
         <div class="dsize">
-			<#include "include/head.ftl"/>
+			<#include ""/>
             <div class="midlbox">
             	<div class="centbox">
             		<div class="midlbox-title">
-            			<span>园所新闻</span>
-            			
+                        <a href="#">${infoCate.name}</a>
             		</div>
             		<hr style="border:3 double #BB6900" width="90%" color="#BB6900" size=3>
             		<div class="midlbox-content">

@@ -4,6 +4,7 @@ import cn.allene.school.dao.Dao;
 import cn.allene.school.exp.SchoolException;
 import cn.allene.school.po.condition.BaseCondition;
 import cn.allene.school.services.BaseService;
+import cn.allene.school.utils.CollectionUtils;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +22,7 @@ public abstract class BaseServiceImpl<T, PK, C extends BaseCondition<PK>, M exte
 
     @Override
     public List<T> queryList(C condition) throws SchoolException {
-        PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
+//        PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
         return baseMapper.selectList(condition);
     }
 
@@ -36,13 +37,23 @@ public abstract class BaseServiceImpl<T, PK, C extends BaseCondition<PK>, M exte
     }
 
     @Override
-    public void insert(T po) throws SchoolException {
-        baseMapper.insert(po);
+    public PK insert(T po) throws SchoolException {
+        return baseMapper.insert(po);
     }
 
     @Override
     public void delete(PK id) throws SchoolException {
         baseMapper.delete(id);
+    }
+
+    @Override
+    public void updateOrInsert(C condition, T po) throws SchoolException {
+        List<T> selectList = baseMapper.selectList(condition);
+        if(CollectionUtils.isNotEmpty(selectList)){
+            baseMapper.update(po);
+        }else {
+            baseMapper.insert(po);
+        }
     }
 
     public M getMapper(){

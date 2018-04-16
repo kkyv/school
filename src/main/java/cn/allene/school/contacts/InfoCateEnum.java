@@ -18,9 +18,9 @@ public enum InfoCateEnum {
     CATE_22(22, "园所通知", 2)
     ;
 
-    Integer firstId;
     Integer id;
     String name;
+    Integer firstId;
 
     InfoCateEnum(Integer id, String name, Integer firstId) {
         this.id = id;

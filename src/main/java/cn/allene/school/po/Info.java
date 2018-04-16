@@ -3,10 +3,12 @@ package cn.allene.school.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import cn.allene.school.contacts.Contacts;
 import com.github.pagehelper.util.StringUtil;
 import com.mongodb.DBObject;
 import lombok.Data;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class Info implements Serializable{
@@ -16,40 +18,45 @@ public class Info implements Serializable{
 
     private String content;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date addTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastTime;
 
     private Integer total;
 
     private Integer cateId;
 
-    private String cateGroup;
+    private Integer cateGroup;
 
     /**
-     * 0正常 1冻结
+     * 0草稿 1发布
      */
-    private Integer state;
+    private Integer state = Contacts.State.Yes;
 
     public Update getUpdate(){
         Update update = new Update();
         if(StringUtil.isNotEmpty(title)){
-            update.addToSet("title", title);
+            update.set("title", title);
         }
         if(StringUtil.isNotEmpty(content)) {
-            update.addToSet("content", content);
+            update.set("content", content);
         }
-        if(StringUtil.isNotEmpty(cateGroup)) {
-            update.addToSet("cateGroup", cateGroup);
+        if(null != cateGroup) {
+            update.set("cateGroup", cateGroup);
         }
         if(cateId != null){
-            update.addToSet("cateId", cateId);
+            update.set("cateId", cateId);
         }
         if(lastTime != null){
-            update.addToSet("cateId", cateId);
+            update.set("lastTime", lastTime);
         }
         if(total != null){
-            update.addToSet("total", total);
+            update.set("total", total);
+        }
+        if(state != null){
+            update.set("state", state);
         }
         return update;
     }

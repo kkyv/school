@@ -1,12 +1,12 @@
 ﻿<#include "../include/meta.ftl"/>
 
 <article class="cl pd-20">
-    <#if role.id??>
+    <#if (role.id)??>
         <form action="/admin/admin/editRole" method="post" class="form form-horizontal" id="form-admin-role-add">
     <#else>
         <form action="/admin/admin/addRole" method="post" class="form form-horizontal" id="form-admin-role-add">
     </#if>
-        <input name="id" id="id" value="${role.id!}" type="hidden">
+        <input name="id" id="id" value="${(role.id)!}" type="hidden">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">

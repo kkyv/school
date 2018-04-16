@@ -1,5 +1,6 @@
 package cn.allene.school.po.condition;
 
+import cn.allene.school.contacts.Contacts;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -23,9 +24,10 @@ public class MsgCondition extends BaseCondition<Integer> {
 	/**
 	 * 
 	*/
-	private String status;
+	private Integer status = Contacts.State.Yes;
 	/**
 	 * 
 	*/
-	private Integer childId;
+	private Integer name;
+
 }

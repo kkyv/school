@@ -12,6 +12,8 @@ public class Child {
 
     private String nickname;
 
+    private String addr;
+
     private Date addTime;
 
     private Date birthday;

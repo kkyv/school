@@ -10,7 +10,9 @@
 		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
 		<result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
 		<result column="sex" property="sex" jdbcType="VARCHAR"/>
+		<result column="addr" property="addr" jdbcType="VARCHAR"/>
 		<result column="class_id" property="classId" jdbcType="INTEGER"/>
+		<result column="state" property="state" jdbcType="INTEGER"/>
 		<result column="photo" property="photo" jdbcType="VARCHAR"/>
 	</resultMap>
 
@@ -20,9 +22,11 @@
 		,t.nickname
 		,t.add_time
 		,t.birthday
+		,t.addr
 		,t.sex
 		,t.class_id
 		,t.photo
+		,t.state
 	</sql>
 
 	<sql id="whereSql">
@@ -50,11 +54,17 @@
 		<if test="sex != null and sex != ''">
 			AND t.sex = #{sex,jdbcType = VARCHAR}
 		</if>
+		<if test="addr != null and addr != ''">
+			AND t.addr = #{addr,jdbcType = VARCHAR}
+		</if>
 		<if test="classId != null">
 			AND t.class_id = #{classId,jdbcType = INTEGER}
 		</if>
 		<if test="photo != null">
-			AND t.photo = #{photo,jdbcType = INTEGER}
+			AND t.photo = #{photo,jdbcType = VARCHAR}
+		</if>
+		<if test="state != null">
+			AND t.state = #{state,jdbcType = INTEGER}
 		</if>
 	</sql>
 
@@ -99,11 +109,17 @@
 		<if test="sex != null">
 			,sex
 		</if>
+		<if test="addr != null">
+			,addr
+		</if>
 		<if test="classId != null">
 			,class_id
 		</if>
 		<if test="photo != null">
 			,photo
+		</if>
+		<if test="state != null">
+			,state
 		</if>
 		)
 		VALUES( 
@@ -123,11 +139,17 @@
 		<if test="sex != null">
 			,#{sex,jdbcType=VARCHAR}
 		</if>
+		<if test="addr != null">
+			,#{addr,jdbcType=VARCHAR}
+		</if>
 		<if test="classId != null">
 			,#{classId,jdbcType=INTEGER}
 		</if>
 		<if test="photo != null">
 			,#{photo,jdbcType=VARCHAR}
+		</if>
+		<if test="state != null">
+			,#{state,jdbcType=VARCHAR}
 		</if>
 		)
 	</insert>
@@ -150,11 +172,17 @@
 		    <if test="sex != null">
 			    t.sex = #{sex,jdbcType = VARCHAR}, 
 		    </if>
+			 <if test="addr != null">
+				 t.addr = #{addr,jdbcType = VARCHAR},
+			 </if>
 		    <if test="classId != null">
 			    t.class_id = #{classId,jdbcType = INTEGER}, 
 		    </if>
 			 <if test="photo != null">
 				 t.photo = #{photo,jdbcType = VARCHAR},
+			 </if>
+			 <if test="state != null">
+				 t.state = #{state,jdbcType = VARCHAR},
 			 </if>
 	    </set>
 		 WHERE t.id= #{id,jdbcType = VARCHAR}

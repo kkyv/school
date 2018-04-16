@@ -12,6 +12,7 @@
 		<result column="news" property="news" jdbcType="VARCHAR"/>
 		<result column="browse" property="browse" jdbcType="VARCHAR"/>
 		<result column="pic" property="pic" jdbcType="VARCHAR"/>
+		<result column="state" property="state" jdbcType="INTEGER"/>
 	</resultMap>
 
 	<sql id="fieldSql">
@@ -23,6 +24,7 @@
 		,t.news
 		,t.browse
 		,t.pic
+		,t.state
 	</sql>
 
 	<sql id="whereSql">
@@ -52,6 +54,9 @@
 		</if>
 		<if test="pic != null and pic != ''">
 			AND t.pic = #{pic,jdbcType = VARCHAR}
+		</if>
+		<if test="pic != null">
+			AND t.state = #{state,jdbcType = INTEGER}
 		</if>
 		<if test="minAddTime != null">
 			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
@@ -109,6 +114,9 @@
 		<if test="pic != null">
 			,pic
 		</if>
+		<if test="state != null">
+			,state
+		</if>
 		<if test="addTime != null">
 			,add_time
 		</if>
@@ -132,6 +140,9 @@
 		</if>
 		<if test="pic != null">
 			,#{pic,jdbcType=VARCHAR}
+		</if>
+		<if test="state != null">
+			,#{state,jdbcType=VARCHAR}
 		</if>
 		<if test="addTime != null">
 			,#{addTime,jdbcType=TIMESTAMP}
@@ -159,6 +170,9 @@
 			 </if>
 			 <if test="pic != null">
 				 t.pic = #{pic,jdbcType=VARCHAR}
+			 </if>
+			 <if test="state != null">
+				 t.state = #{state,jdbcType=VARCHAR}
 			 </if>
 		    <if test="addTime != null">
 			    t.add_time = #{addTime,jdbcType = TIMESTAMP}, 

@@ -2,6 +2,7 @@ package cn.allene.school.services;
 
 import cn.allene.school.exp.SchoolException;
 import cn.allene.school.po.condition.BaseCondition;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 
@@ -17,8 +18,10 @@ public interface Service<T, PK, C extends BaseCondition<PK>> {
 
     int update(T po) throws SchoolException;
 
-    void insert(T po) throws SchoolException;
+    PK insert(T po) throws SchoolException;
 
     void delete(PK id) throws SchoolException;
+
+    void updateOrInsert(C condition, T po) throws SchoolException;
 }
 

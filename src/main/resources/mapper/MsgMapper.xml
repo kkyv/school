@@ -10,7 +10,7 @@
 		<result column="phone" property="phone" jdbcType="VARCHAR"/>
 		<result column="time" property="time" jdbcType="TIMESTAMP"/>
 		<result column="status" property="status" jdbcType="VARCHAR"/>
-		<result column="child_id" property="childId" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<sql id="fieldSql">
@@ -20,7 +20,7 @@
 		,t.phone
 		,t.time
 		,t.status
-		,t.child_id
+		,t.name
 	</sql>
 
 	<sql id="whereSql">
@@ -28,7 +28,7 @@
 			AND t.id = #{id,jdbcType = INTEGER}
 		</if>
 		<if test="idList != null">
-			AND 
+			AND
 			<foreach collection="idList" item="idItem" open="(" close=")" separator="OR">
 				t.id = #{idItem,jdbcType = INTEGER}
 			</foreach>
@@ -45,41 +45,41 @@
 		<if test="status != null and status != ''">
 			AND t.status = #{status,jdbcType = VARCHAR}
 		</if>
-		<if test="childId != null and childId != ''">
-			AND t.child_id = #{childId,jdbcType = VARCHAR}
+		<if test="name != null and name != ''">
+			AND t.name = #{name,jdbcType = VARCHAR}
 		</if>
 	</sql>
 
 	<select id="select" parameterType="Integer" resultMap="MsgPo">
-		SELECT 
+		SELECT
 		<include refid="fieldSql"/>
-		  FROM msg t 
-		 WHERE t.id = #{id,jdbcType = INTEGER} 
+		FROM msg t
+		WHERE t.id = #{id,jdbcType = INTEGER}
 	</select>
 
 	<select id="count" parameterType="cn.allene.school.po.condition.MsgCondition" resultType="Integer" >
-		SELECT 
-			count(1)
-		  FROM msg t 
-		 WHERE 1=1
+		SELECT
+		count(1)
+		FROM msg t
+		WHERE 1=1
 		<include refid="whereSql"/>
 	</select>
 
 	<select id="selectList" parameterType="cn.allene.school.po.condition.MsgCondition" resultMap="MsgPo">
-		SELECT 
+		SELECT
 		<include refid="fieldSql"/>
-		  FROM msg t 
-		 WHERE 1=1
+		FROM msg t
+		WHERE 1=1
 		<include refid="whereSql"/>
 	</select>
 
 	<insert id="insert" parameterType="cn.allene.school.po.Msg">
 		<selectKey resultType="Integer" order="AFTER" keyProperty="id">
-				SELECT LAST_INSERT_ID()
+			SELECT LAST_INSERT_ID()
 		</selectKey>
 
-		INSERT INTO msg(  
-			id
+		INSERT INTO msg(
+		id
 		<if test="title != null">
 			,title
 		</if>
@@ -95,12 +95,12 @@
 		<if test="status != null">
 			,status
 		</if>
-		<if test="childId != null">
-			,child_id
+		<if test="name != null">
+			,name
 		</if>
 		)
-		VALUES( 
-			#{id,jdbcType=INTEGER}
+		VALUES(
+		#{id,jdbcType=INTEGER}
 		<if test="title != null">
 			,#{title,jdbcType=VARCHAR}
 		</if>
@@ -116,35 +116,35 @@
 		<if test="status != null">
 			,#{status,jdbcType=VARCHAR}
 		</if>
-		<if test="childId != null">
-			,#{childId,jdbcType=VARCHAR}
+		<if test="name != null">
+			,#{name,jdbcType=VARCHAR}
 		</if>
 		)
 	</insert>
 
 	<update id="update" parameterType="cn.allene.school.po.Msg">
 		UPDATE msg t
-		 <set>
-			 <if test="title != null">
-				 t.title = #{title,jdbcType = VARCHAR},
-			 </if>
-		    <if test="content != null">
-			    t.content = #{content,jdbcType = VARCHAR}, 
-		    </if>
-			 <if test="phone != null">
-				 t.phone = #{phone,jdbcType = VARCHAR},
-			 </if>
-		    <if test="time != null">
-			    t.time = #{time,jdbcType = TIMESTAMP}, 
-		    </if>
-		    <if test="status != null">
-			    t.status = #{status,jdbcType = VARCHAR}, 
-		    </if>
-		    <if test="childId != null">
-			    t.child_id = #{childId,jdbcType = VARCHAR},
-		    </if>
-	    </set>
-		 WHERE t.id= #{id,jdbcType = INTEGER}
+		<set>
+			<if test="title != null">
+				t.title = #{title,jdbcType = VARCHAR},
+			</if>
+			<if test="content != null">
+				t.content = #{content,jdbcType = VARCHAR},
+			</if>
+			<if test="phone != null">
+				t.phone = #{phone,jdbcType = VARCHAR},
+			</if>
+			<if test="time != null">
+				t.time = #{time,jdbcType = TIMESTAMP},
+			</if>
+			<if test="status != null">
+				t.status = #{status,jdbcType = VARCHAR},
+			</if>
+			<if test="name != null">
+				t.name = #{name,jdbcType = VARCHAR},
+			</if>
+		</set>
+		WHERE t.id= #{id,jdbcType = INTEGER}
 	</update>
 
 	<delete id="delete" parameterType="Integer">

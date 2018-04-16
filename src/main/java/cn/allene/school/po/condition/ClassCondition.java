@@ -4,18 +4,14 @@ import java.util.Date;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class ClassCondition extends BaseCondition<Integer> {
-	/**
-	 * 
-	*/
+
 	private String name;
-	/**
-	 * 最小
-	*/
 
 	private Integer adminId;
 
@@ -27,9 +23,11 @@ public class ClassCondition extends BaseCondition<Integer> {
 
 	private String pic;
 
+	private String state;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date minAddTime;
-	/**
-	 * 最大
-	*/
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date maxAddTime;
 }

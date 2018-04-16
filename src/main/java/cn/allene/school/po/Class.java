@@ -3,6 +3,7 @@ package cn.allene.school.po;
 import java.util.Date;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class Class {
@@ -20,5 +21,8 @@ public class Class {
 
     private String pic;
 
+    private Integer state;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date addTime;
 }

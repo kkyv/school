@@ -1,12 +1,19 @@
 package cn.allene.school.controller;
 
+import cn.allene.school.annatation.AdminLogin;
+import cn.allene.school.annatation.Prefix;
 import cn.allene.school.contacts.Contacts;
+import cn.allene.school.exp.AjaxException;
+import cn.allene.school.po.Class;
 import cn.allene.school.po.condition.ChildCondition;
 import cn.allene.school.exp.SchoolException;
 import cn.allene.school.po.Child;
+import cn.allene.school.po.condition.ClassCondition;
 import cn.allene.school.services.ChildService;
+import cn.allene.school.services.ClassService;
 import cn.allene.school.utils.MD5Utils;
 import cn.allene.school.vo.AjaxResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -15,11 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/child")
+@Prefix("admin/class/")
 public class ChildController extends BaseController<Child, String, ChildCondition, ChildService>{
+
+    @Autowired
+    private ClassService classService;
 
     @RequestMapping("/login")
     @ResponseBody
@@ -40,8 +55,70 @@ public class ChildController extends BaseController<Child, String, ChildConditio
 
     @RequestMapping("/logout/{id}")
     public String logout(HttpSession session, @PathVariable("id") String id){
-        session.removeAttribute("child");
+        session.removeAttribute(Contacts.Session.CHILD);
         return "redirect:/";
     }
 
+    @RequestMapping("/child/list")
+    @AdminLogin
+    public String list() throws SchoolException {
+        this.getCondition().setState(null);
+        List<Child> childList = this.getService().queryList(this.getCondition());
+        this.getModel().addAttribute("childList", childList);
+        List<Class> classList = classService.queryList(new ClassCondition());
+        Map<String, Class> classMap = classList.stream().collect(Collectors.toMap(m -> String.valueOf(m.getId()), Function.identity()));
+        this.getModel().addAttribute("classMap", classMap);
+        return "child_list";
+    }
+
+    @RequestMapping("/child/changeState")
+    @AdminLogin
+    @ResponseBody
+    public AjaxResult stateChange() throws AjaxException {
+        try {
+            this.getService().update(this.getPo());
+            return new AjaxResult();
+        } catch (SchoolException e) {
+            throw new AjaxException();
+        }
+    }
+
+    @RequestMapping({"/child/addPage","/child/editPage"})
+    @AdminLogin
+    public String addPage() throws SchoolException {
+        if(this.getPo().getId() != null){
+            Child child = this.getService().query(this.getPo().getId());
+            this.getModel().addAttribute("child", child);
+        }
+        return "child_add";
+    }
+
+    @RequestMapping("/child/add")
+    @AdminLogin
+    @ResponseBody
+    public AjaxResult add() throws AjaxException {
+        try {
+            Child child = this.getPo();
+            child.setAddTime(new Date());
+            child.setPassword(MD5Utils.MD5(child.getPassword()));
+            this.getService().insert(child);
+            return new AjaxResult();
+        } catch (SchoolException e) {
+            throw new AjaxException();
+        }
+    }
+
+    @RequestMapping("/child/edit")
+    @AdminLogin
+    @ResponseBody
+    public AjaxResult edit() throws AjaxException {
+        try {
+            Child child = this.getPo();
+            child.setPassword(MD5Utils.MD5(child.getPassword()));
+            this.getService().update(child);
+            return new AjaxResult();
+        } catch (SchoolException e) {
+            throw new AjaxException();
+        }
+    }
 }

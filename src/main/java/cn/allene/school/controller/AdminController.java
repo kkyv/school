@@ -21,6 +21,7 @@ import cn.allene.school.vo.AdminRoleNameVo;
 import cn.allene.school.vo.AdminRoleVo;
 import cn.allene.school.vo.AjaxResult;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,18 +48,18 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
     private AccessService accessService;
 
     @RequestMapping({"/addRolePage", "/editRolePage"})
-    public String addRolePage() throws SchoolException {
+    public String addRolePage(Model model) throws SchoolException {
         if(this.getPo().getId() != null){
             Role role = roleService.query(this.getPo().getId());
-            this.getModel().addAttribute("role", role);
+            model.addAttribute("role", role);
             if(!StringUtils.isEmpty(role.getAccess())){
                 List<String> adminAccessList = Stream.of(role.getAccess().split(",")).collect(Collectors.toList());
-                this.getModel().addAttribute("adminAccessList", adminAccessList);
+                model.addAttribute("adminAccessList", adminAccessList);
             }
         }
         List<Access> accessList = accessService.queryList(new AccessCondition());
         Map<String, Map<String, List<Access>>> allAccessMap = accessList.stream().collect(Collectors.groupingBy(Access::getModel, Collectors.groupingBy(Access::getGroup)));
-        this.getModel().addAttribute("allAccessMap", allAccessMap);
+        model.addAttribute("allAccessMap", allAccessMap);
         return "admin/role_add";
     }
     @RequestMapping({"/addAdminPage", "/editAdminPage"})
@@ -73,22 +74,22 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
     }
 
     @RequestMapping("/accessList")
-    public String access(String name) throws SchoolException {
+    public String access(Model model, String name) throws SchoolException {
         AccessCondition accessCondition = new AccessCondition();
         accessCondition.setName(name);
         List<Access> accessList = accessService.queryList(accessCondition);
-        this.getModel().addAttribute("accessList", accessList);
+        model.addAttribute("accessList", accessList);
         //回显
-        this.getModel().addAttribute("name", name);
+        model.addAttribute("name", name);
         return "admin/admin_access";
     }
     @RequestMapping({"/", "/index"})
-    public String  _index(){
+    public String  _index() throws SchoolException {
         return "index";
     }
 
     @RequestMapping("/adminList")
-    public String list() throws SchoolException {
+    public String list(Model model) throws SchoolException {
         List<Admin> adminList = this.getService().queryList(this.getCondition());
         List<AdminRoleNameVo> adminRoleNameList = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(adminList)) {
@@ -107,7 +108,7 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
             }).collect(Collectors.toList());
         }
 
-        this.getModel().addAttribute("adminList", adminRoleNameList);
+        model.addAttribute("adminList", adminRoleNameList);
 
         return "admin/admin_list";
     }
@@ -126,7 +127,7 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
     }
 
     @RequestMapping("/roleList")
-    public String role() throws SchoolException {
+    public String role(Model model) throws SchoolException {
         List<Role> roleList = roleService.queryList(new RoleCondition());
 
         List<AdminRoleVo> adminRoleList = new ArrayList<>();
@@ -148,7 +149,7 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
         }
 
 
-        this.getModel().addAttribute("adminRoleList", adminRoleList);
+        model.addAttribute("adminRoleList", adminRoleList);
 
         return "admin/admin_role";
     }

@@ -19,4 +19,5 @@ public interface InfoService extends BaseService<Info, String, InfoCondition>{
 //
 //    void delete(String id) throws SchoolException;
 
+    int asyncUpdate(Info po) throws SchoolException;
 }

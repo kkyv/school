@@ -3,6 +3,7 @@ package cn.allene.school.po;
 import java.util.Date;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class Msg {
@@ -14,10 +15,11 @@ public class Msg {
 
     private String phone;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date time;
 
     private String status;
 
-    private Integer childId;
+    private String name;
 
 }

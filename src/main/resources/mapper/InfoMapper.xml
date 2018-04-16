@@ -11,6 +11,7 @@
 		<result column="last_time" property="lastTime" jdbcType="TIMESTAMP"/>
 		<result column="total" property="total" jdbcType="INTEGER"/>
 		<result column="cate_id" property="cateId" jdbcType="INTEGER"/>
+		<result column="state" property="state" jdbcType="INTEGER"/>
 	</resultMap>
 
 	<sql id="fieldSql">
@@ -21,6 +22,7 @@
 		,t.last_time
 		,t.total
 		,t.cate_id
+		,t.state
 	</sql>
 
 	<sql id="whereSql">
@@ -56,6 +58,9 @@
 			<foreach collection="cateIdList" item="idItem" open="(" close=")" separator="OR">
 				t.cate_id = #{idItem,jdbcType = INTEGER}
 			</foreach>
+		</if>
+	  	<if test="state != null">
+			AND t.state = #{state, jdbcType = INTERGER}
 		</if>
 	</sql>
 
@@ -108,6 +113,9 @@
 		<if test="cateId != null">
 			,cate_id
 		</if>
+		<if test="state != null">
+			,state
+		</if>
 		)
 		VALUES( 
 			#{id,jdbcType=INTEGER}
@@ -128,6 +136,9 @@
 		</if>
 		<if test="cateId != null">
 			,#{cateId,jdbcType=INTEGER}
+		</if>
+		<if test="state != null">
+			,#{state,jdbcType=INTEGER}
 		</if>
 		)
 	</insert>
@@ -153,6 +164,9 @@
 		    <if test="cateId != null">
 			    t.cate_id = #{cateId,jdbcType = INTEGER}, 
 		    </if>
+			 <if test="state != null">
+				 t.state = #{state,jdbcType = INTEGER},
+			 </if>
 	    </set>
 		 WHERE t.id= #{id,jdbcType = INTEGER}
 	</update>

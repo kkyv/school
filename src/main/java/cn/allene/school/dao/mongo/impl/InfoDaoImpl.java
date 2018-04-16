@@ -38,8 +38,9 @@ public class InfoDaoImpl implements InfoDao {
     }
 
     @Override
-    public void insert(Info po) throws SchoolException {
+    public String insert(Info po) throws SchoolException {
         mongoTemplate.insert(po);
+        return po.getId();
     }
 
     @Override
@@ -51,9 +52,15 @@ public class InfoDaoImpl implements InfoDao {
     @Override
     public int delete(String id) throws SchoolException {
         InfoCondition infoCondition = new InfoCondition();
+        infoCondition.setState(null);
         infoCondition.setId(id);
         WriteResult remove = mongoTemplate.remove(infoCondition.toQuery(), getEntityClass());
         return remove.getN();
+    }
+
+    @Override
+    public void updateOrInsert(InfoCondition condition, Info po) throws SchoolException{
+        mongoTemplate.upsert(Query.query(Criteria.where("id").is(po.getId())), po.getUpdate(), getEntityClass());
     }
 
     public Class<Info> getEntityClass() {

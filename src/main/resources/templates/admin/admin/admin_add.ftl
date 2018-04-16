@@ -81,11 +81,8 @@
 </article>
 
 <#include "../include/footer.ftl"/>
+<#include "../include/jquery.validation.ftl"/>
 
-<!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/js/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
-<script type="text/javascript" src="/js/lib/jquery.validation/1.14.0/validate-methods.js"></script>
-<script type="text/javascript" src="/js/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
     $(function(){
         $('.skin-minimal input').iCheck({
