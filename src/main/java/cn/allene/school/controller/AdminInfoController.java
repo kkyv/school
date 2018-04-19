@@ -28,8 +28,7 @@ public class AdminInfoController extends BaseController<Info, String, InfoCondit
 
     @RequestMapping("/{cateGroup}/infoList")
     @AdminLogin
-    public String queryList( @PathVariable Integer cateGroup) throws SchoolException {
-        InfoCondition infoCondition = this.getCondition();
+    public String queryList(InfoCondition infoCondition, @PathVariable Integer cateGroup, Info info) throws SchoolException {
         infoCondition.setCateGroup(cateGroup);
         infoCondition.setState(null);
         List<Info> infoList = this.getService().queryList(infoCondition);
@@ -39,9 +38,9 @@ public class AdminInfoController extends BaseController<Info, String, InfoCondit
 
     @RequestMapping({"/{cateGroup}/addInfoPage", "/{cateGroup}/editInfoPage"})
     @AdminLogin
-    public String addInfoPage(@PathVariable Integer cateGroup, String infoId) throws SchoolException {
-        if(StringUtil.isNotEmpty(infoId)){
-            Info info = this.getService().query(infoId);
+    public String addInfoPage(@PathVariable Integer cateGroup, Info info) throws SchoolException {
+        if(StringUtil.isNotEmpty(info.getId())){
+            info = this.getService().query(info.getId());
             this.getModel().addAttribute("info", info);
         }
         return "info_add";
@@ -58,11 +57,12 @@ public class AdminInfoController extends BaseController<Info, String, InfoCondit
     @RequestMapping("/{cateGroup}/edit")
     @AdminLogin
     @ResponseBody
-    public AjaxResult edit(@PathVariable Integer cateGroup, String infoId) throws AjaxException {
+    public AjaxResult edit(Info info, @PathVariable Integer cateGroup) throws AjaxException {
+        this.getModel().addAttribute("cateGroup", cateGroup);
+
         try {
-            this.getPo().setId(infoId);
-            this.getPo().setLastTime(new Date());
-            this.getService().update(this.getPo());
+            info.setLastTime(new Date());
+            this.getService().update(info);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
@@ -72,9 +72,11 @@ public class AdminInfoController extends BaseController<Info, String, InfoCondit
     @RequestMapping("/{cateGroup}/del")
     @AdminLogin
     @ResponseBody
-    public AjaxResult del(@PathVariable Integer cateGroup, String infoId) throws AjaxException {
+    public AjaxResult del(Info info, @PathVariable Integer cateGroup) throws AjaxException {
+        this.getModel().addAttribute("cateGroup", cateGroup);
+
         try {
-            this.getService().delete(infoId);
+            this.getService().delete(info.getId());
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
@@ -84,9 +86,10 @@ public class AdminInfoController extends BaseController<Info, String, InfoCondit
     @RequestMapping("/{cateGroup}/add")
     @AdminLogin
     @ResponseBody
-    public AjaxResult add(@PathVariable Integer cateGroup) throws AjaxException {
+    public AjaxResult add(Info info, @PathVariable Integer cateGroup) throws AjaxException {
+        this.getModel().addAttribute("cateGroup", cateGroup);
+
         try {
-            Info info = this.getPo();
             info.setId(null);
             info.setCateGroup(cateGroup);
             info.setAddTime(new Date());
@@ -102,11 +105,12 @@ public class AdminInfoController extends BaseController<Info, String, InfoCondit
     @RequestMapping("/{cateGroup}/changeState")
     @AdminLogin
     @ResponseBody
-    public AjaxResult stateChange(@PathVariable Integer cateGroup, String infoId) throws AjaxException {
+    public AjaxResult stateChange(Info info, @PathVariable Integer cateGroup, String infoId) throws AjaxException {
+        this.getModel().addAttribute("cateGroup", cateGroup);
+
         try {
-            this.getPo().setId(infoId);
-            this.getPo().setCateGroup(null);
-            this.getService().update(this.getPo());
+            info.setCateGroup(null);
+            this.getService().update(info);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();

@@ -29,4 +29,10 @@ public interface Contacts {
 
         Integer Yes = 1;
     }
+
+    interface MsgTpye {
+        Integer INDEX = 0;
+
+        Integer CLASS = -1;
+    }
 }

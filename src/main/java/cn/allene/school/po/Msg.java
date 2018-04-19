@@ -18,8 +18,10 @@ public class Msg {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date time;
 
-    private String status;
+    private Integer status;
 
     private String name;
+
+    private Integer type;
 
 }

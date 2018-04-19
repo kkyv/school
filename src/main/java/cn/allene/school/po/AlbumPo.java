@@ -18,9 +18,9 @@ public class AlbumPo {
 
 	private String cateName;
 	/**
-	 * 
+	 * 封面
 	*/
-	private Integer classId;
+	private String photo;
 	/**
 	 * 
 	*/

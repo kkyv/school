@@ -2,9 +2,9 @@
 
 <article class="cl pd-20">
     <#if (role.id)??>
-        <form action="/admin/admin/editRole" method="post" class="form form-horizontal" id="form-admin-role-add">
+        <form action="/admin/role/edit" method="post" class="form form-horizontal" id="form-admin-role-add">
     <#else>
-        <form action="/admin/admin/addRole" method="post" class="form form-horizontal" id="form-admin-role-add">
+        <form action="/admin/role/add" method="post" class="form form-horizontal" id="form-admin-role-add">
     </#if>
         <input name="id" id="id" value="${(role.id)!}" type="hidden">
 		<div class="row cl">
@@ -41,7 +41,7 @@
 								<dd>
 									<#list groupAccessMap['${groupKey}'] as access>
 										<label class="">
-											<#if (adminAccessList??) && adminAccessList?seq_contains(access.id)>
+											<#if adminAccessList?seq_contains(access.id)>
 												<input type="checkbox" checked="checked" value="${access.id}" name="accesses" id="user-Character-0-0-0">
 											<#else>
 												<input type="checkbox" value="${access.id}" name="accesses" id="user-Character-0-0-0">

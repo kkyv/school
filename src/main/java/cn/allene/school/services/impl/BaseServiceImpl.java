@@ -22,7 +22,7 @@ public abstract class BaseServiceImpl<T, PK, C extends BaseCondition<PK>, M exte
 
     @Override
     public List<T> queryList(C condition) throws SchoolException {
-//        PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
+        PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
         return baseMapper.selectList(condition);
     }
 
@@ -37,7 +37,7 @@ public abstract class BaseServiceImpl<T, PK, C extends BaseCondition<PK>, M exte
     }
 
     @Override
-    public PK insert(T po) throws SchoolException {
+    public int insert(T po) throws SchoolException {
         return baseMapper.insert(po);
     }
 

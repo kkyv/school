@@ -23,6 +23,8 @@ public class Class {
 
     private Integer state;
 
+    private String history;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date addTime;
 }

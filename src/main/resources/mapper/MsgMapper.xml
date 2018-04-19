@@ -9,7 +9,8 @@
 		<result column="content" property="content" jdbcType="VARCHAR"/>
 		<result column="phone" property="phone" jdbcType="VARCHAR"/>
 		<result column="time" property="time" jdbcType="TIMESTAMP"/>
-		<result column="status" property="status" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="type" property="type" jdbcType="INTEGER"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
 	</resultMap>
 
@@ -21,6 +22,7 @@
 		,t.time
 		,t.status
 		,t.name
+		,t.type
 	</sql>
 
 	<sql id="whereSql">
@@ -37,16 +39,30 @@
 			AND t.title = #{title,jdbcType = VARCHAR}
 		</if>
 		<if test="content != null and content != ''">
-			AND t.content = #{content,jdbcType = VARCHAR}
+			AND t.content like concat('%', #{content}, '%')
 		</if>
 		<if test="phone != null and phone != ''">
 			AND t.phone = #{phone,jdbcType = VARCHAR}
 		</if>
-		<if test="status != null and status != ''">
-			AND t.status = #{status,jdbcType = VARCHAR}
+		<if test="status != null">
+			AND t.status = #{status,jdbcType = INTEGER}
+		</if>
+		<if test="type != null">
+			<if test="type == -1">
+				AND t.type != 0
+			</if>
+			<if test="type != -1">
+				AND t.type = #{type,jdbcType = INTEGER}
+			</if>
 		</if>
 		<if test="name != null and name != ''">
 			AND t.name = #{name,jdbcType = VARCHAR}
+		</if>
+		<if test="minTime != null">
+			AND t.time &gt;= #{minTime,jdbcType = TIMESTAMP}
+		</if>
+		<if test="maxTime != null">
+			AND t.time &lt;= #{maxTime,jdbcType = TIMESTAMP}
 		</if>
 	</sql>
 
@@ -98,6 +114,9 @@
 		<if test="name != null">
 			,name
 		</if>
+		<if test="type != null">
+			,type
+		</if>
 		)
 		VALUES(
 		#{id,jdbcType=INTEGER}
@@ -114,10 +133,13 @@
 			,#{time,jdbcType=TIMESTAMP}
 		</if>
 		<if test="status != null">
-			,#{status,jdbcType=VARCHAR}
+			,#{status,jdbcType=INTEGER}
 		</if>
 		<if test="name != null">
 			,#{name,jdbcType=VARCHAR}
+		</if>
+		<if test="type != null">
+			,#{type,jdbcType=INTEGER}
 		</if>
 		)
 	</insert>
@@ -138,10 +160,13 @@
 				t.time = #{time,jdbcType = TIMESTAMP},
 			</if>
 			<if test="status != null">
-				t.status = #{status,jdbcType = VARCHAR},
+				t.status = #{status,jdbcType = INTEGER},
 			</if>
 			<if test="name != null">
 				t.name = #{name,jdbcType = VARCHAR},
+			</if>
+			<if test="type != null">
+				t.type = #{type,jdbcType = VARCHAR},
 			</if>
 		</set>
 		WHERE t.id= #{id,jdbcType = INTEGER}

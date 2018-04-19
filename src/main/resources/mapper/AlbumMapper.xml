@@ -7,7 +7,7 @@
 		<result column="id" property="id" jdbcType="INTEGER"/>
 		<result column="name" property="name" jdbcType="VARCHAR"/>
 		<result column="cate_name" property="cateName" jdbcType="VARCHAR"/>
-		<result column="class_id" property="classId" jdbcType="INTEGER"/>
+		<result column="photo" property="photo" jdbcType="VARCHAR"/>
 		<result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
 	</resultMap>
 
@@ -15,7 +15,7 @@
 		 t.id
 		,t.name
 		,t.cate_name
-		,t.class_id
+		,t.photo
 		,t.add_time
 	</sql>
 
@@ -34,9 +34,6 @@
 		</if>
 		<if test="cateName != null and cateName != ''">
 			AND t.cate_name = #{cateName,jdbcType = VARCHAR}
-		</if>
-		<if test="classId != null">
-			AND t.class_id = #{classId,jdbcType = INTEGER}
 		</if>
 		<if test="minAddTime != null">
 			AND t.add_time &gt;= #{minAddTime,jdbcType = TIMESTAMP}
@@ -72,6 +69,10 @@
 	</select>
 
 	<insert id="insert" parameterType="cn.allene.school.po.AlbumPo">
+		<selectKey resultType="Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
 		INSERT INTO album(  
 			id
 		<if test="name != null">
@@ -80,8 +81,8 @@
 		<if test="cateName != null">
 			,cate_name
 		</if>
-		<if test="classId != null">
-			,class_id
+		<if test="photo != null">
+			,photo
 		</if>
 		<if test="addTime != null">
 			,add_time
@@ -95,8 +96,8 @@
 		<if test="cateName != null">
 			,#{cateName,jdbcType=VARCHAR}
 		</if>
-		<if test="classId != null">
-			,#{classId,jdbcType=INTEGER}
+		<if test="photo != null">
+			,#{photo,jdbcType=INTEGER}
 		</if>
 		<if test="addTime != null">
 			,#{addTime,jdbcType=TIMESTAMP}
@@ -113,8 +114,8 @@
 			 <if test="cateName != null">
 				 t.cate_name = #{cateName,jdbcType = VARCHAR},
 			 </if>
-		    <if test="classId != null">
-			    t.class_id = #{classId,jdbcType = INTEGER}, 
+		    <if test="photo != null">
+			    t.photo = #{photo,jdbcType = VARCHAR},
 		    </if>
 		    <if test="addTime != null">
 			    t.add_time = #{addTime,jdbcType = TIMESTAMP}, 

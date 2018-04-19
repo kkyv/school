@@ -2,7 +2,7 @@
 
 <article class="page-container">
 	<form class="form form-horizontal" id="form-article-add">
-		<input value="${(info.id)!}" id="id" type="hidden" name="infoId" />
+		<input value="${(info.id)!}" id="id" type="hidden" name="id" />
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -95,11 +95,11 @@ $(function(){
     var editor = new E('#div1', '#div2');
     //上传配置
     editor.customConfig.uploadImgServer = "/album/uploadImg";
-    editor.customConfig.uploadFileName = "img";
+    editor.customConfig.uploadFileName = "file";
     editor.customConfig.uploadImgParams = {
         // 如果版本 <=v3.1.0 ，属性值会自动进行 encode ，此处无需 encode
         // 如果版本 >=v3.1.1 ，属性值不会自动 encode ，如有需要自己手动 encode
-        cateGroupName : $("#cate_group_select option:selected").text()
+        cateName : $("#cate_group_select option:selected").text()
     }
     editor.customConfig.onchange = function (html) {
         // 监控变化，同步更新到 textarea

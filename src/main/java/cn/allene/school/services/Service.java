@@ -18,7 +18,7 @@ public interface Service<T, PK, C extends BaseCondition<PK>> {
 
     int update(T po) throws SchoolException;
 
-    PK insert(T po) throws SchoolException;
+    int insert(T po) throws SchoolException;
 
     void delete(PK id) throws SchoolException;
 

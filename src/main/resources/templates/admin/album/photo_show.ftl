@@ -1,12 +1,11 @@
 ﻿<#include "../include/meta.ftl">
-<link href="/js/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet">
 
 <div class="pd-20">
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
 		<span class="l">
 			<a href="javascript:;" onclick="dels()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
 		</span>
-		<span class="r">共有：<strong>${photoList?size}</strong> 张</span>
+		<span class="r">共有：<strong id="size">${photoList?size}</strong> 张</span>
 	</div>
 	<div class="portfolio-content">
 		<ul class="cl portfolio-area">
@@ -27,7 +26,6 @@
 
 <#include "../include/footer.ftl">
 
-<script type="text/javascript" src="/js/lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
 <script type="text/javascript">
 function dels() {
     if($("input:checked").length == 0){
@@ -50,6 +48,10 @@ function dels() {
             });
         });
         layer.msg('删除成功',{time:1000});
+        $.each($("input:checked"), function () {
+             $(this).parent().parent().remove();
+        });
+        $("#size").text($("ul li").length);
     });
 }
 </script>

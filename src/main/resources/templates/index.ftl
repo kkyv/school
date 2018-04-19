@@ -64,7 +64,7 @@
                                     <#else>
                                         <div class="dlname">
                                             <div class="fl">
-                                                用户名：<input type="text" value="${request.contextPath}" id="username" name="username" class="txtiput" onkeyup="if(event.keyCode==13 && this.value.trim()!=''){document.all.password.focus()}" />
+                                                用户名：<input type="text" value="" id="username" name="username" class="txtiput" onkeyup="if(event.keyCode==13 && this.value.trim()!=''){document.all.password.focus()}" />
                                             </div>
                                         </div>
                                         <div class="dlpassw">
@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="ysxwCont listnews">
                                     <ul>
-                                        <#list cate13InfoList as cate13Info>
+                                        <#list (infoMap['13'])! as cate13Info>
                                             <div class="dNewsLeft">
                                                 <a href="/info/${cate13Info.id}" target="_blank" title="${cate13Info.title}">${cate13Info.title}</a>
                                             </div>
@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="ystzCont listnews">
                                     <ul>
-                                        <#list cate22InfoList as cate22Info>
+                                        <#list (infoMap['22'])! as cate22Info>
                                             <div class="dNewsLeft">
                                                 <a href="/info/${cate22Info.id}" target="_blank" title="${cate22Info.title}">${cate22Info.title}</a>
                                             </div>
@@ -186,7 +186,7 @@
                             </div>
                             <div class="jykyCont listnews">
                                 <ul>
-                                    <#list cate15InfoList as cate15Info>
+                                    <#list (infoMap['15'])! as cate15Info>
                                         <div class="dNewsLeft">
                                             <a href="/info/${cate15Info.id}" target="_blank" title="${cate15Info.title}">${cate15Info.title}</a>
                                         </div>
@@ -201,7 +201,7 @@
                             </div>
                             <div class="jykyCont listnews">
                                 <ul>
-                                    <#list cate17InfoList as cate17Info>
+                                    <#list (infoMap['17'])! as cate17Info>
                                         <div class="dNewsLeft">
                                             <a href="/info/${cate17Info.id}" target="_blank" title="${cate17Info.title}">${cate17Info.title}</a>
                                         </div>
@@ -221,13 +221,13 @@
                             <div class="bottop">
                                 <div class="bot01">
                                     <div>
-                                        <b>玛利亚的奇迹蒙特梭利儿童之家</b></div>
-                                    <div>电话：010-82011145</div>
-                                    <div>地址：北京市朝阳区安贞街道裕民路</div>
+                                        <b>未来星幼儿园</b></div>
+                                    <div>电话：0-0-0-0-000</div>
+                                    <div>地址：银河系太平洋</div>
                                 </div>
                                 <div class="bot02">
                                     <div style="font-family: 黑体; font-size: 16px;">
-                                    	总访问量：<em class="number" id="vtime"></em></div>
+                                    	总访问量：<em class="number" id="vtime">${(num)!0}</em></div>
                                 </div>
                             </div>
                         </div>

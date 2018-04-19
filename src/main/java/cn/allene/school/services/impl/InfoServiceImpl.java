@@ -44,7 +44,7 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
-    public String insert(Info po) throws SchoolException {
+    public int insert(Info po) throws SchoolException {
         return infoDao.insert(po);
     }
 

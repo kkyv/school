@@ -5,3 +5,5 @@
 
 <script type="text/javascript" src="/js/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/js/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/js/lib/lightbox2/2.8.1/js/lightbox.js"></script>

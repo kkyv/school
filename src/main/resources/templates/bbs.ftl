@@ -5,7 +5,11 @@
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="/css/public.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/nav.css"/>
-		<style type="text/css">
+
+        <link rel="stylesheet" type="text/css" href="/js/lib/bootstrap/bootstrap.css">
+        <script type="text/javascript" src="/js/lib/bootstrap/bootstrap.js"></script>
+
+        <style type="text/css">
             .liuyanban
             {
                 width: 692px;

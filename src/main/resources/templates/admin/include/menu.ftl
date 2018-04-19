@@ -6,13 +6,13 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="/admin/admin/roleList" title="角色管理">角色管理</a></li>
-                    <li><a href="/admin/admin/accessList" title="权限管理">权限管理</a></li>
-                    <li><a href="/admin/admin/adminList" title="管理员列表">管理员列表</a></li>
+                    <li><a href="/admin/role/list" title="角色管理">角色管理</a></li>
+                    <li><a href="/admin/access/list" title="权限管理">权限管理</a></li>
+                    <li><a href="/admin/admin/list" title="管理员列表">管理员列表</a></li>
                 </ul>
             </dd>
         </dl>
-        <dl id="menu-member">
+        <dl id="menu-member" style="display: none">
             <dt><i class="Hui-iconfont">&#xe60d;</i> 幼儿管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
@@ -58,13 +58,8 @@
             <dt><i class="Hui-iconfont">&#xe61a;</i> 班级管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="charts-1.html" title="折线图">折线图</a></li>
-                    <li><a href="charts-2.html" title="时间轴折线图">时间轴折线图</a></li>
-                    <li><a href="charts-3.html" title="区域图">区域图</a></li>
-                    <li><a href="charts-4.html" title="柱状图">柱状图</a></li>
-                    <li><a href="charts-5.html" title="饼状图">饼状图</a></li>
-                    <li><a href="charts-6.html" title="3D柱状图">3D柱状图</a></li>
-                    <li><a href="charts-7.html" title="3D饼状图">3D饼状图</a></li>
+                    <li><a href="/class/manage/list" title="班级列表">班级列表</a></li>
+                    <li><a href="/child/child/list" title="幼儿列表">幼儿列表</a></li>
                 </ul>
             </dd>
         </dl>
@@ -72,12 +67,12 @@
             <dt><i class="Hui-iconfont">&#xe622;</i> 留言管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a href="http://h-ui.duoshuo.com/admin/" title="评论列表">评论列表</a></li>
-                    <li><a href="feedback-list.html" title="意见反馈">意见反馈</a></li>
+                    <li><a href="/bbs/msg/list" title="留言列表">园所留言</a></li>
+                    <li><a href="/bbs/class/list" title="留言管理">班级留言</a></li>
                 </ul>
             </dd>
         </dl>
-        <dl id="menu-system">
+        <dl id="menu-system" style="display: none">
             <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>

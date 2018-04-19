@@ -23,7 +23,7 @@ public class ClassCondition extends BaseCondition<Integer> {
 
 	private String pic;
 
-	private String state;
+	private Integer state;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date minAddTime;

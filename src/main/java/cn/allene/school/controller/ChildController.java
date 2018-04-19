@@ -61,9 +61,9 @@ public class ChildController extends BaseController<Child, String, ChildConditio
 
     @RequestMapping("/child/list")
     @AdminLogin
-    public String list() throws SchoolException {
-        this.getCondition().setState(null);
-        List<Child> childList = this.getService().queryList(this.getCondition());
+    public String list(ChildCondition childCondition) throws SchoolException {
+        childCondition.setState(null);
+        List<Child> childList = this.getService().queryList(childCondition);
         this.getModel().addAttribute("childList", childList);
         List<Class> classList = classService.queryList(new ClassCondition());
         Map<String, Class> classMap = classList.stream().collect(Collectors.toMap(m -> String.valueOf(m.getId()), Function.identity()));
@@ -74,9 +74,9 @@ public class ChildController extends BaseController<Child, String, ChildConditio
     @RequestMapping("/child/changeState")
     @AdminLogin
     @ResponseBody
-    public AjaxResult stateChange() throws AjaxException {
+    public AjaxResult stateChange(Child child) throws AjaxException {
         try {
-            this.getService().update(this.getPo());
+            this.getService().update(child);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
@@ -85,23 +85,38 @@ public class ChildController extends BaseController<Child, String, ChildConditio
 
     @RequestMapping({"/child/addPage","/child/editPage"})
     @AdminLogin
-    public String addPage() throws SchoolException {
-        if(this.getPo().getId() != null){
-            Child child = this.getService().query(this.getPo().getId());
+    public String addPage(Child child) throws SchoolException {
+        if(child.getId() != null){
+            child = this.getService().query(child.getId());
             this.getModel().addAttribute("child", child);
         }
+        List<Class> classList = classService.queryList(new ClassCondition());
+        this.getModel().addAttribute(classList);
         return "child_add";
+    }
+
+
+
+    @RequestMapping({"/child/show"})
+    @AdminLogin
+    public String show(Child child) throws SchoolException {
+        if(child.getId() != null){
+            child = this.getService().query(child.getId());
+            this.getModel().addAttribute("child", child);
+        }
+        return "child_show";
     }
 
     @RequestMapping("/child/add")
     @AdminLogin
     @ResponseBody
-    public AjaxResult add() throws AjaxException {
+    public AjaxResult add(Child child) throws AjaxException {
         try {
-            Child child = this.getPo();
             child.setAddTime(new Date());
             child.setPassword(MD5Utils.MD5(child.getPassword()));
-            this.getService().insert(child);
+            ChildCondition childCondition = new ChildCondition();
+            childCondition.setId(child.getId());
+            this.getService().updateOrInsert(childCondition, child);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
@@ -111,14 +126,33 @@ public class ChildController extends BaseController<Child, String, ChildConditio
     @RequestMapping("/child/edit")
     @AdminLogin
     @ResponseBody
-    public AjaxResult edit() throws AjaxException {
+    public AjaxResult edit(Child child) throws AjaxException {
         try {
-            Child child = this.getPo();
             child.setPassword(MD5Utils.MD5(child.getPassword()));
             this.getService().update(child);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
         }
+    }
+
+    @RequestMapping("/child/del")
+    @AdminLogin
+    @ResponseBody
+    public AjaxResult del(Child child) throws AjaxException {
+        try {
+            this.getService().delete(child.getId());
+            return new AjaxResult();
+        } catch (SchoolException e) {
+            throw new AjaxException();
+        }
+    }
+
+    @RequestMapping("/child/rePwd")
+    @AdminLogin
+    public String rePwd() throws SchoolException{
+        Child child = this.getService().query("20180107001");
+        this.getModel().addAttribute("child", child);
+        return "child_change_pwd";
     }
 }

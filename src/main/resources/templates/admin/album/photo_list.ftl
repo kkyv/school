@@ -1,5 +1,4 @@
 ﻿<#include "../include/meta.ftl"/>
-<link href="/js/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet">
 <#include "../include/head.ftl"/>
 <#include "../include/menu.ftl"/>
 
@@ -65,8 +64,6 @@
 
 <#include "../include/footer.ftl">
 
-<script type="text/javascript" src="/js/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript" src="/js/lib/lightbox2/2.8.1/js/lightbox.js"></script>
 <script type="text/javascript">
 $('.table-sort').dataTable({
 	"aaSorting": [[ 1, "asc" ]],//默认第几个排序

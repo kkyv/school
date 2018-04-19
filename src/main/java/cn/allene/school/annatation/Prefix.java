@@ -9,5 +9,5 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Prefix {
     String value() default "";
 
-    boolean appenPrefix() default true;
+    boolean appenPrefix() default false;
 }

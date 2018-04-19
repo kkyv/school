@@ -7,7 +7,7 @@
 	<div class="Hui-article">
 		<article class="cl pd-20">
 			<div class="text-c">
-				<form class="Huiform" method="post" action="/admin/admin/accessList" id="findForm">
+				<form class="Huiform" method="post" action="/admin/access/list" id="findForm">
 					<input type="text" class="input-text" style="width:250px" value="${name!}" placeholder="权限名称" id="" name="name">
 					<button type="submit" class="btn btn-success" onclick='$("#findForm").submit()'><i class="Hui-iconfont">&#xe665;</i> 搜权限节点</button>
 				</form>
@@ -108,7 +108,7 @@ function access_stop(obj,id,group){
         return;
 	}
     layer.confirm('确认要停用吗？',function(index){
-        $.post("/admin/admin/accessState", {"id":id, "state":0}, function (data) {
+        $.post("/admin/access/state", {"id":id, "state":0}, function (data) {
             if(data.status){
                 $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
                 $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
@@ -124,7 +124,7 @@ function access_stop(obj,id,group){
 /*管理员-启用*/
 function access_start(obj,id){
     layer.confirm('确认要启用吗？',function(index){
-        $.post("/admin/admin/accessState", {"id":id, "state":1}, function (data) {
+        $.post("/admin/access/state", {"id":id, "state":1}, function (data) {
             if(data.status){
                 $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
                 $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');

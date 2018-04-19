@@ -16,7 +16,7 @@ public interface Dao<T, PK, C extends BaseCondition> {
 
     int count(C condition) throws SchoolException;
 
-    PK insert(T po) throws SchoolException;
+    int insert(T po) throws SchoolException;
 
     int update(T po) throws SchoolException;
 

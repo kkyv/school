@@ -12,10 +12,6 @@ public class AlbumCondition extends BaseCondition<Integer> {
 	 * 
 	*/
 	private String name;
-	/**
-	 * 
-	*/
-	private Integer classId;
 
 	private String cateName;
 

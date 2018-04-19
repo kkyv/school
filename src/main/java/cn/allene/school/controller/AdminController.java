@@ -36,9 +36,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-@RequestMapping("/admin/admin")
-@Prefix("admin/")
-@AdminLogin
+@RequestMapping("/admin")
+@Prefix("admin/admin/")
 public class AdminController extends BaseController<Admin, Integer, AdminCondition, AdminService> {
     @Autowired
     private RoleService roleService;
@@ -47,50 +46,56 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
     @Autowired
     private AccessService accessService;
 
-    @RequestMapping({"/addRolePage", "/editRolePage"})
-    public String addRolePage(Model model) throws SchoolException {
-        if(this.getPo().getId() != null){
-            Role role = roleService.query(this.getPo().getId());
-            model.addAttribute("role", role);
+    @RequestMapping({"/role/addPage", "/role/editPage"})
+    @AdminLogin
+    public String addRolePage(Admin admin) throws SchoolException {
+        if(admin.getId() != null){
+            Role role = roleService.query(admin.getId());
+            this.getModel().addAttribute("role", role);
             if(!StringUtils.isEmpty(role.getAccess())){
-                List<String> adminAccessList = Stream.of(role.getAccess().split(",")).collect(Collectors.toList());
-                model.addAttribute("adminAccessList", adminAccessList);
+                List<Integer> adminAccessList = Stream.of(role.getAccess().split(",")).map(m -> Integer.valueOf(m)).collect(Collectors.toList());
+                this.getModel().addAttribute("adminAccessList", adminAccessList);
             }
         }
         List<Access> accessList = accessService.queryList(new AccessCondition());
         Map<String, Map<String, List<Access>>> allAccessMap = accessList.stream().collect(Collectors.groupingBy(Access::getModel, Collectors.groupingBy(Access::getGroup)));
-        model.addAttribute("allAccessMap", allAccessMap);
-        return "admin/role_add";
+        this.getModel().addAttribute("allAccessMap", allAccessMap);
+        return "role_add";
     }
-    @RequestMapping({"/addAdminPage", "/editAdminPage"})
-    public String addAdminPage() throws SchoolException {
-        if(this.getPo().getId() != null){
-            Admin admin = this.getService().query(this.getPo().getId());
+    @RequestMapping({"/admin/addPage", "/admin/editPage"})
+    @AdminLogin
+    public String addAdminPage(Admin admin) throws SchoolException {
+        if(admin.getId() != null){
+            admin = this.getService().query(admin.getId());
             this.getModel().addAttribute("admin", admin);
         }
         List<Role> roleList = roleService.queryList(new RoleCondition());
         this.getModel().addAttribute("roleList", roleList);
-        return "admin/admin_add";
+        return "admin_add";
     }
 
-    @RequestMapping("/accessList")
-    public String access(Model model, String name) throws SchoolException {
+    @RequestMapping("/access/list")
+    @AdminLogin
+    public String access(String name) throws SchoolException {
         AccessCondition accessCondition = new AccessCondition();
         accessCondition.setName(name);
         List<Access> accessList = accessService.queryList(accessCondition);
-        model.addAttribute("accessList", accessList);
+        this.getModel().addAttribute("accessList", accessList);
         //回显
-        model.addAttribute("name", name);
-        return "admin/admin_access";
+        this.getModel().addAttribute("name", name);
+        return "admin_access";
     }
     @RequestMapping({"/", "/index"})
+    @Prefix("admin/")
+    @AdminLogin
     public String  _index() throws SchoolException {
         return "index";
     }
 
-    @RequestMapping("/adminList")
-    public String list(Model model) throws SchoolException {
-        List<Admin> adminList = this.getService().queryList(this.getCondition());
+    @RequestMapping("/admin/list")
+    @AdminLogin
+    public String list(AdminCondition adminCondition) throws SchoolException {
+        List<Admin> adminList = this.getService().queryList(adminCondition);
         List<AdminRoleNameVo> adminRoleNameList = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(adminList)) {
             List<Integer> roleIdList = adminList.stream().map(Admin::getRoleId).collect(Collectors.toList());
@@ -108,16 +113,17 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
             }).collect(Collectors.toList());
         }
 
-        model.addAttribute("adminList", adminRoleNameList);
+        this.getModel().addAttribute("adminList", adminRoleNameList);
 
-        return "admin/admin_list";
+        return "admin_list";
     }
 
-    @RequestMapping("/adminDel")
+    @RequestMapping("/admin/del")
     @ResponseBody
-    public AjaxResult del() throws AjaxException {
+    @AdminLogin
+    public AjaxResult del(AdminCondition adminCondition) throws AjaxException {
         try {
-            for(Integer id : this.getCondition().getIdList()){
+            for(Integer id : adminCondition.getIdList()){
                 this.getService().delete(id);
             }
         } catch (SchoolException e) {
@@ -126,8 +132,9 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
         return new AjaxResult();
     }
 
-    @RequestMapping("/roleList")
-    public String role(Model model) throws SchoolException {
+    @RequestMapping("/role/list")
+    @AdminLogin
+    public String role() throws SchoolException {
         List<Role> roleList = roleService.queryList(new RoleCondition());
 
         List<AdminRoleVo> adminRoleList = new ArrayList<>();
@@ -149,24 +156,26 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
         }
 
 
-        model.addAttribute("adminRoleList", adminRoleList);
+        this.getModel().addAttribute("adminRoleList", adminRoleList);
 
-        return "admin/admin_role";
+        return "admin_role";
     }
 
-    @RequestMapping("/adminState")
+    @RequestMapping("/admin/state")
+    @AdminLogin
     @ResponseBody
-    public AjaxResult adminState() throws AjaxException{
+    public AjaxResult adminState(Admin admin) throws AjaxException{
         try {
-            this.getService().update(this.getPo());
+            this.getService().update(admin);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
         }
     }
 
-    @RequestMapping("/accessState")
+    @RequestMapping("/access/state")
     @ResponseBody
+    @AdminLogin
     public AjaxResult accessState(Access access) throws AjaxException{
         try {
             accessService.update(access);
@@ -176,16 +185,18 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
         }
     }
 
-    @RequestMapping("/roleDel")
+    @RequestMapping("/role/del")
     @ResponseBody
-    public AjaxResult delRole() throws AjaxException {
-        this.getService().delRole(this.getCondition().getRoleIdList());
+    @AdminLogin
+    public AjaxResult delRole(AdminCondition adminCondition) throws AjaxException {
+        this.getService().delRole(adminCondition.getRoleIdList());
         return new AjaxResult();
     }
 
 
-    @RequestMapping("/addRole")
+    @RequestMapping("/role/add")
     @ResponseBody
+    @AdminLogin
     public AjaxResult addRole(Role role, String[] accesses) throws AjaxException{
         try {
             role.setAccess(org.apache.tomcat.util.buf.StringUtils.join(accesses));
@@ -196,22 +207,25 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
         return new AjaxResult();
     }
 
-    @RequestMapping("/addAdmin")
+    @RequestMapping("/admin/add")
     @ResponseBody
-    public void addAdmin() throws SchoolException{
-        this.getPo().setPassword(MD5Utils.MD5(this.getPo().getPassword()));
-        this.getService().insert(this.getPo());
+    @AdminLogin
+    public void addAdmin(Admin admin) throws SchoolException{
+        admin.setPassword(MD5Utils.MD5(admin.getPassword()));
+        this.getService().insert(admin);
     }
 
-    @RequestMapping("/editAdmin")
+    @RequestMapping("/admin/edit")
     @ResponseBody
-    public void editAdmin() throws SchoolException{
-        this.getPo().setPassword(MD5Utils.MD5(this.getPo().getPassword()));
-        this.getService().update(this.getPo());
+    @AdminLogin
+    public void editAdmin(Admin admin) throws SchoolException{
+        admin.setPassword(MD5Utils.MD5(admin.getPassword()));
+        this.getService().update(admin);
     }
 
-    @RequestMapping("/editRole")
+    @RequestMapping("/role/edit")
     @ResponseBody
+    @AdminLogin
     public AjaxResult editRole(String[] accesses, Role role) throws AjaxException {
         role.setAccess(org.apache.tomcat.util.buf.StringUtils.join(accesses));
         try {

@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -63,13 +64,17 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
         getModel().addAttribute("cate17InfoList",cate17InfoList);
         getModel().addAttribute("cate22InfoList",cate22InfoList);
 
+        Map<String, List<Info>> infoMap = infos.stream().collect(Collectors.groupingBy(m -> String.valueOf(m.getCateId())));
+        this.getModel().addAttribute("infoMap", infoMap);
+
         List<Class> classList = classService.queryList(new ClassCondition());
         getModel().addAttribute(classList);
 
         //msg
         MsgCondition msgCondition = new MsgCondition();
-        msgCondition.setPageSize(10);
+        msgCondition.setType(Contacts.MsgTpye.INDEX);
         msgCondition.setStatus(Contacts.State.Yes);
+        msgCondition.setPageSize(10);
         List<Msg> msgList = msgService.queryList(msgCondition);
         getModel().addAttribute("msgList", msgList);
 
@@ -79,7 +84,7 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
 
     @RequestMapping("/admin/login")
     public String login(HttpServletRequest request, Admin admin) throws SchoolException {
-        if(getPo().getId() == null){
+        if(admin.getId() == null){
             return "login";
         }
 
@@ -92,11 +97,17 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
         }
 
         String prePage = (String) request.getSession().getAttribute("prePage");
-        request.getSession().setAttribute(Contacts.Session.ADMIN, this.getPo());
+        request.getSession().setAttribute(Contacts.Session.ADMIN, adminList.get(0));
         if(!StringUtils.isEmpty(prePage)){
             return "redirect:" + prePage;
         }else{
             return "index";
         }
+    }
+
+    @RequestMapping("/admin/logout")
+    public String logout(HttpSession session) throws SchoolException {
+        session.invalidate();
+        return "login";
     }
 }

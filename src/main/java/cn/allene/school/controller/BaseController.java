@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,19 +27,12 @@ public abstract class BaseController<T, PK, C extends BaseCondition<PK>, S exten
     private S service;
     @Getter
     private Model model;
-    @Getter
-    private T po;
-    @Getter
-    private C condition;
     @Autowired
     private RedisCompent redisCompent;
 
     @ModelAttribute
-    private void initialize(Model model, T po, C condition) throws SchoolException {
+    protected void initialize(Model model) throws SchoolException {
         this.model = model;
-        this.condition = condition;
-        this.po = po;
-        //查询分类
         this.queryCate();
     }
 

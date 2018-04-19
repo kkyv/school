@@ -9,6 +9,11 @@ import java.lang.annotation.Target;
  * 登录校验
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 public @interface AdminLogin {
     boolean requireLogin() default true;
+
+    boolean appendPrefix() default true;
+
+    boolean interceptor() default true;
 }

@@ -3,10 +3,11 @@ package cn.allene.school.po;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class Admin {
+public class Admin implements Serializable {
     private Integer id;
 
     private String password;

@@ -38,9 +38,9 @@ public class InfoDaoImpl implements InfoDao {
     }
 
     @Override
-    public String insert(Info po) throws SchoolException {
+    public int insert(Info po) throws SchoolException {
         mongoTemplate.insert(po);
-        return po.getId();
+        return 1;
     }
 
     @Override

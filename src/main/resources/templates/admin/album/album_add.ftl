@@ -44,9 +44,10 @@
                 function (data) {
                     if(data.status){
                         layer.msg("创建成功", {time:1000});
+                        location.replace(location.href);
                         layer_close()
                     }else{
-                        layer.msg("穿件失败", {time:1500});
+                        layer.msg("创建失败", {time:1500});
                     }
                 }
         )

@@ -138,7 +138,7 @@
         var index = layer.open({
             type: 2,
             title: title,
-            content: url+"?infoId="+id
+            content: url+"?id="+id
         });
         layer.full(index);
     }
@@ -147,7 +147,7 @@
             $.ajax({
                 url: "/info/" + cateGroup + "/del",
                 data: {
-                    "infoId": id
+                    "id": id
                 },
                 type:"POST",
                 success: function (data) {
@@ -179,7 +179,7 @@
     /*资讯-下架*/
     function article_stop(obj,id,cateGroup){
         layer.confirm('确认要下架吗？',function(index){
-            $.post("/info/"+cateGroup+"/changeState",{"state":"0","infoId":id},function (data) {
+            $.post("/info/"+cateGroup+"/changeState",{"state":"0","id":id},function (data) {
                 if(data.status){
                     $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
                     $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
@@ -193,7 +193,7 @@
     /*资讯-发布*/
     function article_start(obj,id, cateGroup){
         layer.confirm('确认要发布吗？',function(index){
-            $.post("/info/"+cateGroup+"/changeState",{"state":"1","infoId":id},function (data) {
+            $.post("/info/"+cateGroup+"/changeState",{"state":"1","id":id},function (data) {
                 if(data.status){
                     $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_stop(this,id)" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
                     $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');

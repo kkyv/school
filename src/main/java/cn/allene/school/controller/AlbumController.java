@@ -48,10 +48,14 @@ public class AlbumController extends BaseController<AlbumPo, Integer, AlbumCondi
     @RequestMapping("/uploadImg")
     @ResponseBody
     @Prefix(appenPrefix = false)
-    public Editor uploadImg(@RequestParam("img") MultipartFile img, HttpServletRequest request, String cateGroupName) throws SchoolException {
+    public Editor uploadImg(@RequestParam("file") MultipartFile img, HttpServletRequest request, Integer albumId, String cateName, String theName) throws SchoolException {
         Editor editor = new Editor();
         try {
-            editor.setData(Arrays.asList(toPhoto(img, cateGroupName)));
+            AlbumPo albumPo = new AlbumPo();
+            albumPo.setId(albumId);
+            albumPo.setCateName(cateName);
+            albumPo.setName(theName);
+            editor.setData(Arrays.asList(toPhoto(img, albumPo)));
         } catch (IOException e) {
             e.printStackTrace();
             editor.setErrno(1);
@@ -60,27 +64,33 @@ public class AlbumController extends BaseController<AlbumPo, Integer, AlbumCondi
         return editor;
     }
 
-    private String toPhoto(MultipartFile img, String albumName) throws IOException, SchoolException {
+
+    @RequestMapping("/uploadImgPage")
+    @AdminLogin(interceptor = false)
+    public String uploadImgPage(AlbumPo albumPo) throws SchoolException {
+        if(albumPo.getId() == null){
+            List<AlbumPo> albumPoList = this.getService().queryList(new AlbumCondition());
+            this.getModel().addAttribute("albumPoList", albumPoList);
+        }else {
+            albumPo = this.getService().query(albumPo.getId());
+            this.getModel().addAttribute("albumPoList", Arrays.asList(albumPo));
+        }
+        return "upload";
+    }
+
+    private String toPhoto(MultipartFile img,AlbumPo albumPo) throws IOException, SchoolException {
         String suff = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf("."));
         String uuid = UUID.randomUUID().toString();
         String fileName = uuid + suff;
-        //查询相册
-        AlbumCondition albumCondition = new AlbumCondition();
-        albumCondition.setName(albumName);
-        List<AlbumPo> albumPoList = this.getService().queryList(albumCondition);
-        Integer albumId;
-        if(CollectionUtils.isEmpty(albumPoList)){
-            AlbumPo albumPo = new AlbumPo();
-            albumPo.setName(albumName);
-            albumPo.setAddTime(new Date());
-            albumId = this.getService().insert(albumPo);
-        }else{
-            albumId = albumPoList.get(0).getId();
+
+        if(albumPo.getId() == null){
+            //创建相册
+            int insert = this.getService().insert(albumPo);
         }
 
         img.transferTo(new File(uploadPath, fileName));
         AlbumPhotoPo photoPo = new AlbumPhotoPo();
-        photoPo.setAlbumId(albumId);
+        photoPo.setAlbumId(albumPo.getId());
         photoPo.setPhotoId(fileName);
         photoPo.setAddTime(new Date());
         photoPo.setName(img.getOriginalFilename().substring(0, img.getOriginalFilename().lastIndexOf(".")));
@@ -100,8 +110,8 @@ public class AlbumController extends BaseController<AlbumPo, Integer, AlbumCondi
 
     @RequestMapping("/album/list")
     @AdminLogin
-    public String albumList() throws SchoolException {
-        List<AlbumPo> albumPoList = this.getService().queryList(new AlbumCondition());
+    public String albumList(AlbumCondition albumCondition) throws SchoolException {
+        List<AlbumPo> albumPoList = this.getService().queryList(albumCondition);
 
         List<Integer> albumList = albumPoList.stream().map(AlbumPo::getId).collect(Collectors.toList());
         if(CollectionUtils.isNotEmpty(albumList)){
@@ -134,9 +144,9 @@ public class AlbumController extends BaseController<AlbumPo, Integer, AlbumCondi
 
     @RequestMapping("/album/show")
     @AdminLogin
-    public String albumShow() throws SchoolException{
+    public String albumShow(AlbumCondition albumCondition) throws SchoolException{
         AlbumPhotoCondition albumPhotoCondition = new AlbumPhotoCondition();
-        albumPhotoCondition.setAlbumId(this.getCondition().getId());
+        albumPhotoCondition.setAlbumId(albumCondition.getId());
         List<AlbumPhotoPo> albumPhotoPoList = albumPhotoService.queryList(albumPhotoCondition);
         this.getModel().addAttribute("photoList", albumPhotoPoList);
         return "photo_show";
@@ -145,16 +155,28 @@ public class AlbumController extends BaseController<AlbumPo, Integer, AlbumCondi
     @RequestMapping("/album/add")
     @AdminLogin
     @ResponseBody
-    public AjaxResult add() throws AjaxException {
+    public AjaxResult add(AlbumPo album) throws AjaxException {
         try {
-            AlbumPo po = this.getPo();
-            po.setAddTime(new Date());
-            this.getService().insert(po);
+            album.setAddTime(new Date());
+            this.getService().insert(album);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
         }
     }
+
+    @RequestMapping("/album/del")
+    @AdminLogin
+    @ResponseBody
+    public AjaxResult del(AlbumPo album) throws AjaxException {
+        try {
+            this.getService().delete(album.getId());
+            return new AjaxResult();
+        } catch (SchoolException e) {
+            throw new AjaxException();
+        }
+    }
+
 
     @RequestMapping("/photo/stop")
     @AdminLogin
@@ -191,9 +213,9 @@ public class AlbumController extends BaseController<AlbumPo, Integer, AlbumCondi
     @RequestMapping("/album/rename")
     @AdminLogin
     @ResponseBody
-    public AjaxResult albumRename() throws AjaxException {
+    public AjaxResult albumRename(AlbumPo album) throws AjaxException {
         try {
-            this.getService().update(this.getPo());
+            this.getService().update(album);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();

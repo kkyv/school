@@ -55,11 +55,11 @@
 	<body>
 		<div class="dbody">
         <div class="dsize">
-			<#include "/include/head.ftl"/>
+			<#include "include/head.ftl"/>
             <div class="midlbox">
             	<div class="centbox">
             		<div class="midlbox-title">
-            			<a href="#">班级主页</a>
+            			<a href="#" class="cate_name">班级主页</a>
             		</div>
             		<hr style="border:3 double #BB6900" width="90%" color="#BB6900" size=3>
             		<div class="midlbox-content">
@@ -68,7 +68,11 @@
 								<div class="c_box">
 									<div class="c_img">
 										<a href="/class/${class.getId()}">
-											<img style="width: 200px; height: 150px;" src="http://www.mariasmiracles.51yey.com/upload/image/2016/0529/052915234098560.jpg" /></a>
+                                            <#if class.pic??>
+											    <img style="width: 200px; height: 150px;" src="/upload/${class.pic}" /></a>
+                                            <#else>
+                                                <img style="width: 200px; height: 150px;" src="/img/nophoto.jpg" /></a>
+                                            </#if>
 									</div>
 									<div class="c_cname">
 										<a href="/class/${class.getId()}">

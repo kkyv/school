@@ -4,6 +4,9 @@ import cn.allene.school.contacts.Contacts;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,5 +32,15 @@ public class MsgCondition extends BaseCondition<Integer> {
 	 * 
 	*/
 	private Integer name;
+	/**
+	 *
+	 */
+	private Integer type;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date maxTime;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date minTime;
 
 }

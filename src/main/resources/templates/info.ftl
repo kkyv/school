@@ -12,21 +12,20 @@
 	<body>
 		<div class="dbody">
         <div class="dsize">
-			<#include ""/>
+			<#include "include/head.ftl"/>
             <div class="midlbox">
             	<div class="centbox">
             		<div class="midlbox-title">
-                        <a href="#">${infoCate.name}</a>
+                        <a href="#" class="cate_name">${(cateGroupMap['${info.cateId}'].name)!}</a>
             		</div>
             		<hr style="border:3 double #BB6900" width="90%" color="#BB6900" size=3>
             		<div class="midlbox-content">
-            			<br />
-            			<br />
-            			<br />
-            			<br />
-            			<br />
-            			<br />
-            			<br />
+						<h2 style="text-align: center">
+							${((info.title)!)}
+						</h2>
+            			<div>
+							${(info.content)!}
+						</div>
             		</div>
             	</div>
                 <div class="mbottom">

@@ -1,5 +1,4 @@
 ﻿<#include "../include/meta.ftl"/>
-<link href="/js/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet">
 <#include "../include/head.ftl"/>
 <#include "../include/menu.ftl"/>
 
@@ -7,7 +6,7 @@
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 相册管理 <span class="c-gray en">&gt;</span> 相册列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 	<div class="Hui-article">
 		<article class="cl pd-20">
-            <form action="/album/album/list·" id="findForm" method="post">
+            <form action="/album/album/list" id="findForm" method="post">
                 <div class="text-c"> 日期范围：
                     <input type="text" name="minAddTime" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" value="${(albumCondition.minAddTime?date)!}" id="datemin" class="input-text Wdate" style="width:120px;">
                     -
@@ -18,7 +17,7 @@
             </form>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
 				<span class="l">
-					<a href="javascript:;" style="display: none" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+					<a href="javascript:;" onclick="upload(this, '/album/uploadImgPage')" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 上传图片</a>
 					<a class="btn btn-primary radius" onclick="picture_add('创建相册','/album/album/addPage')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 创建相册</a>
 				</span>
 				<span class="r">共有数据：<strong>${albumList?size}</strong> 条</span> </div>
@@ -39,15 +38,15 @@
 						<#list albumList  as album>
 							<tr class="text-c">
 								<td>${album.id}</td>
-								<td>${album.cateName}</td>
-								<td class="text-c">${album.name}</td>
+								<td>${(album.cateName)!}</td>
+								<td class="text-c">${(album.name)!}</td>
 								<#if albumMap['${album.id}']??>
 									<#assign albumPhotoList = (albumMap['${album.id}'])/>
 								    <td><a data-lightbox="albumImg" href="/upload/${(albumPhotoList[0].photoId)}" data-title="${(albumPhotoList[0].name)}"><img width="100" class="picture-thumb" src="/upload/${(albumPhotoList[0].photoId)}"></a></td>
 									<td class="text-l">
 										<a class="maincolor" href="javascript:;" onClick="picture_show('相册编辑','/album/album/show','${album.id}')">
 											<#list albumMap['${album.id}'] as photo>
-												${photo.name}
+												${photo.name}&nbsp;&nbsp;&nbsp;
 											</#list>
 										</a>
 									</td>
@@ -55,10 +54,11 @@
 									<td>暂无封面</td>
 									<td>暂无图片</td>
 								</#if>
-								<td>${album.addTime?datetime}</td>
-								<td class="td-manage">
+								<td>${(album.addTime?datetime)!}</td>
+                                <td class="td-manage">
+                                    <a style="text-decoration:none" class="ml-5" onClick="upload(this, '/album/uploadImgPage?id=${album.id}')" href="javascript:;" title="上传图片"><i class="Hui-iconfont">&#xe684;</i></a>
 									<a style="text-decoration:none" class="ml-5" onClick="picture_edit(this, '${album.id}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-									<a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+									<a style="text-decoration:none" class="ml-5" onClick="picture_del(this,'${album.id}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
 								</td>
 							</tr>
 						</#list>
@@ -72,16 +72,24 @@
 <#include "../include/footer.ftl">
 
 <script type="text/javascript" src="/js/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript" src="/js/lib/lightbox2/2.8.1/js/lightbox.js"></script>
 <script type="text/javascript">
 $('.table-sort').dataTable({
-	"aaSorting": [[ 0, "desc" ]],//默认第几个排序
+	"aaSorting": [[ 0, "asc" ]],//默认第几个排序
 	"bStateSave": true,//状态保存
 	"aoColumnDefs": [
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
+	  {"orderable":false,"aTargets":[6]}// 制定列不参与排序
 	]
 });
+
+function upload(obj, url) {
+    var index = layer.open({
+        type: 2,
+        area:['700px', '600px'],
+        title: "上传图片",
+        content: url
+    });
+}
 /*图片-添加*/
 function picture_add(title,url){
 	var index = layer.open({
@@ -136,8 +144,17 @@ function picture_edit(obj, id){
 /*图片-删除*/
 function picture_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
+		$.post("/album/album/del",
+				{
+				    "id":id
+				},
+				function (data) {
+					if(data.status){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{time:1000});
+					}
+                }
+		);
 	});
 }
 </script>
