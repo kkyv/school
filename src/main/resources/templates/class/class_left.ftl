@@ -6,9 +6,9 @@
         <nav id="nav">
             <ul >
                 <li><a href="/class/${class.id}">班级首页</a></li>
-                <li><a href="/class/album?id=${class.id}">班级相册</a></li>
-                <li><a href="/class/child?id=${class.id}">班级成员</a></li>
-                <li><a href="/class/bbs?id=${class.id}">留言板</a></li>
+                <li><a href="/class/${class.id}/album">班级相册</a></li>
+                <li><a href="/class/${class.id}/child">班级成员</a></li>
+                <li><a href="/class/${class.id}/bbs">留言板</a></li>
                 <div class="right link noshows">
                     <div class="left">
                         <div class="link_box">
@@ -51,18 +51,14 @@
                     <div class="box_head">
                         <span class="box_head_text">来访记录</span>
                     </div>
-                    <div class="c_img_box">
-                        <img src="/img/nophoto.jpg"/>
-                        <span>名字</span>
-                    </div>
-                    <div class="c_img_box">
-                        <img src="/img/nophoto.jpg"/>
-                        <span>名字</span>
-                    </div>
-                    <div class="c_img_box">
-                        <img src="/img/nophoto.jpg"/>
-                        <span>名字</span>
-                    </div>
+                    <#list class.history?split(',') as his>
+                        <#if his_index < 3>
+                            <div class="c_img_box">
+                                <img src="/img/nophoto.jpg"/>
+                                <span>${his}</span>
+                            </div>
+                        </#if>
+                    </#list>
                 </div>
                 <div class="count gree_box">
                     <div class="box_head">
@@ -76,9 +72,9 @@
                                 <td>张</td>
                             </tr>
                             <tr>
-                                <td>班级相片：</td>
+                                <td>成员统计：</td>
                                 <td class="num">${childList?size}</td>
-                                <td>张</td>
+                                <td>位</td>
                             </tr>
                         </table>
                     </div>

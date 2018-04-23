@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class BaseCondition<K> {
-    private K id;
+    protected K id;
 
-    private List<K> idList;
+    protected List<K> idList;
 
     private int pageSize = Integer.MAX_VALUE;
 

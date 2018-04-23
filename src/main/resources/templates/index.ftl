@@ -55,12 +55,12 @@
                         <div class="ctlf fl">
                             <div class="ctlftop">
                                 <div class="loginbox" id="dlogin">
-                                    <#if (child.id)??>
+                                    <#if (childLogin.id)??>
                                         <p>
-                                            <span>${child.nickname!}</span>
-                                            <a href="/child/logout/${child.id!}">退出登录</a>
+                                            <span>${childLogin.nickname!}</span>
+                                            <a href="/child/logout/${childLogin.id!}">退出登录</a>
                                         </p>
-                                        <a href="/class/${child.classId}" target="_blank">进入班级主页</a>
+                                        <a href="/class/${childLogin.classId}" target="_blank">进入班级主页</a>
                                     <#else>
                                         <div class="dlname">
                                             <div class="fl">
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="wxtsbox">
                                     <marquee scrollamount="1" direction="up" onmouseover="this.stop();" onmouseout="this.start();">
-                                        ${(prompt.content)!}
+                                        ${(infoMap['1'][0].name)!}
                                     </marquee>
                                 </div>
                             </div>
@@ -168,10 +168,10 @@
                                 <ul>
                                     <#list msgList as msg>
                                         <li>
-                                            <div class="div_left"><a href="javascript:;"><img src="img/head.jpg" title="${msg.name}"></a></div>
+                                            <div class="div_left"><a href="javascript:;"><img src="img/head.jpg" title="${(msg.name)!'匿名用户'}"></a></div>
                                             <div class="div_right">
-                                                <a href="javascript:;" target="_blank">${msg.name}</a>：<#if (msg.title)??>「 ${msg.title} 」</#if>${msg.content}
-                                                <div class="twit_item_time">3分钟前</div>
+                                                <a href="javascript:;" target="_blank">${(msg.name)!'匿名用户'}</a>：<#if (msg.title)??>「 ${msg.title} 」</#if>${msg.content}
+                                                <div class="twit_item_time">${msg.time?time}</div>
                                             </div>
                                         </li>
                                     </#list>

@@ -49,14 +49,16 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
     @RequestMapping({"/role/addPage", "/role/editPage"})
     @AdminLogin
     public String addRolePage(Admin admin) throws SchoolException {
+        List<Integer> adminAccessList = new ArrayList<>();
         if(admin.getId() != null){
             Role role = roleService.query(admin.getId());
             this.getModel().addAttribute("role", role);
             if(!StringUtils.isEmpty(role.getAccess())){
-                List<Integer> adminAccessList = Stream.of(role.getAccess().split(",")).map(m -> Integer.valueOf(m)).collect(Collectors.toList());
-                this.getModel().addAttribute("adminAccessList", adminAccessList);
+                adminAccessList = Stream.of(role.getAccess().split(",")).map(m -> Integer.valueOf(m)).collect(Collectors.toList());
             }
         }
+
+        this.getModel().addAttribute("adminAccessList", adminAccessList);
         List<Access> accessList = accessService.queryList(new AccessCondition());
         Map<String, Map<String, List<Access>>> allAccessMap = accessList.stream().collect(Collectors.groupingBy(Access::getModel, Collectors.groupingBy(Access::getGroup)));
         this.getModel().addAttribute("allAccessMap", allAccessMap);
@@ -86,10 +88,9 @@ public class AdminController extends BaseController<Admin, Integer, AdminConditi
         return "admin_access";
     }
     @RequestMapping({"/", "/index"})
-    @Prefix("admin/")
-    @AdminLogin
+    @AdminLogin(interceptor = false, appendPrefix = false)
     public String  _index() throws SchoolException {
-        return "index";
+        return "admin/index";
     }
 
     @RequestMapping("/admin/list")

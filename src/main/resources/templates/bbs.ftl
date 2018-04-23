@@ -3,11 +3,10 @@
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="/css/public.css"/>
-		<link rel="stylesheet" type="text/css" href="/css/nav.css"/>
+        <link rel="stylesheet" type="text/css" href="/js/lib/boostrap/bootstrap.css">
 
-        <link rel="stylesheet" type="text/css" href="/js/lib/bootstrap/bootstrap.css">
-        <script type="text/javascript" src="/js/lib/bootstrap/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/public.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/nav.css"/>
 
         <style type="text/css">
             .liuyanban
@@ -88,6 +87,7 @@
 
 		</style>
         <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="/js/lib/boostrap/bootstrap.js"></script>
         <script type="text/javascript" src="/js/nav.js"></script>
         <script type="text/javascript">
             function msg(isLogin) {
@@ -123,45 +123,57 @@
 			<#include "include/head.ftl"/>
             <div class="midlbox">
             	<div class="centbox">
-            		<div class="midlbox-title">
-            			<span>留言板</span>
-            			
-            		</div>
             		<hr style="border:3 double #BB6900" width="90%" color="#BB6900" size=3>
             		<div class="midlbox-content">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="lolPlate">
+                                <div class="panel panel-default">
+                                    <!-- Default panel contents -->
+                                    <div class="panel-heading">留言板</div>
+                                    <!-- Table -->
+                                    <table class="table">
+                                            <#list msgList as msg>
 
-                        <div class="liuyanban">
-                            留言板
-                        </div>
-                        <div class="lybox">
-                            <div class="lyleft fl">
-                                留言主题:</div>
-                            <div class="lyright fl">
-                                <input type="text" id="title" name="title"/></div>
-                            <div class="lyleft fl">
-                                留言内容:</div>
-                            <div class="lyrarea fl">
-                                <textarea id="content" name="content"></textarea></div>
-                            <div class="lyleft fl">
-                                联系电话:</div>
-                            <div class="lyright fl">
-                                <input type="text" id="linkphone" name="linkphone"/></div>
-                            <#--<div class="lyleft fl">-->
-                                <#--验证码:</div>-->
-                            <#--<div class="lyright fl yzm">-->
-                                <#--<input type="text" id="txtimgcode" name="txtimgcode"/>-->
-                                <#--<img src="/login/validateCode.ashx" id="vimg" align="absmiddle" alt="不区分大小写,点击切换"-->
-                                     <#--onclick="this.src='/login/validateCode.ashx?'+(new Date()).valueOf();" />-->
-                                <#--<a href="javascript:void(0);" onclick="refreshcode();" style="font-size: 12px; background-image: none;">-->
-                                    <#--点击切换</a>-->
-                            <#--</div>-->
-                            <div class="lyleft fl"></div>
-                            <div class="lyright fl">
-                                <span id="fabiao">
-                                    <a href="javascript:void(0);" onclick="msg(<#if child??>true<#else>false</#if>);return false;"></a>
-                                </span>
+                                            <tr height="100px">
+                                                <th><p></p>
+                                                    <div>
+                                                        <a href="#">
+                                                            <img style="display: block" src="/img/head.jpg" width="48" height="48">
+                                                        </a>
+                                                        <a href="#" style="display: block; width: 54px; text-align: center;overflow: hidden;text-overflow:ellipsis;">${(msg.name)!'匿名用户'}</a>
+                                                    </div>
+                                                </th>
+                                                <td width="600px">
+                                                    <#if msg.title??>
+                                                        <p>「${(msg.title)!}」</p>
+                                                        <div style="border: 1px gainsboro dashed"></div>
+                                                    </#if>
+                                                    <p style="margin-top: 12px">${msg.content}</p>
+                                                </td>
+                                                <td>${msg.time?datetime}</td>
+                                                <td><span>${msg_index + 1}楼</span></td>
+                                            </tr>
+                                            </#list>
+                                    </table>
+                                </div>
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">发表留言</div>
+                                    <div class="panel-body">
+                                        <form action="/bbs/add" method="post">
+                                            <input style="width: 100%;" class="form-control" type="text" name="title" placeholder="标题"/>
+                                            <p></p>
+                                            <textarea style="width: 100%;" class="form-control" rows="5" name="content"></textarea>
+                                            <p></p>
+                                            <input style="width: 100%;" class="form-control" type="text" name="phone" placeholder="请输入您的联系方式"/>
+                                            <input type="hidden" name="status" value="1">
+                                            <input type="hidden" name="type" value="0">
+                                            <input type="submit" class="btn btn-warning" value="提交" />
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
             	</div>
                 <div class="mbottom">

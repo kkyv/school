@@ -6,19 +6,28 @@
 * {
   box-sizing: border-box;
 }*/
-.nav a {
+#mynav *{
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+#mynav a {
   text-decoration: none;
   color: inherit;
 }
-.nav > * {
+#mynav > * {
   float: left;
 }
-.nav > * + * {
+#mynav > * + * {
   margin-left: 0;
 }
-.nav ul,li{
+#mynav ul,li{
 	list-style: none;
 }
+#mynav h3{
+  font-size: 15px;
+}
+
 .menu {
   display: block;
   position: relative;

@@ -16,11 +16,14 @@
     <div class="dsize">
         <#include "class_left.ftl"/>
             <div class="right right_top">
-            	<div class="right_title"></div>
+                <div class="right_title">
+                    <img src="/img/i_25.jpg" class="img_middle" />
+                    <a href="#">欢乐时光</a>
+                </div>
             	<div class="photos">
             		<#list albumPoList as album>
             		    <div class="photo_box">
-                            <a href="/class/photo?id=${class.id}&albumId=${album.id}">
+                            <a href="/class/${class.id}/photo/${album.id}">
 								<#if album.photo??>
 								    <img src="/upload/${album.photo}" />
 								<#else>

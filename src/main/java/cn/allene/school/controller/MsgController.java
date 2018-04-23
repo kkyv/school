@@ -5,6 +5,7 @@ import cn.allene.school.annatation.Prefix;
 import cn.allene.school.contacts.Contacts;
 import cn.allene.school.exp.AjaxException;
 import cn.allene.school.exp.SchoolException;
+import cn.allene.school.po.Child;
 import cn.allene.school.po.Class;
 import cn.allene.school.po.Msg;
 import cn.allene.school.po.condition.ClassCondition;
@@ -14,9 +15,11 @@ import cn.allene.school.services.MsgService;
 import cn.allene.school.vo.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -39,15 +42,29 @@ public class MsgController extends BaseController<Msg, Integer, MsgCondition, Ms
     }
 
     @RequestMapping("/add")
+    public String add(HttpSession httpSession, Msg msg) throws SchoolException {
+        msg.setTime(new Date());
+        this.getService().insert(msg);
+        if(!msg.getType().equals(Contacts.MsgTpye.INDEX)){
+            return "redirect:/class/bbs/"+msg.getType();
+        }
+        return "redirect:/bbs/";
+    }
+
+    @RequestMapping("/ajaxAdd")
     @ResponseBody
-    public AjaxResult add(Msg msg) throws AjaxException {
+    public AjaxResult ajaxAdd(HttpSession httpSession, Msg msg) throws AjaxException {
         try {
-            msg.setTime(new Date());
             this.getService().insert(msg);
             return new AjaxResult();
         } catch (SchoolException e) {
             throw new AjaxException();
         }
+    }
+
+    @RequestMapping("/phonePage")
+    public String phonePage(HttpSession httpSession) throws AjaxException {
+        return "live_phone";
     }
 
     @RequestMapping("/msg/list")

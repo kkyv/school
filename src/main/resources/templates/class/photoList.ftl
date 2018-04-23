@@ -5,9 +5,7 @@
     <title>$Title$</title>
     <link rel="stylesheet" type="text/css" href="/css/class.css" />
     <link href="/js/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet">
-    <script type="text/javascript" src="/js/lib/lightbox2/2.8.1/js/lightbox.js"></script>
     <style type="text/css">
-    	.right_title{height: 45px; padding-bottom: 10px; margin: 0px 30px; line-height: 45px; border-bottom: 1px #c1c1c1 solid;}
     
 		.photo_box{float: left; height: 220px; margin: 10px 0px 0px 30px; }
         .photo_box img{width: 165px; height: 165px; display: block; margin: 10px 0px 5px 0px;}
@@ -27,11 +25,11 @@
                 <div class="photos">
 					<#list albumPhotoPoList as photo>
 						<div class="photo_box">
-							<a href="/upload/${photo.photoId}" data-lightbox="class_photo" data-title="${photo.name}">
-								<img src="/upload/${photo.photoId}" />
-							</a>
-							<span><a href="#">哈哈哈哈</a></span>
-							<span>2018-01-21</span>
+                            <a href="/upload/${photo.photoId}" data-lightbox="album_photo" data-title="${photo.name}">
+                                <img src="/upload/${photo.photoId}">
+                            </a>
+							<span><a href="#">${photo.name}</a></span>
+							<span>${photo.addTime?datetime}</span>
 						</div>
 					</#list>
             	</div>
@@ -41,5 +39,7 @@
     </div>
     <div class="footer right"></div>
 </div>
+<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/js/lib/lightbox2/2.8.1/js/lightbox.js"></script>
 </body>
 </html>

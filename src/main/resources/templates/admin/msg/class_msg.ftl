@@ -8,10 +8,11 @@
 		<article class="cl pd-20">
             <form action="/bbs/msg/list" id="findForm" method="post">
                 <div class="text-c"> 日期范围：
+                    <input type="hidden" name="type" value="-1"/>
                     <input type="text" name="minTime" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" value="${(msgCondition.minTime?date)!}" id="datemin" class="input-text Wdate" style="width:120px;">
                     -
                     <input type="text" name="maxTime" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" value="${(msgCondition.maxTime?date)!}"  id="datemax" class="input-text Wdate" style="width:120px;">
-                    <input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="content" value="${(msgCondition.content)!}">
+                    <input type="text" class="input-text" style="width:250px" placeholder="输入留言内容" id="" name="content" value="${(msgCondition.content)!}">
                     <button type="submit" class="btn btn-success" id="" name="" onclick='$("#findForm").submit()' ><i class="Hui-iconfont">&#xe665;</i> 搜留言</button>
                 </div>
             </form>
@@ -22,13 +23,13 @@
 						<tr class="text-c">
 							<th width="25"><input type="checkbox" name="" value=""></th>
 							<th width="30">ID</th>
-							<th width="100">用户名</th>
-							<th width="120">联系方式</th>
-                            <th width="120">班级</th>
+							<th width="80">用户名</th>
+							<th width="130">联系方式</th>
+                            <th width="80">班级</th>
 							<th>留言内容</th>
-							<th width="120">留言时间</th>
-							<th width="80">状态</th>
-							<th width="120">操作</th>
+							<th width="140">留言时间</th>
+							<th width="60">状态</th>
+							<th width="80">操作</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,7 +37,7 @@
                         <tr class="text-c">
                             <td><input type="checkbox" value="${msg.id}" name=""></td>
                             <td>${msg.id}</td>
-                            <td><a href="javascript:;">${(msg.name)}</a></td>
+                            <td><a href="javascript:;">${(msg.name)!}</a></td>
                             <td>${(msg.phone)!}</td>
                             <td>${(classMap['${msg.type}'].name)!}</td>
                             <td class="text-l">
@@ -68,11 +69,11 @@
 <script type="text/javascript">
 $(function(){
 	$('.table-sort').dataTable({
-		//"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,2,4]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0,8]}// 制定列不参与排序
 		]
 	});
 });

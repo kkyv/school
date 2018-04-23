@@ -48,9 +48,9 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
         return "classList";
     }
 
-    @RequestMapping("/album")
-    public String album(HttpSession session, ClassCondition classCondition) throws SchoolException {
-        _index(classCondition.getId(), session);
+    @RequestMapping("/{classId}/album")
+    public String album(HttpSession session, @PathVariable("classId") Integer classId) throws SchoolException {
+        _index(classId, session);
 
         List<AlbumPhotoPo> albumPhotoPoList = albumPhotoService.queryList(new AlbumPhotoCondition());
         Map<String, Long> albumCountMap = albumPhotoPoList.stream().collect(Collectors.groupingBy(m -> String.valueOf(m.getAlbumId()), Collectors.counting()));
@@ -58,9 +58,9 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
         return "class/albumList";
     }
 
-    @RequestMapping("/photo")
-    public String photo(Integer albumId, HttpSession session, ClassCondition classCondition) throws SchoolException {
-        _index(classCondition.getId(), session);
+    @RequestMapping("/{classId}/photo/{albumId}")
+    public String photo(@PathVariable Integer albumId, HttpSession session, @PathVariable Integer classId) throws SchoolException {
+        _index(classId, session);
 
         AlbumPhotoCondition albumPhotoCondition = new AlbumPhotoCondition();
         albumPhotoCondition.setAlbumId(albumId);
@@ -69,12 +69,12 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
         return "class/photoList";
     }
 
-    @RequestMapping("/bbs")
-    public String bbs(HttpSession session, ClassCondition classCondition) throws SchoolException {
-        _index(classCondition.getId(), session);
+    @RequestMapping("/{classId}/bbs")
+    public String bbs(HttpSession session, @PathVariable("classId") Integer classId) throws SchoolException {
+        _index(classId, session);
 
         MsgCondition msgCondition = new MsgCondition();
-        msgCondition.setType(classCondition.getId());
+        msgCondition.setType(classId);
         msgCondition.setStatus(Contacts.State.Yes);
         List<Msg> msgList = msgService.queryList(msgCondition);
         this.getModel().addAttribute("msgList", msgList);
@@ -88,25 +88,21 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
             return "class/index";
         }
 
-        if(!StringUtils.isEmpty(aClass.getHistory())){
-            Child child = (Child) session.getAttribute(Contacts.Session.CHILD);
-            String history = aClass.getHistory();
-            if(child != null){
-                history = child.getNickname() + "," + history;
-            }
+        Child child = (Child) session.getAttribute(Contacts.Session.CHILD);
+        String history = aClass.getHistory();
+        if(child != null){
+                history = (StringUtils.isEmpty(child.getNickname()) ? "匿名用户" : child.getNickname()) +
+                        (StringUtils.isEmpty(history) ? "" : "," + history);
 
-            List<String> hisList = new ArrayList<>();
-            Stream.of(history.split(",")).distinct().collect(Collectors.toList()).forEach(s -> {
-                if(hisList.size() < 3){
-                    hisList.add(s);
-                }
-            });
+            List<String> hisList = Stream.of(history.split(",")).distinct().collect(Collectors.toList());
             Class c = new Class();
             c.setId(classId);
-            c.setHistory(org.apache.tomcat.util.buf.StringUtils.join(hisList));
+            c.setHistory(history);
             this.getService().update(c);
+            aClass.setHistory(history);
 
-            this.getModel().addAttribute("historyList", hisList);
+            String his = org.apache.tomcat.util.buf.StringUtils.join(hisList.size() > 3 ? hisList.subList(0, 3) : hisList);
+            aClass.setHistory(his);
         }
 
         ChildCondition childCondition = new ChildCondition(classId);
@@ -135,12 +131,13 @@ public class ClassController extends BaseController<Class, Integer, ClassConditi
 
     @RequestMapping("/photo/{classId}")
     public String photoList(@PathVariable("classId")Integer classId){
-        return "photoList";
+        return "class/photoList";
     }
 
-    @RequestMapping("/child/{classId}")
-    public String childList(@PathVariable("classId")Integer classId){
-        return "childList";
+    @RequestMapping("/{classId}/child")
+    public String childList(@PathVariable("classId")Integer classId, HttpSession session) throws SchoolException {
+        _index(classId, session);
+        return "class/childList";
     }
 
 

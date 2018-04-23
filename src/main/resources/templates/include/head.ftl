@@ -1,17 +1,17 @@
 <div class="header">
     <div class="dtop">
-        <ul class="nav">
+        <ul id="mynav">
                 <#list cateGroupMap?keys as itemId>
                     <#assign item = cateGroupMap['${itemId}']>
                     <#if item.firstId = 0>
                         <#if item.id = 1>
                         <a href="/" class="menu">
                         <#elseif item.id = 8>
-                        <a href="/bbs/" class="menu">
+                            <a href="/bbs/" class="menu">
                         <#else>
                         <a href="#" class="menu">
                         </#if>
-                    <h3 class="menu-title menu-title_${item.id % 4 - 1}">${item.name}</h3>
+                    <h3 class="menu-title menu-title_${item.id % 4}">${item.name}</h3>
                     <ul class="menu-dropdown">
                         <#list cateGroupMap?keys as secondCateId>
                         <#assign secondItem = cateGroupMap['${secondCateId}']>
@@ -21,6 +21,7 @@
                         </#list>
                     </ul>
                     </#if>
+                </a>
                 </#list>
             <#--<#list infoCateFirstList as infoCateFirst>-->
                 <#--<li>-->

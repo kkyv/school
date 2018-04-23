@@ -2,181 +2,181 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
 
-		<script src="js/ecenter.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+    <style type="text/css">
+        body {
+            background-image: url(/img/lback.jpg);
+            background-repeat: no-repeat;
+            background-position: center 0px;
+            margin: 0px;
+            padding: 0px;
+            font-family: 宋体;
+            background-color: #FFF4A8;
+        }
 
-		<script src="http://www.51yey.com/jQuery/jquery-1.4.2.min.js" type="text/javascript"></script>
+        .h {
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+        }
 
-		<style type="text/css">
-			body {
-				background-image: url(/img/lback.jpg);
-				background-repeat: no-repeat;
-				background-position: center 0px;
-				margin: 0px;
-				padding: 0px;
-				font-family: 宋体;
-				background-color: #FFF4A8;
-			}
+        .s {
+            width: 980px;
+            margin: 0px auto;
+            overflow: hidden;
+        }
 
-			.h {
-				overflow: hidden;
-				height: 250px;
-				position: relative;
-			}
+        .n {
+            left: 220px;
+            top: 90px;
+            font-family: 幼圆;
+            font-size: 18px;
+            font-weight: bold;
+            color: #690a04;
+            position: absolute;
+        }
 
-			.s {
-				width: 980px;
-				margin: 0px auto;
-				overflow: hidden;
-			}
+        .r {
+            right: 120px;
+            top: 30px;
+            position: absolute;
+        }
 
-			.n {
-				left: 220px;
-				top: 90px;
-				font-family: 幼圆;
-				font-size: 18px;
-				font-weight: bold;
-				color: #690a04;
-				position: absolute;
-			}
+        .r a {
+            display: inline-block;
+            width: 124px;
+            height: 45px;
+        }
 
-			.r {
-				right: 120px;
-				top: 30px;
-				position: absolute;
-			}
+        .footer {
+            margin-top: 10px;
+            height: 36px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
 
-			.r a {
-				display: inline-block;
-				width: 124px;
-				height: 45px;
-			}
+        .ffl {
+            width: 11px;
+            height: 36px;
+            background-image: url(/img/ht_139.jpg);
+        }
 
-			.footer {
-				margin-top: 10px;
-				height: 36px;
-				overflow: hidden;
-				margin-bottom: 20px;
-			}
+        .ffr {
+            width: 8px;
+            height: 36px;
+            background-image: url(/img/ht_148.jpg);
+        }
 
-			.ffl {
-				width: 11px;
-				height: 36px;
-				background-image: url(/img/ht_139.jpg);
-			}
+        .fm {
+            border-bottom: 1px solid #c5ee90;
+            border-top: 1px solid #c5ee90;
+            height: 24px;
+            width: 961px;
+            text-align: center;
+            padding-top: 10px;
+            font-size: 12px;
+            background-color: White;
+        }
 
-			.ffr {
-				width: 8px;
-				height: 36px;
-				background-image: url(/img/ht_148.jpg);
-			}
+        .fm a {
+            text-decoration: none;
+            color: #666666;
+        }
 
-			.fm {
-				border-bottom: 1px solid #c5ee90;
-				border-top: 1px solid #c5ee90;
-				height: 24px;
-				width: 961px;
-				text-align: center;
-				padding-top: 10px;
-				font-size: 12px;
-				background-color: White;
-			}
+        .fl {
+            float: left;
+        }
 
-			.fm a {
-				text-decoration: none;
-				color: #666666;
-			}
+        .fr {
+            float: right;
+        }
 
-			.fl {
-				float: left;
-			}
+        .c {
+            height: 440px;
+            position: relative;
+        }
 
-			.fr {
-				float: right;
-			}
+        .c table {
+            left: 200px;
+            top: 0px;
+            position: absolute;
+        }
 
-			.c {
-				height: 440px;
-				position: relative;
-			}
+        .c table td {
+            height: 50px;
+            color: #666666;
+        }
 
-			.c table {
-				left: 200px;
-				top: 0px;
-				position: absolute;
-			}
+        .c table td a {
+            color: #666666;
+        }
 
-			.c table td {
-				height: 50px;
-				color: #666666;
-			}
+        .i {
+            border: 1px solid #b8b8b8;
+            height: 28px;
+            width: 220px;
+            font-size: 18px;
+            line-height: 28px;
+            font-family: Arial;
+        }
+    </style>
+    <script type="text/javascript">
+        function doLogin_onclick() {
+            $("form").submit();
+        }
+    </script>
+</head>
 
-			.c table td a {
-				color: #666666;
-			}
+<body>
+    <div class="aspNetHidden">
+        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNzgzNDMwNTMzZGQ=" />
+    </div>
 
-			.i {
-				border: 1px solid #b8b8b8;
-				height: 28px;
-				width: 220px;
-				font-size: 18px;
-				line-height: 28px;
-				font-family: Arial;
-			}
-		</style>
-		<script type="text/javascript">
-			function doLogin_onclick() {
-				$("#form1").submit();
-            }
-		</script>
-	</head>
+    <div class="s">
+        <div class="h">
+            <div class="n">
+            </div>
+            <div class="r">
+            </div>
+        </div>
+        <div class="c">
+            <form action="/admin/login" method="post">
+            <table>
+                <tr>
+                    <td>
+                        用户名
 
-	<body>
-		<form method="post" action="/admin/login" id="form1">
-			<div class="s">
-				<div class="h">
-					<div class="n">
-					</div>
-					<div class="r">
-						<a href="http://www.51yey.com?f=elogin" target="_blank"></a>
-					</div>
-				</div>
-				<div class="c">
-					<table>
-						<tr>
-							<td>
-								用户名
+                    </td>
+                    <td>
+                        <input id="username" name="id" class="i" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        密&nbsp;&nbsp;码
 
-							</td>
-							<td>
-								<input name="id" class="i" type="text" value="10001"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								密&nbsp;&nbsp;码
+                    </td>
+                    <td>
+                        <input id="password" class="i" name="password" type="password" />
+                        <a href="#" target="_blank">忘记密码？</a>
+                    </td>
+                </tr>
 
-							</td>
-							<td>
-								<input name="password" class="i" type="password" value="123"/>
-								<a href="/login/getpwd.aspx" target="_blank">忘记密码？</a>
-							</td>
-						</tr>
-
-						<tr>
-							<td>
-							</td>
-							<td>
-								<a href="javascript:void(0)">
-									<img style="border: none" onclick="doLogin_onclick(); return false;" src="/img/wueren_17.jpg" alt="登录" /></a>&nbsp;&nbsp;
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</form>
-	</body>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)">
+                            <img style="border: none" onclick="doLogin_onclick()" src="/img/wueren_17.jpg" alt="登录" /></a>&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
 </html>

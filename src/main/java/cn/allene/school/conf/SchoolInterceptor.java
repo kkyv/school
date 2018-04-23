@@ -31,11 +31,11 @@ public class SchoolInterceptor implements HandlerInterceptor {
         int status = httpServletResponse.getStatus();
         // TODO: 2018/3/8 取消每次登陆  待删除
 //        if(httpServletRequest.getSession().getAttribute(Contacts.Session.ADMIN) == null){
-            Admin admin1 = new Admin();
-            admin1.setId(123);
-            admin1.setRoleId(3);
-            httpServletRequest.getSession().setAttribute(Contacts.Session.ADMIN, admin1);
-//        }
+//            Admin admin1 = new Admin();
+//            admin1.setId(123);
+//            admin1.setRoleId(3);
+//            httpServletRequest.getSession().setAttribute(Contacts.Session.ADMIN, admin1);
+////        }
 
         HandlerMethod handlerMethod = (HandlerMethod) o;
         AdminLogin adminLogin = handlerMethod.getMethodAnnotation(AdminLogin.class);
@@ -67,36 +67,36 @@ public class SchoolInterceptor implements HandlerInterceptor {
          */
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler, ModelAndView modelAndView) throws Exception {
-//权限拦截
-HandlerMethod handlerMethod = (HandlerMethod) handler;
-AdminLogin adminLogin = handlerMethod.getMethod().getAnnotation(AdminLogin.class);
-if(adminLogin != null && adminLogin.interceptor()){
-    Admin admin = (Admin) httpServletRequest.getSession().getAttribute(Contacts.Session.ADMIN);
-    if(admin != null){
-        Role role = roleService.query(admin.getRoleId());
-        List<Integer> accessIdList = Stream.of(role.getAccess().split(",")).map(m -> Integer.valueOf(m)).collect(Collectors.toList());
+        //权限拦截
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        AdminLogin adminLogin = handlerMethod.getMethod().getAnnotation(AdminLogin.class);
+        if(adminLogin != null && adminLogin.interceptor()){
+            Admin admin = (Admin) httpServletRequest.getSession().getAttribute(Contacts.Session.ADMIN);
+            if(admin != null){
+                Role role = roleService.query(admin.getRoleId());
+                List<Integer> accessIdList = Stream.of(role.getAccess().split(",")).map(m -> Integer.valueOf(m)).collect(Collectors.toList());
 
-        String[] mappingList = httpServletRequest.getRequestURI().split("/");
-        AccessCondition accessCondition = new AccessCondition();
-        accessCondition.setModel(mappingList[1]);
-        accessCondition.setGroup(mappingList[2]);
-        accessCondition.setAccess(mappingList[3]);
-        accessCondition.setState(Contacts.State.Yes);
-        List<Access> accessList = accessService.queryList(accessCondition);
-        if(CollectionUtils.isNotEmpty(accessList)){
-            if(!accessIdList.contains(accessList.get(0).getId())){
-                modelAndView.setViewName("admin/index");
-                return;
+                String[] mappingList = httpServletRequest.getRequestURI().split("/");
+                AccessCondition accessCondition = new AccessCondition();
+                accessCondition.setModel(mappingList[1]);
+                accessCondition.setGroup(mappingList[2]);
+                accessCondition.setAccess(mappingList[3]);
+                accessCondition.setState(Contacts.State.Yes);
+                List<Access> accessList = accessService.queryList(accessCondition);
+                if(CollectionUtils.isNotEmpty(accessList)){
+                    if(!accessIdList.contains(accessList.get(0).getId())){
+                        modelAndView.setViewName("admin/index");
+                        return;
+                    }
+                }
             }
-        }
-    }
 }
 
         if(null != modelAndView){   //处理没有modelview的
             if(!modelAndView.getViewName().contains("redirect")){
                 String prefix = "";
                 if(handlerMethod.getBeanType().isAnnotationPresent(Prefix.class)){
-                    if(handlerMethod.getMethod().isAnnotationPresent(AdminLogin.class) || handlerMethod.getBeanType().isAnnotationPresent(AdminLogin.class)){
+                    if((handlerMethod.getMethod().isAnnotationPresent(AdminLogin.class) || handlerMethod.getBeanType().isAnnotationPresent(AdminLogin.class)) && handlerMethod.getMethodAnnotation(AdminLogin.class).appendPrefix()){
                         String tep = handlerMethod.getBeanType().getAnnotation(Prefix.class).value();
                         prefix += tep;
                     }

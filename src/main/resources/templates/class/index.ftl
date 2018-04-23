@@ -65,10 +65,10 @@
                         <ul>
                             <#list msgList as msg>
                                         <li>
-                                            <div class="div_left"><a href="javascript:;"><img src="img/head.jpg" title="${msg.name}"></a></div>
+                                            <div class="div_left"><a href="javascript:;"><img src="img/head.jpg" title="${(msg.name)!'匿名用户'}"></a></div>
                                             <div class="div_right">
-                                                <a href="javascript:;" target="_blank">${msg.name}</a>：<#if (msg.title)??>「 ${msg.title} 」</#if>${msg.content}
-                                                <div class="twit_item_time">3分钟前</div>
+                                                <a href="javascript:;" target="_blank">${(msg.name)!'匿名用户'}</a>：<#if (msg.title)??>「 ${msg.title} 」</#if>${msg.content}
+                                                <div class="twit_item_time">${msg.time?datetime}</div>
                                             </div>
                                         </li>
                             </#list>

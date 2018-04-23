@@ -47,22 +47,22 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
         infoCondition.setCateIdList(cateIdList);
         List<Info> infos = infoService.queryList(infoCondition);
 
-        List<Info> cate1Info = infos.stream().
-                filter(info -> info.getCateId().equals(InfoCateEnum.CATE_1_.getFirstId()))
-                    .collect(Collectors.toList());
-        List<Info> cate13InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_13.getId())).collect(Collectors.toList());
-        List<Info> cate15InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_15.getId())).collect(Collectors.toList());
-        List<Info> cate17InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_17.getId())).collect(Collectors.toList());
-        List<Info> cate22InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_22.getId())).collect(Collectors.toList());
-
-        if(CollectionUtils.isNotEmpty(cate1Info)){
-            getModel().addAttribute("prompt", infos.get(0));
-        }
-
-        getModel().addAttribute("cate13InfoList",cate13InfoList);
-        getModel().addAttribute("cate15InfoList", cate15InfoList);
-        getModel().addAttribute("cate17InfoList",cate17InfoList);
-        getModel().addAttribute("cate22InfoList",cate22InfoList);
+//        List<Info> cate1Info = infos.stream().
+//                filter(info -> info.getCateId().equals(InfoCateEnum.CATE_1_.getFirstId()))
+//                    .collect(Collectors.toList());
+//        List<Info> cate13InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_13.getId())).collect(Collectors.toList());
+//        List<Info> cate15InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_15.getId())).collect(Collectors.toList());
+//        List<Info> cate17InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_17.getId())).collect(Collectors.toList());
+//        List<Info> cate22InfoList = infos.stream().filter(info -> info.getCateId().equals(InfoCateEnum.CATE_22.getId())).collect(Collectors.toList());
+//
+//        if(CollectionUtils.isNotEmpty(cate1Info)){
+//            getModel().addAttribute("prompt", infos.get(0));
+//        }
+//
+//        getModel().addAttribute("cate13InfoList",cate13InfoList);
+//        getModel().addAttribute("cate15InfoList", cate15InfoList);
+//        getModel().addAttribute("cate17InfoList",cate17InfoList);
+//        getModel().addAttribute("cate22InfoList",cate22InfoList);
 
         Map<String, List<Info>> infoMap = infos.stream().collect(Collectors.groupingBy(m -> String.valueOf(m.getCateId())));
         this.getModel().addAttribute("infoMap", infoMap);
@@ -85,7 +85,7 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
     @RequestMapping("/admin/login")
     public String login(HttpServletRequest request, Admin admin) throws SchoolException {
         if(admin.getId() == null){
-            return "login";
+            return "admin/login";
         }
 
         AdminCondition adminCondition = new AdminCondition();
@@ -101,13 +101,13 @@ public class IndexController extends BaseController<InfoCate, Integer, InfoCateC
         if(!StringUtils.isEmpty(prePage)){
             return "redirect:" + prePage;
         }else{
-            return "index";
+            return "admin/index";
         }
     }
 
     @RequestMapping("/admin/logout")
     public String logout(HttpSession session) throws SchoolException {
-        session.invalidate();
-        return "login";
+        session.removeAttribute(Contacts.Session.ADMIN);
+        return "admin/login";
     }
 }

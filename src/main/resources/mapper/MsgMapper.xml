@@ -87,6 +87,7 @@
 		FROM msg t
 		WHERE 1=1
 		<include refid="whereSql"/>
+		order by time
 	</select>
 
 	<insert id="insert" parameterType="cn.allene.school.po.Msg">

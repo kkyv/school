@@ -13,7 +13,7 @@
             <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a href="javascript:;" onclick="admin_role_dels()"
                                                                   class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
                     class="btn btn-primary radius" href="javascript:;"
-                    onclick="admin_role_add('添加角色','/admin/role/addPage','800')"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span>
+                    onclick="admin_role_add('添加角色','/admin/role/addPage')"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span>
                 <span class="r">共有数据：<strong>${adminRoleList?size}</strong> 条</span></div>
             <div class="mt-10">
                 <table class="table table-border table-bordered table-hover table-bg">

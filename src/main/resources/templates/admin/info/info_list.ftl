@@ -53,7 +53,7 @@
 						<#list infoList as info>
 						    <tr class="text-c">
                                 <td>${info_index + 1}</td>
-                                <td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_detail('查看','/info/detail/${info.id}','${info.id}')" title="查看">${info.title}</u></td>
+                                <td class="text-l"><a style="cursor:pointer" class="text-primary" href="/info/${info.id}" target="_blank" title="查看">${info.title}</a></td>
                                 <td>${cateGroupMap['${info.cateId}'].name}</td>
                                 <td>${cateGroupMap['${info.cateGroup}'].name}</td>
                                 <td>${info.lastTime?datetime}</td>
